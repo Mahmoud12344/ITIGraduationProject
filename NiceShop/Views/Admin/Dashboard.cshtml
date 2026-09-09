@@ -1,0 +1,136 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-end mb-4">
+    <div>
+        <h1 class="font-serif fw-bold h3 mb-1">Dashboard</h1>
+        <p class="text-muted mb-0">Overview of your store's performance.</p>
+    </div>
+    <div class="text-muted small">
+        <!-- TODO: Bind current date here -->
+        Today
+    </div>
+</div>
+
+<!-- Metrics -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 mb-5">
+    <div class="col">
+        <div class="ns-admin-metric">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ns-metric-label">Sales Today</div>
+                <i class="bi bi-currency-dollar fs-4 text-success opacity-75"></i>
+            </div>
+            <!-- TODO: Bind metric values -->
+            <div class="ns-metric-value">$0.00</div>
+            <div class="mt-2 text-success" style="font-size: 0.6875rem;">
+                <i class="bi bi-arrow-up-short"></i> 0% from yesterday
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="ns-admin-metric">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ns-metric-label">Sales This Month</div>
+                <i class="bi bi-graph-up fs-4 text-primary opacity-75"></i>
+            </div>
+            <!-- TODO: Bind metric values -->
+            <div class="ns-metric-value">$0.00</div>
+            <div class="mt-2 text-success" style="font-size: 0.6875rem;">
+                <i class="bi bi-arrow-up-short"></i> 0% from last month
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="ns-admin-metric">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ns-metric-label">Pending Orders</div>
+                <i class="bi bi-box-seam fs-4 text-warning opacity-75"></i>
+            </div>
+            <!-- TODO: Bind metric values -->
+            <div class="ns-metric-value">0</div>
+            <div class="mt-2 text-muted" style="font-size: 0.6875rem;">Requires fulfillment</div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="ns-admin-metric">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ns-metric-label">Low Stock Items</div>
+                <i class="bi bi-exclamation-triangle fs-4 text-danger opacity-75"></i>
+            </div>
+            <!-- TODO: Bind metric values -->
+            <div class="ns-metric-value">0</div>
+            <div class="mt-2 text-danger" style="font-size: 0.6875rem;">Action required</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Recent Orders -->
+    <div class="col-xl-8">
+        <div class="ns-admin-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="font-serif h5 fw-bold mb-0">Recent Orders</h2>
+                <a href="#" class="btn btn-sm btn-ns-outline">View All</a>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-hover ns-admin-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- TODO: Loop over recent orders -->
+                        <tr>
+                            <td class="fw-bold">#ORD-12345</td>
+                            <td>Jan 01, 2024</td>
+                            <td>Customer Name</td>
+                            <td class="fw-bold">$99.99</td>
+                            <td>
+                                <!-- TODO: Conditionally apply status badges based on order status -->
+                                <span class="ns-status-badge ns-status-pending">Pending</span>
+                            </td>
+                            <td>
+                                <a href="#" target="_blank" class="btn btn-sm btn-link text-muted p-0"><i class="bi bi-receipt"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Low Stock Alert -->
+    <div class="col-xl-4">
+        <div class="ns-admin-card h-100">
+            <h2 class="font-serif h5 fw-bold mb-4">Low Stock Alerts</h2>
+            
+            <div class="d-flex flex-column gap-3">
+                <!-- TODO: Loop over low stock products -->
+                <div class="d-flex align-items-center gap-3 pb-3 border-bottom ns-admin-border">
+                    <div class="bg-light rounded" style="width: 48px; height: 48px; overflow: hidden; flex-shrink: 0;">
+                        <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=100" class="w-100 h-100 object-fit-cover">
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="fw-bold line-clamp-1" style="font-size: 0.8125rem;" title="Product Name">Product Name</div>
+                        <div class="text-muted" style="font-size: 0.6875rem;">SKU: ITEM-SKU</div>
+                    </div>
+                    <div class="text-end">
+                        <div class="text-danger fw-bold" style="font-size: 0.875rem;">2</div>
+                        <div class="text-muted" style="font-size: 0.625rem;">Left</div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="btn btn-sm btn-ns-outline w-100 mt-4">Manage Inventory</a>
+        </div>
+    </div>
+</div>

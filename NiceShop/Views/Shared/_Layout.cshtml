@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NiceShop Luxury Fashion</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    
+    <!-- Custom Brand Styles -->
+    <link rel="stylesheet" href="~/css/niceshop.css" asp-append-version="true" />
+    
+    <!-- AI Widget Styles -->
+    <link rel="stylesheet" href="~/css/niceshop-ai-widget.css" asp-append-version="true" />
+</head>
+<body>
+    
+    <partial name="Partials/_Header" />
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <partial name="Partials/_Footer" />
+
+    <!-- Global Modals & Components -->
+    <partial name="Partials/_CartDrawer" />
+    <partial name="Partials/_QuickViewModal" />
+    <partial name="Partials/_Toast" />
+    <partial name="Partials/_AIWidget" />
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Brand JS -->
+    <script src="~/js/niceshop.js" asp-append-version="true"></script>
+    
+    <!-- AI Widget JS -->
+    <script src="~/js/niceshop-ai-widget.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

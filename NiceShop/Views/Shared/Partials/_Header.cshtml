@@ -1,0 +1,130 @@
+<!-- 1. Announcement Bar -->
+<div class="ns-announcement-bar d-flex justify-content-between align-items-center">
+    <div class="d-none d-md-flex align-items-center gap-2">
+        <i class="bi bi-telephone"></i>
+        <span>+1 (800) 555-0199</span>
+    </div>
+    
+    <div class="d-flex align-items-center justify-content-center gap-2 flex-grow-1">
+        <span>Complimentary Express Shipping on Orders Over <span class="ns-gold-text fw-bold">$200</span></span>
+        <a href="#" class="text-decoration-none border-bottom border-secondary ms-2" style="color: inherit;">Shop Now</a>
+    </div>
+    
+    <div class="d-none d-md-flex align-items-center gap-3">
+        <a href="#" class="text-decoration-none" style="color: inherit;">Find a Boutique</a>
+        <span>|</span>
+        <span>USD ($)</span>
+    </div>
+</div>
+
+<!-- 2. Main Brand Bar -->
+<div class="ns-navbar py-3 px-3 px-lg-5 d-flex align-items-center justify-content-between">
+    <!-- Logo -->
+    <a href="#" class="ns-brand d-flex align-items-center gap-2">
+        <i class="bi bi-hexagon-fill fs-3" style="color: var(--ns-gold);"></i>
+        <div class="d-flex flex-column lh-1 mt-1">
+            <span class="d-flex align-items-baseline gap-1">
+                NICE<span class="ns-brand-italic">SHOP</span>
+                <span class="ns-brand-tag ms-1">Maison</span>
+            </span>
+            <span class="ns-brand-subtitle mt-1">Luxury Fashion</span>
+        </div>
+    </a>
+
+    <!-- Search -->
+    <div class="d-none d-lg-block mx-4" style="flex: 1; max-width: 500px; position: relative;">
+        <div class="ns-search-form">
+            <select aria-label="Category select">
+                <option value="all">All</option>
+                <option value="women">Women</option>
+                <option value="men">Men</option>
+                <option value="accessories">Accessories</option>
+            </select>
+            <input type="text" id="nav-search-input" placeholder="Search for luxury items, brands, or collections..." autocomplete="off">
+            <button type="button" aria-label="Search"><i class="bi bi-search"></i></button>
+        </div>
+        
+        <!-- Search Dropdown Container (populated by JS) -->
+        <div id="nav-search-dropdown" class="ns-search-dropdown d-none"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex align-items-center gap-3">
+        <button class="ns-theme-toggle d-none d-md-flex" aria-label="Toggle theme">
+            <i class="bi bi-moon"></i>
+        </button>
+        
+        <a href="#" class="btn btn-link text-decoration-none text-muted p-2 d-none d-md-block">
+            <i class="bi bi-person fs-5"></i>
+        </a>
+        
+        <a href="#" class="btn btn-link text-decoration-none text-muted p-2 position-relative d-none d-md-block">
+            <i class="bi bi-heart fs-5"></i>
+        </a>
+        
+        <button class="ns-cart-btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer">
+            <i class="bi bi-bag"></i>
+            <span class="d-none d-md-inline ms-1 fw-bold">Cart</span>
+            <span class="ns-cart-badge">2</span>
+        </button>
+    </div>
+</div>
+
+<!-- 3. Navigation Bar -->
+<div class="ns-nav-bar px-3 px-lg-5 d-none d-lg-flex justify-content-center align-items-center py-2 position-relative">
+    <nav class="d-flex gap-2">
+        <a href="#" class="ns-nav-link active">Home</a>
+        
+        <div class="position-relative d-inline-block" id="nav-collections-dropdown">
+            <button class="ns-nav-link d-flex align-items-center gap-1">
+                Collections <i class="bi bi-chevron-down ms-1" style="font-size:0.6rem;"></i>
+            </button>
+            <!-- Mega Menu -->
+            <div class="ns-mega-menu d-none">
+                <div class="row gx-5">
+                    <div class="col-4">
+                        <div class="ns-mega-menu-heading">Categories</div>
+                        <a href="#" class="ns-mega-menu-link">Women's Ready-to-Wear</a>
+                        <a href="#" class="ns-mega-menu-link">Men's Tailoring</a>
+                        <a href="#" class="ns-mega-menu-link">Outerwear & Coats</a>
+                        <a href="#" class="ns-mega-menu-link">Leather Goods</a>
+                        <a href="#" class="ns-mega-menu-link">Footwear</a>
+                        <a href="#" class="ns-mega-menu-link">Accessories & Watches</a>
+                    </div>
+                    <div class="col-4">
+                        <div class="ns-mega-menu-heading">Featured Brands</div>
+                        <a href="#" class="ns-mega-menu-link">Maison Noir</a>
+                        <a href="#" class="ns-mega-menu-link">Atelier Luxe</a>
+                        <a href="#" class="ns-mega-menu-link">Verona Milan</a>
+                        <a href="#" class="ns-mega-menu-link">Silk & Wool</a>
+                    </div>
+                    <div class="col-4">
+                        <div class="ns-mega-promo text-center h-100 d-flex flex-column justify-content-center">
+                            <i class="bi bi-stars fs-3 mb-2" style="color: var(--ns-gold);"></i>
+                            <div class="font-serif fw-bold mb-1">Spring Collection</div>
+                            <p class="small text-muted mb-3">Discover the new arrivals directly from Paris.</p>
+                            <a href="#" class="btn-ns-primary w-100 text-decoration-none d-inline-block">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="#" class="ns-nav-link">Shop</a>
+        <a href="#" class="ns-nav-link ns-sale-link">Flash Sale</a>
+        <a href="#" class="ns-nav-link">Track Order</a>
+        <a href="#" class="ns-nav-link text-info ms-4"><i class="bi bi-shield-lock"></i> Admin</a>
+    </nav>
+</div>
+
+<script>
+    // Mega Menu Hover Logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdown = document.getElementById('nav-collections-dropdown');
+        const menu = dropdown?.querySelector('.ns-mega-menu');
+        if(dropdown && menu) {
+            dropdown.addEventListener('mouseenter', () => menu.classList.remove('d-none'));
+            dropdown.addEventListener('mouseleave', () => menu.classList.add('d-none'));
+        }
+    });
+</script>

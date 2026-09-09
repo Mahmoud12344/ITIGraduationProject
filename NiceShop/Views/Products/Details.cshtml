@@ -1,0 +1,179 @@
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container py-4 pb-5">
+    
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Shop</a></li>
+            <li class="breadcrumb-item"><a href="#">Category Name</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product Name</li>
+        </ol>
+    </nav>
+
+    <!-- TODO: Wrap this product details section in an IF condition to check if the product was found -->
+    <div class="row g-5 mb-5">
+        <!-- Product Images -->
+        <div class="col-lg-7">
+            <div class="row g-2">
+                <div class="col-2 d-flex flex-column gap-2">
+                    <!-- TODO: Loop over additional product images here -->
+                    <div class="border ns-border-light rounded p-1 cursor-pointer border-dark">
+                        <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=200" class="w-100 object-fit-cover rounded" style="aspect-ratio: 3/4;" alt="Thumb 1">
+                    </div>
+                </div>
+                <div class="col-10">
+                    <div class="bg-light rounded overflow-hidden position-relative h-100">
+                        <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800" class="w-100 h-100 object-fit-cover" alt="Product Name" id="mainImage">
+                        
+                        <!-- Badges -->
+                        <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-2">
+                            <!-- TODO: Conditionally show discount badge -->
+                            <span class="ns-badge-sale px-2 py-1 fs-6 rounded">20% OFF</span>
+                        </div>
+                        
+                        <!-- Wishlist -->
+                        <button class="ns-wishlist-btn m-3" style="width:40px; height:40px; display:flex; align-items:center; justify-content:center;" onclick="window.nsCart.toggleWishlist(this, 'product-id')">
+                            <i class="bi bi-heart fs-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-lg-5">
+            <div class="d-flex flex-column h-100">
+                
+                <div class="mb-3">
+                    <a href="#" class="text-uppercase text-muted fw-bold text-decoration-none" style="font-size: 0.75rem; letter-spacing: 0.08em;">Brand Name</a>
+                    <h1 class="font-serif fw-bold display-6 mt-1 mb-2">Product Name</h1>
+                    
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="font-serif fw-bold fs-3">$99.99</div>
+                        <!-- TODO: Conditionally show original price if on sale -->
+                        <div class="text-muted text-decoration-line-through fs-5">$129.99</div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center gap-2 mt-2">
+                        <div class="ns-stars">
+                            <!-- TODO: Render dynamic star rating based on AverageRating -->
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <span class="ns-rating-text">4.5 (120 Reviews)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-muted mb-4" style="line-height: 1.6;">Product Description goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                <form method="post" action="/Cart/Add" class="mb-4 pb-4 border-bottom ns-border-light">
+                    <!-- TODO: Bind productId to the model -->
+                    <input type="hidden" name="productId" value="product-id" />
+                    
+                    <!-- Colors -->
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="ns-form-label mb-0">Color: <span class="text-body ms-1 fw-normal" id="selectedColorLabel">Camel</span></label>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <!-- TODO: Loop over available colors -->
+                            <button type="button" class="btn p-0 border border-dark rounded-circle" style="width: 32px; height: 32px; padding: 2px !important;" title="Camel">
+                                <div class="w-100 h-100 rounded-circle" style="background-color: #D2B48C;"></div>
+                            </button>
+                        </div>
+                        <input type="hidden" name="color" id="selectedColorInput" value="Camel" />
+                    </div>
+
+                    <!-- Sizes -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="ns-form-label mb-0">Size: <span class="text-body ms-1 fw-normal" id="selectedSizeLabel">M</span></label>
+                            <a href="#" class="text-muted text-decoration-none" style="font-size: 0.6875rem;"><i class="bi bi-rulers"></i> Size Guide</a>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <!-- TODO: Loop over available sizes -->
+                            <button type="button" class="btn btn-dark px-3 py-1" style="font-size: 0.75rem;">M</button>
+                        </div>
+                        <input type="hidden" name="size" id="selectedSizeInput" value="M" />
+                    </div>
+
+                    <!-- Stock Status -->
+                    <div class="d-flex align-items-center gap-2 mb-3" style="font-size: 0.75rem;">
+                        <!-- TODO: Add IF/ELSE condition for stock status (In Stock, Low Stock, Out of Stock) -->
+                        <i class="bi bi-check-circle text-success"></i> <span>In Stock — Ready to Ship</span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <div class="d-flex align-items-center border rounded px-2" style="background: var(--ns-bg-input);">
+                            <button type="button" class="btn btn-link text-body p-2 text-decoration-none" onclick="this.nextElementSibling.stepDown()"><i class="bi bi-dash"></i></button>
+                            <!-- TODO: Bind max value to product stock -->
+                            <input type="number" name="quantity" class="form-control border-0 bg-transparent text-center p-0" value="1" min="1" style="width: 40px; box-shadow: none;">
+                            <button type="button" class="btn btn-link text-body p-2 text-decoration-none" onclick="this.previousElementSibling.stepUp()"><i class="bi bi-plus"></i></button>
+                        </div>
+                        
+                        <!-- TODO: Add 'disabled' attribute conditionally if stock is 0 -->
+                        <button type="button" class="btn btn-ns-dark flex-grow-1" onclick="document.querySelector('[data-bs-target=\'#cartDrawer\']').click(); window.nsToast.show('Added to cart');">
+                            <i class="bi bi-bag me-2"></i> Add to Bag
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Accordion Info -->
+                <div class="accordion accordion-flush" id="productAccordion">
+                    <div class="accordion-item bg-transparent border-bottom ns-border-light">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent px-0 py-3 shadow-none fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDetails">
+                                Product Details
+                            </button>
+                        </h2>
+                        <div id="collapseDetails" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
+                            <div class="accordion-body px-0 pt-0 pb-3 text-muted small">
+                                <ul class="mb-0 ps-3">
+                                    <li>SKU: ITEM-SKU-123</li>
+                                    <li>Materials: 100% Cotton</li>
+                                    <li>Care: Dry clean only</li>
+                                    <li>Made in Italy</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-transparent border-bottom ns-border-light">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent px-0 py-3 shadow-none fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseShipping">
+                                Shipping & Returns
+                            </button>
+                        </h2>
+                        <div id="collapseShipping" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
+                            <div class="accordion-body px-0 pt-0 pb-3 text-muted small">
+                                <p class="mb-2"><strong>Complimentary Express Shipping</strong> on all orders over $200. Delivery typically takes 2-4 business days.</p>
+                                <p class="mb-0"><strong>Free Returns</strong> within 14 days of delivery. Items must be in original condition with tags attached.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- You May Also Like -->
+    <!-- TODO: Conditionally show related products and loop through them -->
+    <section class="mt-5 pt-5 border-top ns-border-light">
+        <div class="text-center mb-4">
+            <h2 class="font-serif fw-bold h3">You May Also Like</h2>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+            <div class="col">
+                <partial name="Partials/_ProductCard" />
+            </div>
+        </div>
+    </section>
+</div>

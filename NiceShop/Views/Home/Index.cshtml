@@ -1,0 +1,195 @@
+
+@{
+    ViewData["Title"] = "Luxury Fashion";
+}
+
+<!-- Hero Section -->
+<section class="ns-hero mb-5">
+    <div class="ns-hero-bg">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070" alt="New Collection">
+    </div>
+    <div class="ns-hero-overlay"></div>
+    <div class="container ns-hero-content">
+        <div class="row">
+            <div class="col-md-8 col-lg-6">
+                <div class="ns-hero-badge">
+                    <i class="bi bi-stars"></i> Spring Collection 2024
+                </div>
+                <h1 class="font-display display-3 fw-bold text-white mb-3" style="line-height: 1.1;">
+                    Elegance<br />Reimagined.
+                </h1>
+                <p class="fs-5 text-light mb-4" style="opacity: 0.9;">
+                    Discover the latest arrivals from the world's most prestigious fashion houses. Curated for the modern sophisticate.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="btn btn-ns-primary px-4 py-3">Shop Collection</a>
+                    <a href="#" class="btn btn-ns-outline px-4 py-3 text-white border-white">View Lookbook</a>
+                </div>
+
+                <div class="ns-hero-stats">
+                    <div>
+                        <div class="ns-stat-value">50+</div>
+                        <div>Luxury Brands</div>
+                    </div>
+                    <div class="ns-stat-divider"></div>
+                    <div>
+                        <div class="ns-stat-value">24h</div>
+                        <div>Express Delivery</div>
+                    </div>
+                    <div class="ns-stat-divider"></div>
+                    <div>
+                        <div class="ns-stat-value">14d</div>
+                        <div>Free Returns</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Container -->
+<div class="container py-4">
+    
+    <!-- Curated Categories -->
+    <section class="mb-5 pb-4 border-bottom ns-border-light">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <div class="ns-section-label">Discover</div>
+                <h2 class="ns-section-title">Curated Categories</h2>
+            </div>
+            
+            <a href="#" class="text-decoration-none ns-text-gold fw-bold" style="font-size: 0.8125rem;">View All <i class="bi bi-arrow-right"></i></a>
+        </div>
+        
+        <div class="row row-cols-2 row-cols-md-4 g-4">
+            <!-- TODO: Loop over Categories here. Each category needs an Image Url, Category Name, Slug (for link), and Item Count. -->
+            <div class="col">
+                <a href="#" class="ns-category-card text-decoration-none h-100">
+                    <div class="ns-cat-img">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070" alt="Category Name">
+                    </div>
+                    <div class="ns-cat-name">Category Name</div>
+                    <div class="text-muted mt-1" style="font-size: 0.625rem;">120 Items</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products with Tabs -->
+    <section class="mb-5 pb-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
+            <div>
+                <div class="ns-section-label">The Edit</div>
+                <h2 class="ns-section-title">Featured Pieces</h2>
+            </div>
+            
+            <div class="ns-filter-tabs">
+                <button class="ns-filter-tab active" data-filter="trending">Trending Now</button>
+                <button class="ns-filter-tab" data-filter="new">New Arrivals</button>
+                <button class="ns-filter-tab" data-filter="bestsellers">Best Sellers</button>
+                <button class="ns-filter-tab text-danger" data-filter="sale">Sale</button>
+            </div>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4" id="featured-products-container">
+            <!-- TODO: Loop over Featured Products here. Use the _ProductCard partial. Pass the product model to the partial. -->
+            <div class="col">
+                <partial name="Partials/_ProductCard" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Flash Sale Banner -->
+    <!-- TODO: Wrap this section in an IF condition to only show if there is an active Flash Sale Product -->
+    <section class="mb-5 pb-4">
+        <div class="ns-flash-sale">
+            <div class="row align-items-center g-5">
+                <div class="col-md-6 order-2 order-md-1">
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 bg-danger text-white rounded-pill mb-4" style="font-size: 0.6875rem; font-weight:700; letter-spacing:0.05em;">
+                        <i class="bi bi-lightning-charge-fill"></i> FLASH SALE
+                    </div>
+                    
+                    <h2 class="font-display display-6 fw-bold mb-3">Flash Sale Product Name</h2>
+                    <p class="text-white-50 mb-4" style="font-size: 0.875rem;">Product Description goes here...</p>
+                    
+                    <div class="d-flex align-items-end gap-3 mb-4">
+                        <div class="font-serif fw-bold text-white fs-3">$99.99</div>
+                        <div class="text-white-50 text-decoration-line-through mb-1">$149.99</div>
+                        <div class="text-warning fw-bold mb-1 ms-2">Save 30%</div>
+                    </div>
+                    
+                    <!-- Countdown -->
+                    <div class="d-flex gap-2 mb-4">
+                        <div class="ns-countdown-unit">
+                            <span class="ns-countdown-value" id="sale-h">04</span>
+                            <span class="ns-countdown-label">Hours</span>
+                        </div>
+                        <div class="text-white-50 fs-4 align-self-center">:</div>
+                        <div class="ns-countdown-unit">
+                            <span class="ns-countdown-value" id="sale-m">45</span>
+                            <span class="ns-countdown-label">Mins</span>
+                        </div>
+                        <div class="text-white-50 fs-4 align-self-center">:</div>
+                        <div class="ns-countdown-unit">
+                            <span class="ns-countdown-value" id="sale-s">30</span>
+                            <span class="ns-countdown-label">Secs</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Stock -->
+                    <div class="mb-4" style="max-width: 300px;">
+                        <div class="d-flex justify-content-between text-white-50 mb-2" style="font-size: 0.6875rem;">
+                            <span>Almost Sold Out!</span>
+                            <span>15 Available</span>
+                        </div>
+                        <div class="ns-stock-bar">
+                            <div class="ns-stock-bar-fill" style="width: 15%;"></div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-ns-primary px-4">Shop The Deal</a>
+                </div>
+                
+                <div class="col-md-6 order-1 order-md-2">
+                    <div class="position-relative h-100 w-100" style="min-height: 400px;">
+                        <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800" alt="Flash Sale" class="position-absolute w-100 h-100 object-fit-cover rounded-4" style="box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial / Lookbook -->
+    <section class="mb-5">
+        <div class="ns-editorial-banner">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800" alt="Editorial" class="w-100 h-100 object-fit-cover" style="min-height: 400px;">
+                </div>
+                <div class="col-md-6 d-flex align-items-center justify-content-center p-5 bg-dark text-white">
+                    <div class="text-center" style="max-width: 400px;">
+                        <div class="ns-section-label text-warning mb-2">Editorial</div>
+                        <h2 class="font-display display-6 fw-bold mb-4">The Art of Tailoring</h2>
+                        <p class="text-white-50 mb-4" style="line-height: 1.8;">
+                            Explore our latest editorial capturing the essence of modern suiting. Perfect cuts, premium Italian wools, and an uncompromising attention to detail.
+                        </p>
+                        <a href="#" class="btn btn-ns-outline text-white border-white px-4">Read The Editorial</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter (Minimal) -->
+    <section class="text-center py-5 border-top ns-border-light">
+        <div class="ns-section-label mb-2">Join The Club</div>
+        <h2 class="ns-section-title mb-3">10% Off Your First Order</h2>
+        <p class="text-muted mb-4 mx-auto" style="max-width: 500px;">Subscribe to receive updates, access to exclusive deals, and more.</p>
+        
+        <form class="d-flex mx-auto" style="max-width: 400px;">
+            <input type="email" class="ns-form-input me-2" placeholder="Your email address" style="border-radius: 9999px;">
+            <button class="btn btn-ns-dark" style="border-radius: 9999px; padding-left: 1.5rem; padding-right: 1.5rem;">Subscribe</button>
+        </form>
+    </section>
+
+</div>

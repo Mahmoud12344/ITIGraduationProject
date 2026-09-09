@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Orders Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+    <div>
+        <h1 class="font-serif fw-bold h3 mb-1">Orders</h1>
+        <p class="text-muted mb-0">Manage customer orders and fulfillments.</p>
+    </div>
+</div>
+
+<div class="ns-admin-card p-0 overflow-hidden">
+    <!-- Filter Tabs -->
+    <div class="border-bottom ns-admin-border bg-light ns-bg-surface px-4 py-3">
+        <div class="d-flex gap-3 overflow-auto">
+            <!-- TODO: Add active state logic based on current status filter -->
+            <a href="?status=" class="text-decoration-none fw-bold ns-text-gold">All Orders</a>
+            <a href="?status=pending" class="text-decoration-none fw-bold text-muted">Pending</a>
+            <a href="?status=confirmed" class="text-decoration-none fw-bold text-muted">Confirmed</a>
+            <a href="?status=shipped" class="text-decoration-none fw-bold text-muted">Shipped</a>
+            <a href="?status=delivered" class="text-decoration-none fw-bold text-muted">Delivered</a>
+        </div>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-hover ns-admin-table mb-0">
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- TODO: Loop over Orders here -->
+                <tr>
+                    <td class="fw-bold">
+                        <a href="#" class="text-decoration-none text-body">#ORD-12345</a>
+                    </td>
+                    <td>Jan 01, 2024 12:00 PM</td>
+                    <td>
+                        <div>Customer Name</div>
+                        <div class="text-muted" style="font-size: 0.6875rem;">customer@example.com</div>
+                    </td>
+                    <td>3 item(s)</td>
+                    <td class="fw-bold">$150.00</td>
+                    <td>
+                        <select class="form-select form-select-sm ns-form-input py-1 fw-bold" style="width: 120px;" onchange="window.nsAdmin.updateOrderStatus('order-id', this)">
+                            <!-- TODO: Bind selected attribute to order status -->
+                            <option value="pending" selected>Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </td>
+                    <td class="text-end">
+                        <a href="#" target="_blank" class="btn btn-sm btn-link text-muted p-1" title="View Invoice"><i class="bi bi-receipt"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Pagination (Simplified) -->
+    <div class="d-flex justify-content-between align-items-center p-3 border-top ns-admin-border bg-light ns-bg-surface">
+        <div class="text-muted small">Showing orders matching criteria</div>
+    </div>
+</div>

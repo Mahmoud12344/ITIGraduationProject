@@ -1,0 +1,114 @@
+@{
+    ViewData["Title"] = "Shopping Bag";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="font-display display-5 fw-bold mb-2">Shopping Bag</h1>
+        <a href="#" class="text-muted text-decoration-none border-bottom border-secondary" style="font-size: 0.8125rem;">Continue Shopping</a>
+    </div>
+
+    <!-- TODO: Wrap this section in an IF condition to show empty state if cart has no items -->
+    <!-- Empty Cart State -->
+    <!--
+    <div class="text-center py-5 bg-light rounded-4 ns-bg-surface">
+        <i class="bi bi-bag display-1 text-muted opacity-25 mb-4"></i>
+        <h2 class="font-serif fw-bold h4">Your bag is empty</h2>
+        <p class="text-muted mb-4">Looks like you haven't added anything to your bag yet.</p>
+        <a href="#" class="btn btn-ns-dark px-4 py-2">Start Shopping</a>
+    </div>
+    -->
+
+    <!-- Populated Cart State -->
+    <div class="row g-5">
+        <!-- Cart Items -->
+        <div class="col-lg-8">
+            <div class="d-none d-md-flex text-uppercase text-muted fw-bold pb-3 border-bottom ns-border" style="font-size: 0.6875rem; letter-spacing: 0.05em;">
+                <div class="col-6">Product</div>
+                <div class="col-3 text-center">Quantity</div>
+                <div class="col-3 text-end">Total</div>
+            </div>
+
+            <div class="d-flex flex-column gap-4 py-4 border-bottom ns-border">
+                <!-- TODO: Loop over cart items here -->
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-6 mb-3 mb-md-0 d-flex gap-3">
+                        <div class="bg-light rounded" style="width: 100px; height: 120px; overflow:hidden;">
+                            <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=200" alt="Product Name" class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <a href="#" class="text-decoration-none ns-card-title m-0 fw-bold">
+                                Product Name
+                            </a>
+                            <div class="text-muted mt-1" style="font-size: 0.75rem;">
+                                Size: M | Color: Camel
+                            </div>
+                            <div class="font-serif fw-bold mt-2 d-md-none">$99.99</div>
+                            <button class="btn btn-link text-muted p-0 text-start text-decoration-none mt-2" style="font-size: 0.75rem;" onclick="window.nsCart.removeItem('product-id', 'M', 'Camel')">
+                                <i class="bi bi-trash3"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-6 col-md-3 d-flex justify-content-md-center">
+                        <div class="d-flex align-items-center border rounded px-2 py-1" style="background: var(--ns-bg-input);">
+                            <button type="button" class="btn btn-link text-body p-1 text-decoration-none" onclick="this.nextElementSibling.stepDown()"><i class="bi bi-dash"></i></button>
+                            <input type="number" value="1" class="form-control border-0 bg-transparent text-center p-0 mx-2" style="width: 30px; box-shadow: none;" min="1">
+                            <button type="button" class="btn btn-link text-body p-1 text-decoration-none" onclick="this.previousElementSibling.stepUp()"><i class="bi bi-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-6 col-md-3 text-end">
+                        <div class="font-serif fw-bold fs-5">$99.99</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="py-4">
+                <p class="text-muted small">
+                    <i class="bi bi-info-circle me-1"></i> Add an order note
+                </p>
+                <textarea class="form-control ns-form-input" rows="2" placeholder="Special instructions..."></textarea>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="col-lg-4">
+            <div class="bg-light p-4 p-xl-5 rounded-4 border ns-border-light ns-bg-surface">
+                <h2 class="font-serif fw-bold h4 mb-4">Order Summary</h2>
+                
+                <div class="d-flex justify-content-between mb-3 text-muted" style="font-size: 0.875rem;">
+                    <span>Subtotal</span>
+                    <span>$99.99</span>
+                </div>
+                
+                <div class="d-flex justify-content-between mb-3 text-muted" style="font-size: 0.875rem;">
+                    <span>Shipping</span>
+                    <span>Calculated at checkout</span>
+                </div>
+                
+                <div class="d-flex justify-content-between mb-3 text-muted" style="font-size: 0.875rem;">
+                    <span>Tax</span>
+                    <span>Calculated at checkout</span>
+                </div>
+                
+                <hr class="my-4 ns-border">
+                
+                <div class="d-flex justify-content-between mb-4">
+                    <span class="fw-bold">Estimated Total</span>
+                    <span class="font-serif fw-bold fs-4">$99.99</span>
+                </div>
+                
+                <a href="#" class="btn btn-ns-primary w-100 py-3 d-flex justify-content-between align-items-center mb-3">
+                    <span class="fw-bold">Proceed to Checkout</span>
+                    <i class="bi bi-arrow-right fs-5"></i>
+                </a>
+                
+                <div class="d-flex align-items-center justify-content-center gap-3 text-muted mt-4">
+                    <i class="bi bi-shield-check fs-4"></i>
+                    <span style="font-size: 0.75rem;">Secure checkout encrypted via SSL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

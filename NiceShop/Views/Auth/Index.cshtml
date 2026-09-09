@@ -1,0 +1,114 @@
+@{
+    ViewData["Title"] = "Account";
+}
+
+<div class="container py-5 my-md-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            
+            <!-- Tabs -->
+            <ul class="nav nav-tabs mb-4 border-bottom ns-border" id="authTabs" role="tablist">
+                <li class="nav-item flex-grow-1 text-center" role="presentation">
+                    <button class="nav-link active w-100 fw-bold border-0 bg-transparent text-muted px-0 pb-3" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" style="border-bottom: 2px solid transparent !important;">
+                        Sign In
+                    </button>
+                </li>
+                <li class="nav-item flex-grow-1 text-center" role="presentation">
+                    <button class="nav-link w-100 fw-bold border-0 bg-transparent text-muted px-0 pb-3" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" style="border-bottom: 2px solid transparent !important;">
+                        Create Account
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="authTabsContent">
+                
+                <!-- Login Form -->
+                <div class="tab-pane fade show active" id="login" role="tabpanel">
+                    <div class="card ns-bg-card ns-border shadow-sm border-0 rounded-4 p-2 p-md-4">
+                        <div class="card-body">
+                            <h2 class="font-serif h4 fw-bold mb-4 text-center">Welcome Back</h2>
+                            
+                            <form action="#" method="post">
+                                <div class="mb-3">
+                                    <label class="ns-form-label">Email Address</label>
+                                    <input type="email" class="ns-form-input" required>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label class="ns-form-label mb-0">Password</label>
+                                        <a href="#" class="text-muted text-decoration-none" style="font-size: 0.6875rem;">Forgot Password?</a>
+                                    </div>
+                                    <input type="password" class="ns-form-input" required>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-ns-dark w-100 py-2">Sign In</button>
+                            </form>
+                            
+                            <div class="position-relative text-center my-4">
+                                <hr class="ns-border">
+                                <span class="position-absolute top-50 start-50 translate-middle px-3 text-muted small bg-light ns-bg-card">OR</span>
+                            </div>
+                            
+                            <button type="button" class="btn btn-ns-outline w-100 py-2 d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-google"></i> Continue with Google
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Register Form -->
+                <div class="tab-pane fade" id="register" role="tabpanel">
+                    <div class="card ns-bg-card ns-border shadow-sm border-0 rounded-4 p-2 p-md-4">
+                        <div class="card-body">
+                            <h2 class="font-serif h4 fw-bold mb-4 text-center">Join The Maison</h2>
+                            
+                            <form action="#" method="post">
+                                <div class="row g-3 mb-3">
+                                    <div class="col-6">
+                                        <label class="ns-form-label">First Name</label>
+                                        <input type="text" class="ns-form-input" required>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="ns-form-label">Last Name</label>
+                                        <input type="text" class="ns-form-input" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="ns-form-label">Email Address</label>
+                                    <input type="email" class="ns-form-input" required>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="ns-form-label">Password</label>
+                                    <input type="password" class="ns-form-input" required>
+                                </div>
+                                
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input mt-1" type="checkbox" id="newsletterCheck" checked>
+                                    <label class="form-check-label text-muted" for="newsletterCheck" style="font-size: 0.75rem;">
+                                        Subscribe to receive updates, access to exclusive deals, and more.
+                                    </label>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-ns-dark w-100 py-2">Create Account</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Add specific active styling for the tabs just for this page */
+    .nav-tabs .nav-link.active {
+        color: var(--ns-text) !important;
+        border-bottom-color: var(--ns-text) !important;
+    }
+</style>

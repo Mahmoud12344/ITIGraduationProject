@@ -1,0 +1,55 @@
+<div class="ns-product-card">
+    <div class="ns-card-img-wrap position-relative">
+        <a href="#">
+            <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500" alt="Product Name" loading="lazy">
+        </a>
+        
+        <!-- Badges -->
+        <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1">
+            <!-- TODO: Conditionally show badges based on product state -->
+            <span class="ns-badge-sale">20% OFF</span>
+            <!-- <span class="ns-badge-sold-out">SOLD OUT</span> -->
+            <!-- <span class="ns-badge-low-stock">ONLY 2 LEFT</span> -->
+        </div>
+        
+        <!-- Wishlist Button -->
+        <button class="ns-wishlist-btn" onclick="window.nsCart.toggleWishlist(this, 'product-id')" aria-label="Add to wishlist">
+            <i class="bi bi-heart"></i>
+        </button>
+        
+        <!-- Hover Quick Actions -->
+        <div class="ns-card-hover-actions">
+            <button class="ns-quick-view-btn" onclick="window.nsQuickView.open('product-id')">Quick View</button>
+        </div>
+    </div>
+    
+    <div class="ns-card-info">
+        <div class="ns-card-brand">Brand Name</div>
+        <a href="#" class="text-decoration-none">
+            <h3 class="ns-card-title line-clamp-1">Product Name</h3>
+        </a>
+        
+        <div class="d-flex align-items-center mt-1">
+            <span class="ns-card-price">$99.99</span>
+            <!-- TODO: Conditionally show original price -->
+            <span class="ns-card-original-price">$129.99</span>
+        </div>
+        
+        <div class="ns-card-footer">
+            <div class="ns-stars">
+                <!-- TODO: Loop to show stars based on rating -->
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="ns-rating-text">(10)</span>
+            </div>
+            
+            <button class="btn-ns-add-cart" onclick="window.nsCart.updateQuantity('product-id', 'Default', 'Default', 1)">
+                <i class="bi bi-bag-plus"></i>
+                <span class="d-none d-sm-inline">Add</span>
+            </button>
+        </div>
+    </div>
+</div>

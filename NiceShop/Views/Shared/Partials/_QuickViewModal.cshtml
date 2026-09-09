@@ -1,0 +1,67 @@
+<!-- Quick View Modal (Bootstrap Modal) -->
+<div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 overflow-hidden" style="border-radius: 1.25rem;">
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3 bg-white p-2 rounded-circle shadow-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+            
+            <div class="row g-0">
+                <!-- Image side -->
+                <div class="col-md-5 bg-light" style="min-height: 300px;">
+                    <!-- This image src would be updated via JS when opening the modal -->
+                    <img id="qv-image" src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800" alt="Product" class="w-100 h-100 object-fit-cover">
+                </div>
+                
+                <!-- Info side -->
+                <div class="col-md-7 p-4 p-md-5 d-flex flex-column">
+                    <div class="text-uppercase text-muted fw-bold mb-1" style="font-size: 0.6875rem; letter-spacing: 0.08em;" id="qv-brand">Maison Noir</div>
+                    <h2 class="font-serif fw-bold h4 mb-2" id="qv-title">Double-Breasted Cashmere Trench Coat</h2>
+                    
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="font-serif fw-bold fs-5" id="qv-price">$490.00</div>
+                        <div class="ns-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <span class="ns-rating-text">(34)</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-muted small line-clamp-2 mb-4" id="qv-description">
+                        Expertly tailored in Paris from double-faced Italian cashmere. Features horn buttons, belted waist, structured lapels, and hand-finished storm flaps.
+                    </p>
+                    
+                    <!-- Form (submit intercepts or uses standard MVC post) -->
+                    <form method="post" action="/Cart/Add" class="mt-auto">
+                        <input type="hidden" name="productId" id="qv-id" value="prod-1" />
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-6">
+                                <label class="ns-form-label">Size</label>
+                                <select name="size" class="form-select form-select-sm" id="qv-size">
+                                    <option>XS</option>
+                                    <option>S</option>
+                                    <option selected>M</option>
+                                    <option>L</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="ns-form-label">Color</label>
+                                <select name="color" class="form-select form-select-sm" id="qv-color">
+                                    <option>Camel Tan</option>
+                                    <option>Midnight Noir</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-ns-dark flex-grow-1 py-2">Add to Bag</button>
+                            <a id="qv-details-link" href="/Products/Details/prod-1" class="btn btn-ns-outline py-2">View Full Details</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

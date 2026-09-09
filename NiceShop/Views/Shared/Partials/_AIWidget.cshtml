@@ -1,0 +1,54 @@
+<!-- AI Stylist Widget -->
+<!-- Trigger Button -->
+<button id="ai-trigger-btn" class="ns-ai-trigger" aria-label="Open AI Stylist">
+    <i class="bi bi-stars ns-ai-trigger-icon"></i>
+    <span class="d-none d-sm-inline">Ask AI Stylist</span>
+    <div id="ai-unread-badge" class="ns-ai-badge">1</div>
+</button>
+
+<!-- Chat Window -->
+<div id="ai-window" class="ns-ai-window d-none">
+    
+    <!-- Header -->
+    <div class="ns-ai-header">
+        <div class="ns-ai-header-left">
+            <div class="ns-ai-header-icon">
+                <i class="bi bi-stars text-dark"></i>
+            </div>
+            <div>
+                <div class="ns-ai-header-title">Maison AI Concierge</div>
+                <div class="ns-ai-header-status">
+                    <span class="ns-status-dot"></span> Online
+                </div>
+            </div>
+        </div>
+        <div class="ns-ai-header-actions">
+            <button id="ai-reset-btn" title="Reset Chat"><i class="bi bi-arrow-counterclockwise"></i></button>
+            <button id="ai-min-btn" title="Minimize"><i class="bi bi-dash"></i></button>
+            <button id="ai-close-btn" title="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+    </div>
+
+    <!-- Messages Area -->
+    <div id="ai-messages-area" class="ns-ai-messages">
+        <!-- Welcome Message -->
+        <div class="ns-ai-welcome ns-animate-fadeIn">
+            <div class="ns-ai-welcome-icon">✨</div>
+            <h4>Welcome to NiceShop</h4>
+            <p>I'm your personal AI fashion concierge. I can help you find the perfect outfit, check stock, or give styling advice.</p>
+        </div>
+    </div>
+
+    <!-- Suggestions (Quick Prompts) -->
+    <div class="ns-ai-suggestions">
+        <button class="ns-ai-suggestion-pill">Show me trench coats</button>
+        <button class="ns-ai-suggestion-pill">What's trending for men?</button>
+        <button class="ns-ai-suggestion-pill">I need an outfit for a wedding</button>
+    </div>
+
+    <!-- Input Bar -->
+    <div class="ns-ai-input-bar">
+        <input type="text" id="ai-input" placeholder="Ask anything..." autocomplete="off">
+        <button id="ai-send-btn" class="ns-ai-send-btn"><i class="bi bi-arrow-up-short"></i></button>
+    </div>
+</div>
