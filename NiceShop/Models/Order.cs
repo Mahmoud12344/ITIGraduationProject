@@ -10,9 +10,11 @@ public class Order
     public decimal ShippingCost { get; set; }
     public decimal Total { get; set; } // subtotal + shipping - discount
     public OrderStatus Status { get; set; } = OrderStatus.Pending;
+    public bool? IsCanceled{ get; set; }
     public string? CancellationReason { get; set; }
 
-    public int CustomerId { get; set; }
+    public string CustomerId { get; set; }
+    public virtual Customer Customer { get; set; } = default!;
 
     public int? CouponId { get; set; }
     public Coupon? Coupon { get; set; }
