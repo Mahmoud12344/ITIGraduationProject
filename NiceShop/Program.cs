@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NiceShop.Filters;
+using NiceShop.Models;
 
 namespace NiceShop;
 
@@ -29,6 +31,8 @@ public class Program {
         builder.Services.AddControllersWithViews(opt => { opt.Filters.Add<HandelErrorAttribute>(); }
         );
 
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
