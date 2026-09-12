@@ -17,7 +17,8 @@ public class Program {
         var dbServer = builder.Configuration["DbServer"];
         var dbUser = builder.Configuration["DbUser"];
         var dbPassword = builder.Configuration["DbPassword"];
-        if (!string.IsNullOrEmpty(dbServer)){
+        if (!string.IsNullOrEmpty(dbServer))
+        {
             connectionBuilder.IntegratedSecurity = false;
             connectionBuilder.DataSource = dbServer;
             connectionBuilder.UserID = dbUser;
@@ -38,7 +39,8 @@ public class Program {
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        if (!app.Environment.IsDevelopment()){
+        if (!app.Environment.IsDevelopment())
+        {
             app.UseExceptionHandler("/Home/Error");
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
@@ -71,6 +73,12 @@ public class Program {
         app.UseAuthorization();
 
         app.MapStaticAssets();
+
+        app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+            .WithStaticAssets();
+
         app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
