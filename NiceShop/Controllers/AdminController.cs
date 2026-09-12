@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace NiceShop.Controllers;
-
+// [Authorize]
 public class AdminController : Controller
 {
     public IActionResult Dashboard()
