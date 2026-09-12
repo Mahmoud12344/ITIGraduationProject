@@ -26,20 +26,23 @@
             </div>
             
             <nav class="flex-grow-1">
-                <a href="#" class="ns-sidebar-link active">
+                <a  asp-action="Dashboard" asp-controller="Admin" class="ns-sidebar-link active">
                     <i class="bi bi-grid-1x2"></i> Dashboard
                 </a>
-                <a href="#" class="ns-sidebar-link">
+                <a    asp-action="Products" asp-controller="Admin"  class="ns-sidebar-link">
                     <i class="bi bi-box-seam"></i> Products
                 </a>
-                <a href="#" class="ns-sidebar-link">
+                <a    asp-action="Orders" asp-controller="Admin" class="ns-sidebar-link">
                     <i class="bi bi-cart3"></i> Orders
                 </a>
-                <a href="#" class="ns-sidebar-link">
+                <a  asp-action="Reviews" asp-controller="Admin"  class="ns-sidebar-link">
                     <i class="bi bi-star"></i> Reviews
                 </a>
                 <a href="#" class="ns-sidebar-link">
                     <i class="bi bi-tags"></i> Categories & Coupons
+                </a>
+                <a  asp-action="Coupons" asp-controller="Coupon"  class="ns-sidebar-link">
+                    <i class="bi bi-tags"></i> Coupons
                 </a>
             </nav>
             
