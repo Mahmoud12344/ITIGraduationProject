@@ -65,9 +65,11 @@ public class AuthController: Controller {
         return View(nameof(Index), authVmFailed);
     }
 
+     
+    
 
-    public IActionResult SignOut() {
-        _signInManager.SignOutAsync();
+    public async Task<IActionResult> SignOut() {
+        await _signInManager.SignOutAsync();
 
         return View(nameof(Index), new AuthVM() { ActiveTab = "login" });
     }
