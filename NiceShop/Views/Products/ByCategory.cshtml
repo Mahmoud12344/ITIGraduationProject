@@ -1,0 +1,27 @@
+﻿@model IEnumerable<NiceShop.Models.Product>
+
+<div class="container mt-5">
+    <h1 class="mb-4">@ViewBag.CategoryName</h1>
+
+    <div class="row g-4">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text text-muted">@product.Price.ToString("C")</p>
+                        <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-outline-dark btn-sm">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p class="text-muted">No products found in this category yet.</p>
+    }
+</div>
