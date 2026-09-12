@@ -64,4 +64,11 @@ public class AuthController: Controller {
         var authVmFailed = new AuthVM { Register = urvm, ActiveTab = "register" };
         return View(nameof(Index), authVmFailed);
     }
+
+
+    public IActionResult SignOut() {
+        _signInManager.SignOutAsync();
+
+        return View(nameof(Index), new AuthVM() { ActiveTab = "login" });
+    }
 }
