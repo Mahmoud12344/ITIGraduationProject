@@ -90,7 +90,7 @@
             
             <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
                 <li>
-                    <span class="dropdown-item-text fw-bold text-truncate" style="max-width: 200px; display: block;">
+                    <span class="dropdown-item-text fw-bold text-truncate small  " style="max-width: 200px; display: block;">
                         @User.Identity.Name
                     </span>
                 </li>
@@ -175,8 +175,10 @@
         <a href="#" class="ns-nav-link">Shop</a>
         <a href="#" class="ns-nav-link ns-sale-link">Flash Sale</a>
         <a href="#" class="ns-nav-link">Track Order</a>
-        <a href="#" class="ns-nav-link text-info ms-4"><i class="bi bi-shield-lock"></i> Admin</a>
-    </nav>
+        @if (User.IsInRole("Admin")){
+            <a href="#" class="ns-nav-link text-info ms-4"><i class="bi bi-shield-lock"></i> Admin</a>
+        }
+        </nav>
 </div>
 
 <script>
