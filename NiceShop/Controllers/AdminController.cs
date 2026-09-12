@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -5,8 +6,8 @@ using NiceShop.Data;
 using NiceShop.Models;
 
 namespace NiceShop.Controllers;
-
-public class AdminController : Controller
+[Authorize (Roles = "Admin")]
+public class AdminController(ApplicationDbContext dbContext ) : Controller
 {
     private readonly ApplicationDbContext _context;
 
