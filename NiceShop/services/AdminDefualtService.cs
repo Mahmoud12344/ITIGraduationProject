@@ -3,7 +3,7 @@ using NiceShop.Models;
 
 namespace NiceShop.services;
 
-public class adminDefualtService(UserManager<ApplicationUser> userManager) {
+public class AdminDefualtService(UserManager<ApplicationUser> userManager) {
    
     public async Task createAdmin() {
         string adminEmail = "admin@niceshop.com"; 
