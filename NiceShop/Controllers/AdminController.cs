@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NiceShop.Data;
+using NiceShop.Models;
+using NiceShop.ViewModels;
 
 namespace NiceShop.Controllers;
 [Authorize (Roles = "Admin")]
-public class AdminController : Controller
+public class AdminController(ApplicationDbContext dbContext ) : Controller
 {
     public IActionResult Dashboard()
     {
@@ -34,4 +38,12 @@ public class AdminController : Controller
     {
         return View();
     }
+    // public IActionResult Coupons() {
+    //     var cvm = new CouponVm() {
+    //         Coupons = dbContext.Coupons.ToList() 
+    //     };
+    //     
+    //     return View(cvm);
+    // }
+
 }
