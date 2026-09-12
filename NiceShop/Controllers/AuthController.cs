@@ -38,6 +38,7 @@ public class AuthController : Controller {
     }
 
     [HttpPost]
+[ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateAccount(UserRegistrationVM urvm) {
         if (!ModelState.IsValid){
             var authVmInvalid = new AuthVM { Register = urvm, ActiveTab = "register" };
@@ -70,7 +71,7 @@ public class AuthController : Controller {
     }
 
     [HttpPost]
-
+[ValidateAntiForgeryToken]
     public async Task<IActionResult> SaveSignIn(AuthVM authVm) {
         authVm.ActiveTab = "login";
         bool loginValid = ModelState
@@ -93,9 +94,9 @@ public class AuthController : Controller {
             
         }
         
-            await _signInManager.SignInAsync(appuser, authVm.Login.RememberMe);
+        await _signInManager.SignInAsync(appuser, authVm.Login.RememberMe);
  
-            return RedirectToAction("Index", "Home");
+        return RedirectToAction("Index", "Home");
     }
 
 
