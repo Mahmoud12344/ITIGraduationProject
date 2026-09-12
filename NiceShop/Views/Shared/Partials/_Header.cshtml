@@ -20,7 +20,7 @@
 <!-- 2. Main Brand Bar -->
 <div class="ns-navbar py-3 px-3 px-lg-5 d-flex align-items-center justify-content-between">
     <!-- Logo -->
-    <a href="#" class="ns-brand d-flex align-items-center gap-2">
+    <a  asp-action="Index" asp-controller="Home" class="ns-brand d-flex align-items-center gap-2">
         <i class="bi bi-hexagon-fill fs-3" style="color: var(--ns-gold);"></i>
         <div class="d-flex flex-column lh-1 mt-1">
             <span class="d-flex align-items-baseline gap-1">
@@ -53,8 +53,8 @@
         <button class="ns-theme-toggle d-none d-md-flex" aria-label="Toggle theme">
             <i class="bi bi-moon"></i>
         </button>
-        
-        <a href="#" class="btn btn-link text-decoration-none text-muted p-2 d-none d-md-block">
+        @* this is the acountSection *@
+        <a asp-action="" class="btn btn-link text-decoration-none text-muted p-2 d-none d-md-block">
             <i class="bi bi-person fs-5"></i>
         </a>
         
