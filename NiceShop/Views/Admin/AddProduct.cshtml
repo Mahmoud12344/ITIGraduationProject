@@ -1,94 +1,101 @@
+@model NiceShop.Models.Product
 
 @{
     ViewData["Title"] = "Add New Product";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h1 class="font-serif fw-bold h3 mb-1">Add Product</h1>
-        <p class="text-muted mb-0">Create a new item in your catalog.</p>
-    </div>
-    <div>
-        <a href="#" class="btn btn-ns-outline btn-sm me-2">Cancel</a>
-        <button type="submit" form="addProductForm" class="btn btn-ns-dark btn-sm">Save Product</button>
-    </div>
-</div>
+<form id="addProductForm" asp-action="AddProduct" method="post">
 
-<form id="addProductForm" method="post" action="#" class="row g-4" enctype="multipart/form-data">
-    <!-- Left Column (Main Info) -->
-    <div class="col-lg-8">
-        <div class="ns-admin-card p-4 h-100">
-            <h2 class="h6 fw-bold mb-4">General Information</h2>
-            
-            <div class="mb-3">
-                <label for="Name" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Product Name</label>
-                <input type="text" class="form-control bg-light border-light" id="Name" name="Name" placeholder="e.g. Silk Evening Gown" required>
-            </div>
-            
-            <div class="mb-3">
-                <label for="Description" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Description</label>
-                <textarea class="form-control bg-light border-light" id="Description" name="Description" rows="4" placeholder="Describe the product details..." required></textarea>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="Price" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Price ($)</label>
-                    <input type="number" step="0.01" class="form-control bg-light border-light" id="Price" name="Price" placeholder="0.00" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="OriginalPrice" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Original Price ($)</label>
-                    <input type="number" step="0.01" class="form-control bg-light border-light" id="OriginalPrice" name="OriginalPrice" placeholder="Optional">
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="font-serif fw-bold h3 mb-1">Add Product</h1>
+            <p class="text-muted mb-0">Create a new item in your catalog.</p>
+        </div>
+        <div>
+            <a asp-action="Products" class="btn btn-ns-outline btn-sm me-2">Cancel</a>
+            <button type="submit" class="btn btn-ns-dark btn-sm">Save Product</button>
         </div>
     </div>
 
-    <!-- Right Column (Organization & Media) -->
-    <div class="col-lg-4">
-        <div class="ns-admin-card p-4 mb-4">
-            <h2 class="h6 fw-bold mb-4">Organization</h2>
-            
-            <div class="mb-3">
-                <label for="Category" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Category</label>
-                    <select class="form-select ns-form-input" id="productCategory" required>
+    <div class="row g-4">
+        <!-- Left Column (Main Info) -->
+        <div class="col-lg-8">
+            <div class="ns-admin-card p-4 h-100">
+                <h2 class="h6 fw-bold mb-4">General Information</h2>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
+                    <input asp-for="Name" class="form-control bg-light border-light" placeholder="e.g. Silk Evening Gown" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
+                    <textarea asp-for="Description" class="form-control bg-light border-light" rows="4" placeholder="Describe the product details..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Price" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
+                        <input asp-for="Price" class="form-control bg-light border-light" placeholder="0.00" />
+                        <span asp-validation-for="Price" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Stock" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
+                        <input asp-for="Stock" class="form-control bg-light border-light" value="0" />
+                        <span asp-validation-for="Stock" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Discount" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
+                        <input asp-for="Discount" class="form-control bg-light border-light" placeholder="Optional" />
+                        <span asp-validation-for="Discount" class="text-danger small"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column (Organization) -->
+        <div class="col-lg-4">
+            <div class="ns-admin-card p-4 mb-4">
+                <h2 class="h6 fw-bold mb-4">Organization</h2>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Category</label>
+                    <select asp-for="CategoryId" class="form-select ns-form-input" asp-items="ViewBag.CategoryId">
                         <option value="">Select Category...</option>
-                        <!-- TODO: Loop over Categories -->
-                        <option value="category-slug">Category Name</option>
                     </select>
-            </div>
-            
-            <div class="mb-3">
-                <label for="Brand" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Brand</label>
-                    <select class="form-select ns-form-input" id="productBrand" required>
-                        <option value="">Select Brand...</option>
-                        <!-- TODO: Loop over Brands -->
-                        <option value="brand-id">Brand Name</option>
-                    </select>
-            </div>
+                    <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                </div>
 
-            <div class="mb-3">
-                <label for="Sku" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">SKU</label>
-                <input type="text" class="form-control bg-light border-light" id="Sku" name="Sku" placeholder="e.g. NS-10294" required>
-            </div>
-            
-            <div class="mb-0">
-                <label for="Stock" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Inventory Count</label>
-                <input type="number" class="form-control bg-light border-light" id="Stock" name="Stock" value="0" required>
-            </div>
-        </div>
-        
-        <div class="ns-admin-card p-4">
-            <h2 class="h6 fw-bold mb-4">Media</h2>
-            <div class="mb-3">
-                <label for="Images" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Product Images</label>
-                <div class="border border-2 border-dashed rounded p-4 text-center ns-border-light position-relative bg-light">
-                    <i class="bi bi-cloud-arrow-up fs-2 text-muted mb-2"></i>
-                    <p class="small text-muted mb-0">Drag & drop images here or</p>
-                    <button type="button" class="btn btn-link text-body fw-bold p-0 text-decoration-none" onclick="document.getElementById('Images').click()">Browse files</button>
-                    <input type="file" id="Images" name="Images" multiple accept="image/*" class="position-absolute w-100 h-100 top-0 start-0 opacity-0 cursor-pointer" style="cursor:pointer;" />
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Brand</label>
+                    <select asp-for="BrandId" class="form-select ns-form-input" asp-items="ViewBag.BrandId">
+                        <option value="">-- None --</option>
+                    </select>
+                </div>
+
+                <div class="mb-0">
+                    <div class="form-check">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label"></label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="IsFeatured" class="form-check-input" />
+                        <label asp-for="IsFeatured" class="form-check-label"></label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="IsBestseller" class="form-check-input" />
+                        <label asp-for="IsBestseller" class="form-check-label"></label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="IsOnSale" class="form-check-input" />
+                        <label asp-for="IsOnSale" class="form-check-label"></label>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </form>
