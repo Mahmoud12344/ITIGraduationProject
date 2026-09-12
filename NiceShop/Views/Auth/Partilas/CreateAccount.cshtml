@@ -1,0 +1,124 @@
+@model NiceShop.ViewModels.UserRegistrationVM
+
+<div class="card ns-bg-card ns-border shadow-sm border-0 rounded-4 p-2 p-md-4">
+    <div class="card-body">
+
+        <h2 class="font-serif h4 fw-bold mb-4 text-center">
+            Join The Maison
+        </h2>
+
+        <form asp-controller="Auth"
+              asp-action="CreateAccount"
+              method="post">
+
+            <div class="row g-3 mb-3">
+
+                <div class="col-6">
+                    <label class="ns-form-label"
+                           asp-for="Fname">
+                        First Name
+                    </label>
+
+                    <input asp-for="Fname"
+                           class="ns-form-input" />
+
+                    <span asp-validation-for="Fname"
+                          class="text-danger-emphasis">
+                    </span>
+                </div>
+
+                <div class="col-6">
+                    <label class="ns-form-label"
+                           asp-for="Lname">
+                        Last Name
+                    </label>
+
+                    <input asp-for="Lname"
+                           class="ns-form-input" />
+
+                    <span asp-validation-for="Lname"
+                          class="text-danger-emphasis">
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+                <label class="ns-form-label"
+                       asp-for="Email">
+                    Email Address
+                </label>
+
+                <input asp-for="Email"
+                       class="ns-form-input" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger-emphasis">
+                </span>
+            </div>
+
+            <div class="mb-3">
+                <label class="ns-form-label"
+                       asp-for="Phone">
+                    Phone Number
+                </label>
+
+                <input asp-for="Phone"
+                       class="ns-form-input" />
+
+                <span asp-validation-for="Phone"
+                      class="text-danger-emphasis">
+                </span>
+            </div>
+
+            <div class="mb-4">
+                <label class="ns-form-label"
+                       asp-for="Password">
+                    Password
+                </label>
+
+                <input asp-for="Password"
+                       class="ns-form-input" />
+
+                <span asp-validation-for="Password"
+                      class="text-danger-emphasis">
+                </span>
+            </div>
+
+            <div class="mb-4">
+                <label class="ns-form-label"
+                       asp-for="ConfirmPassword">
+                    Confirm Password
+                </label>
+
+                <input asp-for="ConfirmPassword"
+                       class="ns-form-input" />
+
+                <span asp-validation-for="ConfirmPassword"
+                      class="text-danger-emphasis">
+                </span>
+            </div>
+
+            <div class="form-check mb-4">
+                <input class="form-check-input mt-1"
+                       type="checkbox"
+                       id="newsletterCheck"
+                       checked>
+
+                <label class="form-check-label text-muted"
+                       for="newsletterCheck"
+                       style="font-size: 0.75rem;">
+                    Subscribe to receive updates, access to exclusive
+                    deals, and more.
+                </label>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-ns-dark w-100 py-2">
+                Create Account
+            </button>
+
+        </form>
+
+    </div>
+</div>
