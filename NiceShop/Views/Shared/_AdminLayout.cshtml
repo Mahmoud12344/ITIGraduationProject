@@ -25,22 +25,35 @@
                 <span class="font-serif fs-5 fw-bold">NiceShop Admin</span>
             </div>
             
+            @{
+                var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
+            }
             <nav class="flex-grow-1">
-                <a href="#" class="ns-sidebar-link active">
+                <a asp-controller = "Admin" asp-action = "Dashboard" class="ns-sidebar-link @(currentAction == "Dashboard" ? "active" : "")">
                     <i class="bi bi-grid-1x2"></i> Dashboard
                 </a>
-                <a href="#" class="ns-sidebar-link">
+
+                <a asp-controller="Admin" asp-action="Products" class="ns-sidebar-link @(currentAction == "Products" ? "active" : "")">
                     <i class="bi bi-box-seam"></i> Products
                 </a>
-                <a href="#" class="ns-sidebar-link">
+
+                <a asp-controller="Admin" asp-action="Orders" class="ns-sidebar-link @(currentAction == "Orders" ? "active" : "")">
                     <i class="bi bi-cart3"></i> Orders
                 </a>
-                <a href="#" class="ns-sidebar-link">
+
+
+                <a asp-controller="Admin" asp-action="Categories" class="ns-sidebar-link @(currentAction == "Categories" ? "active" : "")">
+                    <i class="bi bi-tags"></i> Categories
+                </a>
+
+                <a asp-controller="Admin" asp-action="Brands" class="ns-sidebar-link @(currentAction == "Brands" ? "active" : "")">
+                    <i class="bi bi-box-seam"></i> Brands
+                </a>
+
+                <a asp-controller="Admin" asp-action="Reviews" class="ns-sidebar-link @(currentAction == "Reviews" ? "active" : "")">
                     <i class="bi bi-star"></i> Reviews
                 </a>
-                <a href="#" class="ns-sidebar-link">
-                    <i class="bi bi-tags"></i> Categories & Coupons
-                </a>
+
             </nav>
             
             <div class="mt-auto pt-4 border-top ns-border">

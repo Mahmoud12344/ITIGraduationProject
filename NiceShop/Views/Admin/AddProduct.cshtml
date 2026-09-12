@@ -5,8 +5,17 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form id="addProductForm" asp-action="AddProduct" method="post">
+<!-- success message -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<!-- ===============  -->
 
+<form id="addProductForm" asp-action="AddProduct" method="post" enctype="multipart/form-data">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="font-serif fw-bold h3 mb-1">Add Product</h1>
@@ -19,45 +28,63 @@
     </div>
 
     <div class="row g-4">
-        <!-- Left Column (Main Info) -->
+        
+        <!-- Left Column (Main Info & Images) -->
         <div class="col-lg-8">
-            <div class="ns-admin-card p-4 h-100">
-                <h2 class="h6 fw-bold mb-4">General Information</h2>
+            <!-- General Information Card -->
+            <div class="ns-admin-card p-3 mb-3">
+                <h2 class="h6 fw-bold mb-3">General Information</h2>
 
-                <div class="mb-3">
-                    <label asp-for="Name" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
-                    <input asp-for="Name" class="form-control bg-light border-light" placeholder="e.g. Silk Evening Gown" />
+                <div class="mb-2">
+                    <label asp-for="Name" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Name</label>
+                    <input asp-for="Name" class="form-control bg-light border-light form-control-sm" placeholder="e.g. Silk Evening Gown" />
                     <span asp-validation-for="Name" class="text-danger small"></span>
                 </div>
 
-                <div class="mb-3">
-                    <label asp-for="Description" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
-                    <textarea asp-for="Description" class="form-control bg-light border-light" rows="4" placeholder="Describe the product details..."></textarea>
+                <div class="mb-2">
+                    <label asp-for="Description" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Description</label>
+                    <textarea asp-for="Description" class="form-control bg-light border-light" rows="3" placeholder="Describe the product details..."></textarea>
                     <span asp-validation-for="Description" class="text-danger small"></span>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label asp-for="Price" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
-                        <input asp-for="Price" class="form-control bg-light border-light" placeholder="0.00" />
+                    <div class="col-md-4 mb-2">
+                        <label asp-for="Price" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Price</label>
+                        <input asp-for="Price" class="form-control bg-light border-light form-control-sm" placeholder="0.00" />
                         <span asp-validation-for="Price" class="text-danger small"></span>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label asp-for="Stock" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
-                        <input asp-for="Stock" class="form-control bg-light border-light" value="0" />
+                    <div class="col-md-4 mb-2">
+                        <label asp-for="Stock" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Stock</label>
+                        <input asp-for="Stock" class="form-control bg-light border-light form-control-sm" value="0" />
                         <span asp-validation-for="Stock" class="text-danger small"></span>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label asp-for="Discount" class="form-label fw-semibold small text-muted text-uppercase tracking-wider"></label>
-                        <input asp-for="Discount" class="form-control bg-light border-light" placeholder="Optional" />
+                    <div class="col-md-4 mb-2">
+                        <label asp-for="Discount" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Discount</label>
+                        <input asp-for="Discount" class="form-control bg-light border-light form-control-sm" placeholder="Optional" />
                         <span asp-validation-for="Discount" class="text-danger small"></span>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Right Column (Organization) -->
+            <!-- Product Images Card -->
+            <div class="ns-admin-card p-3">
+                <h2 class="h6 fw-bold mb-3">Product Images</h2>
+                
+                <div class="mb-2">
+                    <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Upload Images</label>
+                    <input type="file" name="imageFiles" id="imageFilesInput" class="form-control bg-light border-light form-control-sm" accept="image/*" multiple />
+                    <div class="form-text mt-1 small">First image selected will be the default thumbnail. You can select files multiple times.</div>
+                    
+                    <!-- Horizontal File Name Badges Container -->
+                    <div id="selectedFilesList" class="d-flex flex-wrap gap-2 mt-3"></div>
+                </div>
+            </div>
+        </div> 
+
+        <!-- Right Column -->
         <div class="col-lg-4">
+            
+            <!-- Organization Card -->
             <div class="ns-admin-card p-4 mb-4">
                 <h2 class="h6 fw-bold mb-4">Organization</h2>
 
@@ -95,7 +122,95 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
+            <!-- Available Colors Card -->
+            <div class="ns-admin-card p-4 mb-4">
+                <h2 class="h6 fw-bold mb-3">Available Colors</h2>
+                <div class="d-flex flex-wrap gap-2">
+                    @if (ViewBag.Colors != null)
+                    {
+                        @foreach (var color in ViewBag.Colors)
+                        {
+                            <div>
+                                <input type="checkbox" name="colorIds" value="@color.Id" class="btn-check color-checkbox" id="color_@color.Id" autocomplete="off">
+                                <label class="color-circle shadow-sm" for="color_@color.Id" style="background-color: @color.HexCode;" title="@color.Name">
+                                    <i class="bi bi-check text-white check-icon"></i>
+                                </label>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted small mb-0">No colors found.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Sizes Selection Card -->
+            <div class="ns-admin-card p-4">
+                <h2 class="h6 fw-bold mb-3">Available Sizes</h2>
+                <div class="d-flex flex-wrap gap-2">
+                    @if (ViewBag.Sizes != null)
+                    {
+                        @foreach (var size in ViewBag.Sizes)
+                        {
+                            <div>
+                                <input type="checkbox" name="sizeIds" value="@size.Id" class="btn-check" id="size_@size.Id" autocomplete="off">
+                                <label class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-pill shadow-sm" for="size_@size.Id">
+                                    @size.Name @(size.Code != null ? $"({size.Code})" : "")
+                                </label>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+        </div> 
+
+    </div> 
 </form>
+
+@section Scripts {
+    <script>
+        // Use a DataTransfer object to keep track of files selected across multiple clicks
+        let dt = new DataTransfer();
+
+        document.getElementById('imageFilesInput').addEventListener('change', function(e) {
+            // Add newly selected files to our tracking object
+            for (let file of this.files) {
+                dt.items.add(file);
+            }
+            
+            // Assign the accumulated files back to the actual input element so the form submits them all
+            this.files = dt.files;
+
+            renderFileBadges();
+        });
+
+        function renderFileBadges() {
+            const container = document.getElementById('selectedFilesList');
+            container.innerHTML = '';
+
+            for (let i = 0; i < dt.files.length; i++) {
+                let file = dt.files[i];
+
+                // Create a horizontal badge for each file
+                let badge = document.createElement('div');
+                badge.className = 'badge bg-light text-white border d-flex align-items-center gap-2 py-2 px-3 shadow-sm';
+                badge.innerHTML = `
+                    <i class="bi bi-file-earmark-image text-primary"></i>
+                    <span class="text-truncate" style="max-width: 150px;">${file.name}</span>
+                    <button type="button" class="btn-close btn-close-sm ms-1" style="font-size: 0.65rem;" onclick="removeFile(${i})"></button>
+                `;
+                container.appendChild(badge);
+            }
+        }
+
+        // Allows removing a file by clicking the 'X' on its badge
+        window.removeFile = function(index) {
+            dt.items.remove(index);
+            document.getElementById('imageFilesInput').files = dt.files;
+            renderFileBadges();
+        }
+    </script>
+}

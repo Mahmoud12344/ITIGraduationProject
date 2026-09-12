@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NiceShop.Data;
 
@@ -11,9 +12,11 @@ using NiceShop.Data;
 namespace NiceShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260912053855_brands_hardcoded")]
+    partial class brands_hardcoded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -337,38 +340,6 @@ namespace NiceShop.Migrations
                         .IsUnique();
 
                     b.ToTable("Colors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            HexCode = "#000000",
-                            Name = "Black"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            HexCode = "#FFFFFF",
-                            Name = "White"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            HexCode = "#EF4444",
-                            Name = "Red"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            HexCode = "#3B82F6",
-                            Name = "Blue"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            HexCode = "#10B981",
-                            Name = "Green"
-                        });
                 });
 
             modelBuilder.Entity("NiceShop.Models.Coupon", b =>
@@ -763,32 +734,6 @@ namespace NiceShop.Migrations
                         .IsUnique();
 
                     b.ToTable("Sizes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Code = "S",
-                            Name = "Small"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Code = "M",
-                            Name = "Medium"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Code = "L",
-                            Name = "Large"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Code = "XL",
-                            Name = "Extra Large"
-                        });
                 });
 
             modelBuilder.Entity("ProductSize", b =>
