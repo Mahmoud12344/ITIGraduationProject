@@ -30,7 +30,7 @@ artifacts/
 
 # ASP.NET Scaffolding
 # Visual Studio cache/options directory
-.vs/ss
+.vs/
 
 ScaffoldingReadMe.txt
 
@@ -61,3 +61,4 @@ nunit-*.xml
 
 [Oo]bj/
 [Bb]in/
+.vs/

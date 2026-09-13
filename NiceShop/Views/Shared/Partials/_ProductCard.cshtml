@@ -1,52 +1,70 @@
+@model NiceShop.Models.Product
+
 <div class="ns-product-card">
     <div class="ns-card-img-wrap position-relative">
-        <a href="#">
-            <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500" alt="Product Name" loading="lazy">
+        <a asp-action="Details" asp-route-id="@Model.Id">
+            <img src="@(Model.Images.Any() ? Model.Images.First().FilePath : "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500")" alt="@Model.Name" loading="lazy">
         </a>
-        
-        <!-- Badges -->
+
         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1">
-            <!-- TODO: Conditionally show badges based on product state -->
-            <span class="ns-badge-sale">20% OFF</span>
-            <!-- <span class="ns-badge-sold-out">SOLD OUT</span> -->
-            <!-- <span class="ns-badge-low-stock">ONLY 2 LEFT</span> -->
+            @if (Model.IsOnSale && Model.Discount.HasValue)
+            {
+                <span class="ns-badge-sale">@Model.Discount% OFF</span>
+            }
+            @if (Model.Stock == 0)
+            {
+                <span class="ns-badge-sold-out">SOLD OUT</span>
+            }
+            else if (Model.Stock <= 3)
+            {
+                <span class="ns-badge-low-stock">ONLY @Model.Stock LEFT</span>
+            }
         </div>
-        
-        <!-- Wishlist Button -->
-        <button class="ns-wishlist-btn" onclick="window.nsCart.toggleWishlist(this, 'product-id')" aria-label="Add to wishlist">
+
+        <button class="ns-wishlist-btn" onclick="window.nsCart.toggleWishlist(this, '@Model.Id')" aria-label="Add to wishlist">
             <i class="bi bi-heart"></i>
         </button>
-        
-        <!-- Hover Quick Actions -->
+
         <div class="ns-card-hover-actions">
-            <button class="ns-quick-view-btn" onclick="window.nsQuickView.open('product-id')">Quick View</button>
+            <button class="ns-quick-view-btn" onclick="window.nsQuickView.open('@Model.Id')">Quick View</button>
         </div>
     </div>
-    
+
     <div class="ns-card-info">
-        <div class="ns-card-brand">Brand Name</div>
-        <a href="#" class="text-decoration-none">
-            <h3 class="ns-card-title line-clamp-1">Product Name</h3>
+        <div class="ns-card-brand">@(Model.Brand?.Name ?? "")</div>
+        <a asp-action="Details" asp-route-id="@Model.Id" class="text-decoration-none">
+            <h3 class="ns-card-title line-clamp-1">@Model.Name</h3>
         </a>
-        
+
         <div class="d-flex align-items-center mt-1">
-            <span class="ns-card-price">$99.99</span>
-            <!-- TODO: Conditionally show original price -->
-            <span class="ns-card-original-price">$129.99</span>
+            <span class="ns-card-price">@Model.Price.ToString("C")</span>
+            @if (Model.IsOnSale && Model.Discount.HasValue)
+            {
+                decimal discountFraction = Model.Discount.Value / 100m;
+                decimal originalPrice = Model.Price / (1m - discountFraction);
+                <span class="ns-card-original-price">@originalPrice.ToString("C")</span>
+            }
         </div>
-        
+
         <div class="ns-card-footer">
             <div class="ns-stars">
-                <!-- TODO: Loop to show stars based on rating -->
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-half"></i>
-                <span class="ns-rating-text">(10)</span>
+                @{
+                    var fullStars = (int)Math.Floor(Model.Rating);
+                    decimal ratingRemainder = Model.Rating - fullStars;
+                    bool hasHalfStar = ratingRemainder >= 0.5m;
+                }
+                @for (int i = 0; i < fullStars; i++)
+                {
+                    <i class="bi bi-star-fill"></i>
+                }
+                @if (hasHalfStar)
+                {
+                    <i class="bi bi-star-half"></i>
+                }
+                <span class="ns-rating-text">(@Model.ReviewCount)</span>
             </div>
-            
-            <button class="btn-ns-add-cart" onclick="window.nsCart.updateQuantity('product-id', 'Default', 'Default', 1)">
+
+            <button class="btn-ns-add-cart" @(Model.Stock == 0 ? "disabled" : "") onclick="window.nsCart.updateQuantity('@Model.Id', 'Default', 'Default', 1)">
                 <i class="bi bi-bag-plus"></i>
                 <span class="d-none d-sm-inline">Add</span>
             </button>

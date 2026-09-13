@@ -1,27 +1,26 @@
-@model NiceShop.Models.Product
+﻿@model NiceShop.Models.Product
 
 @{
-    ViewData["Title"] = "Add New Product";
+    ViewData["Title"] = "Update product";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <!-- success message -->
-@if (TempData["SuccessMessage"] != null)
+@if (TempData["EditMessage"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["EditMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 <!-- ===============  -->
-<form id="addProductForm" asp-action="AddProduct" method="post" enctype="multipart/form-data">
 
-    <div asp-validation-summary="All" class="alert alert-danger"></div>
-
+<form id="editProductForm" asp-action="EditProduct" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="font-serif fw-bold h3 mb-1">Add Product</h1>
-            <p class="text-muted mb-0">Create a new item in your catalog.</p>
+            <h1 class="font-serif fw-bold h3 mb-1">Edit Product</h1>
+            <p class="text-muted mb-0">update an existing product.</p>
         </div>
         <div>
             <a asp-action="Products" class="btn btn-ns-outline btn-sm me-2">Cancel</a>
@@ -72,16 +71,43 @@
             <div class="ns-admin-card p-3">
                 <h2 class="h6 fw-bold mb-3">Product Images</h2>
                 
+                <!-- 1. Show Existing Images -->
+                @if (Model.Images != null && Model.Images.Any())
+                {
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Current Images</label>
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach (var img in Model.Images)
+                            {
+                                <div class="badge bg-secondary text-white border d-flex align-items-center gap-2 py-2 px-3 shadow-sm">
+                                    <!-- Tiny image preview -->
+                                    <img src="@img.FilePath" alt="@img.Name" style="width: 20px; height: 20px; object-fit: cover; border-radius: 2px;" />
+                                    <!-- Image Name -->
+                                    <span class="text-truncate" style="max-width: 150px;" title="@img.Name">@img.Name</span>
+                                    
+                                    <!-- Tag the default thumbnail so you know which is the main picture -->
+                                    @if (img.IsDefault)
+                                    {
+                                        <span class="badge bg-light text-dark ms-1" style="font-size: 0.6rem;">Main</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <hr class="text-muted opacity-25" />
+                }
+
+                <!-- 2. Upload New Images -->
                 <div class="mb-2">
-                    <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Upload Images</label>
+                    <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Add New Images</label>
                     <input type="file" name="imageFiles" id="imageFilesInput" class="form-control bg-light border-light form-control-sm" accept="image/*" multiple />
-                    <div class="form-text mt-1 small">First image selected will be the default thumbnail. You can select files multiple times.</div>
+                    <div class="form-text mt-1 small">These will be added to the existing gallery. First image overall becomes the default thumbnail.</div>
                     
-                    <!-- Horizontal File Name Badges Container -->
+                    <!-- Horizontal File Name Badges Container (For newly selected files before save) -->
                     <div id="selectedFilesList" class="d-flex flex-wrap gap-2 mt-3"></div>
                 </div>
             </div>
-        </div> 
+        </div>
 
         <!-- Right Column -->
         <div class="col-lg-4">
@@ -125,8 +151,7 @@
                 </div>
             </div>
 
-
-            <!-- Available Colors Card -->
+            <!-- colors -->
             <div class="ns-admin-card p-4 mb-4">
                 <h2 class="h6 fw-bold mb-3">Available Colors</h2>
                 <div class="d-flex flex-wrap gap-2">
@@ -134,8 +159,9 @@
                     {
                         @foreach (var color in ViewBag.Colors)
                         {
+                            bool hasColor = Model.Colors != null && Model.Colors.Any(c => c.Id == color.Id);
                             <div>
-                                <input type="checkbox" name="colorIds" value="@color.Id" class="btn-check color-checkbox" id="color_@color.Id" autocomplete="off">
+                                <input type="checkbox" name="colorIds" value="@color.Id" class="btn-check color-checkbox" id="color_@color.Id" autocomplete="off" @(hasColor ? "checked" : "")>
                                 <label class="color-circle shadow-sm" for="color_@color.Id" style="background-color: @color.HexCode;" title="@color.Name">
                                     <i class="bi bi-check text-white check-icon"></i>
                                 </label>
@@ -157,8 +183,10 @@
                     {
                         @foreach (var size in ViewBag.Sizes)
                         {
+                            bool hasSize = Model.Sizes != null && Model.Sizes.Any(s => s.Id == size.Id);
+
                             <div>
-                                <input type="checkbox" name="sizeIds" value="@size.Id" class="btn-check" id="size_@size.Id" autocomplete="off">
+                                <input type="checkbox" name="sizeIds" value="@size.Id" class="btn-check" id="size_@size.Id" autocomplete="off" @(hasSize ? "checked" : "")>
                                 <label class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-pill shadow-sm" for="size_@size.Id">
                                     @size.Name @(size.Code != null ? $"({size.Code})" : "")
                                 </label>
