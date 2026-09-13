@@ -7,7 +7,7 @@
     
     <div class="d-flex align-items-center justify-content-center gap-2 flex-grow-1">
         <span>Complimentary Express Shipping on Orders Over <span class="ns-gold-text fw-bold">$200</span></span>
-        <a href="#" class="text-decoration-none border-bottom border-secondary ms-2" style="color: inherit;">Shop Now</a>
+        <a asp-controller="Products" asp-action="Index" class="text-decoration-none border-bottom border-secondary ms-2" style="color: inherit;">Shop Now</a>
     </div>
     
     <div class="d-none d-md-flex align-items-center gap-3">
@@ -135,7 +135,7 @@
 <!-- 3. Navigation Bar -->
 <div class="ns-nav-bar px-3 px-lg-5 d-none d-lg-flex justify-content-center align-items-center py-2 position-relative">
     <nav class="d-flex gap-2">
-        <a href="#" class="ns-nav-link active">Home</a>
+        <a asp-controller="Home" asp-action="Index" class="ns-nav-link active">Home</a>
         
         <div class="position-relative d-inline-block" id="nav-collections-dropdown">
             <button class="ns-nav-link d-flex align-items-center gap-1">
@@ -165,14 +165,14 @@
                             <i class="bi bi-stars fs-3 mb-2" style="color: var(--ns-gold);"></i>
                             <div class="font-serif fw-bold mb-1">Spring Collection</div>
                             <p class="small text-muted mb-3">Discover the new arrivals directly from Paris.</p>
-                            <a href="#" class="btn-ns-primary w-100 text-decoration-none d-inline-block">Shop Now</a>
+                            <a asp-controller="Products" asp-action="Index" class="btn-ns-primary w-100 text-decoration-none d-inline-block">Shop Now</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <a href="#" class="ns-nav-link">Shop</a>
+        <a asp-controller="Products" asp-action="Index" class="ns-nav-link">Shop</a>
         <a href="#" class="ns-nav-link ns-sale-link">Flash Sale</a>
         <a href="#" class="ns-nav-link">Track Order</a>
         @if (User.IsInRole("Admin")){
