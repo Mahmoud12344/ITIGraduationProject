@@ -30,27 +30,19 @@
             }
             <nav class="flex-grow-1">
                 <a asp-controller = "Admin" asp-action = "Dashboard" class="ns-sidebar-link @(currentAction == "Dashboard" ? "active" : "")"/>
-                <a  asp-action="Dashboard" asp-controller="Admin" class="ns-sidebar-link active">
-                    <i class="bi bi-grid-1x2"></i> Dashboard
-               
+                <a asp-action="Dashboard" asp-controller="Admin" class="ns-sidebar-link active"/>
+                <i class="bi bi-grid-1x2"></i> Dashboard
                 <a asp-controller="Admin" asp-action="Products" class="ns-sidebar-link @(currentAction == "Products" ? "active" : "")"/>
-                    <i class="bi bi-box-seam"></i> Products
-               
-
+                <i class="bi bi-box-seam"></i> Products
                 <a asp-controller="Admin" asp-action="Orders" class="ns-sidebar-link @(currentAction == "Orders" ? "active" : "")"/>
-                    <i class="bi bi-cart3"></i> Orders
-                
-                <a  asp-action="Reviews" asp-controller="Admin"  class="ns-sidebar-link"/>
-                    <i class="bi bi-star"></i> Reviews
-                
-             
+                <i class="bi bi-cart3"></i> Orders
+                <a asp-action="Reviews" asp-controller="Admin" class="ns-sidebar-link"/>
+                <i class="bi bi-star"></i> Reviews
                 <a asp-controller="Admin" asp-action="Categories" class="ns-sidebar-link @(currentAction == "Categories" ? "active" : "")"/>
-                    <i class="bi bi-tags"></i> Categories
-                
+                <i class="bi bi-tags"></i> Categories
+                <a asp-action="Coupons" asp-controller="Coupon" class="ns-sidebar-link"/>
+                <i class="bi bi-tags"></i> Coupons
 
-                <a  asp-action="Coupons" asp-controller="Coupon"  class="ns-sidebar-link"/>
-                    <i class="bi bi-tags"></i> Coupons
-              
             </nav>
             
             <div class="mt-auto pt-4 border-top ns-border">
