@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NiceShop.Models;
 using Color = NiceShop.Models.Color;
@@ -6,7 +7,7 @@ using Size = NiceShop.Models.Size;
 
 namespace NiceShop.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext :IdentityDbContext<ApplicationUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
     {

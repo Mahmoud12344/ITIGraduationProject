@@ -26,20 +26,23 @@
             </div>
             
             <nav class="flex-grow-1">
-                <a href="#" class="ns-sidebar-link active">
+                <a  asp-action="Dashboard" asp-controller="Admin" class="ns-sidebar-link active">
                     <i class="bi bi-grid-1x2"></i> Dashboard
                 </a>
-                <a href="#" class="ns-sidebar-link">
+                <a    asp-action="Products" asp-controller="Admin"  class="ns-sidebar-link">
                     <i class="bi bi-box-seam"></i> Products
                 </a>
-                <a href="#" class="ns-sidebar-link">
+                <a    asp-action="Orders" asp-controller="Admin" class="ns-sidebar-link">
                     <i class="bi bi-cart3"></i> Orders
                 </a>
-                <a href="#" class="ns-sidebar-link">
+                <a  asp-action="Reviews" asp-controller="Admin"  class="ns-sidebar-link">
                     <i class="bi bi-star"></i> Reviews
                 </a>
                 <a href="#" class="ns-sidebar-link">
                     <i class="bi bi-tags"></i> Categories & Coupons
+                </a>
+                <a  asp-action="Coupons" asp-controller="Coupon"  class="ns-sidebar-link">
+                    <i class="bi bi-tags"></i> Coupons
                 </a>
             </nav>
             
@@ -51,7 +54,7 @@
                         </div>
                         <div>
                             <div class="fw-bold" style="font-Size: 0.75rem;">Admin User</div>
-                            <div class="text-muted" style="font-Size: 0.625rem;">admin@niceshop.com</div>
+                            <div class="text-muted" style="font-Size: 0.625rem;">@(User.Identity?.Name??  "Admin"  ) </div>
                         </div>
                     </div>
                 </div>
@@ -60,7 +63,7 @@
                     <button class="ns-theme-toggle flex-grow-1 py-1" aria-label="Toggle theme">
                         <i class="bi bi-sun"></i>
                     </button>
-                    <a href="#" class="btn btn-ns-outline flex-grow-1 py-1 px-2 d-flex align-items-center justify-content-center gap-1" style="font-Size: 0.6875rem;">
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-ns-outline flex-grow-1 py-1 px-2 d-flex align-items-center justify-content-center gap-1" style="font-Size: 0.6875rem;">
                         <i class="bi bi-shop"></i> Store
                     </a>
                 </div>
