@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace NiceShop.Models;
 
 public class Category {
     public int Id { get; set; }
+    [Required(ErrorMessage ="This field is required")]
     public string Name { get; set; } = default!;
     public string Slug { get; set; } = default!;
 
