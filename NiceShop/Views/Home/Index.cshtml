@@ -1,4 +1,3 @@
-
 @{
     ViewData["Title"] = "Luxury Fashion";
 }
@@ -49,7 +48,7 @@
 
 <!-- Main Container -->
 <div class="container py-4">
-    
+
     <!-- Curated Categories -->
     <section class="mb-5 pb-4 border-bottom ns-border-light">
         <div class="d-flex justify-content-between align-items-end mb-4">
@@ -57,10 +56,10 @@
                 <div class="ns-section-label">Discover</div>
                 <h2 class="ns-section-title">Curated Categories</h2>
             </div>
-            
+
             <a href="#" class="text-decoration-none ns-text-gold fw-bold" style="font-Size: 0.8125rem;">View All <i class="bi bi-arrow-right"></i></a>
         </div>
-        
+
         <div class="row row-cols-2 row-cols-md-4 g-4">
             <!-- TODO: Loop over Categories here. Each category needs an Image Url, Category Name, Slug (for link), and Item Count. -->
             <div class="col">
@@ -82,7 +81,7 @@
                 <div class="ns-section-label">The Edit</div>
                 <h2 class="ns-section-title">Featured Pieces</h2>
             </div>
-            
+
             <div class="ns-filter-tabs">
                 <button class="ns-filter-tab active" data-filter="trending">Trending Now</button>
                 <button class="ns-filter-tab" data-filter="new">New Arrivals</button>
@@ -90,12 +89,17 @@
                 <button class="ns-filter-tab text-danger" data-filter="sale">Sale</button>
             </div>
         </div>
-        
+
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4" id="featured-products-container">
-            <!-- TODO: Loop over Featured Products here. Use the _ProductCard partial. Pass the product model to the partial. -->
-            <div class="col">
-                <partial name="Partials/_ProductCard" />
-            </div>
+            @if (ViewBag.FeaturedProducts != null)
+            {
+                foreach (var product in (List<NiceShop.Models.Product>)ViewBag.FeaturedProducts)
+                {
+                    <div class="col">
+                        <partial name="Partials/_ProductCard" model="product" />
+                    </div>
+                }
+            }
         </div>
     </section>
 
@@ -108,16 +112,16 @@
                     <div class="d-inline-flex align-items-center gap-2 px-3 py-1 bg-danger text-white rounded-pill mb-4" style="font-Size: 0.6875rem; font-weight:700; letter-spacing:0.05em;">
                         <i class="bi bi-lightning-charge-fill"></i> FLASH SALE
                     </div>
-                    
+
                     <h2 class="font-display display-6 fw-bold mb-3">Flash Sale Product Name</h2>
                     <p class="text-white-50 mb-4" style="font-Size: 0.875rem;">Product Description goes here...</p>
-                    
+
                     <div class="d-flex align-items-end gap-3 mb-4">
                         <div class="font-serif fw-bold text-white fs-3">$99.99</div>
                         <div class="text-white-50 text-decoration-line-through mb-1">$149.99</div>
                         <div class="text-warning fw-bold mb-1 ms-2">Save 30%</div>
                     </div>
-                    
+
                     <!-- Countdown -->
                     <div class="d-flex gap-2 mb-4">
                         <div class="ns-countdown-unit">
@@ -135,7 +139,7 @@
                             <span class="ns-countdown-label">Secs</span>
                         </div>
                     </div>
-                    
+
                     <!-- Stock -->
                     <div class="mb-4" style="max-width: 300px;">
                         <div class="d-flex justify-content-between text-white-50 mb-2" style="font-Size: 0.6875rem;">
@@ -146,10 +150,10 @@
                             <div class="ns-stock-bar-fill" style="width: 15%;"></div>
                         </div>
                     </div>
-                    
+
                     <a href="#" class="btn btn-ns-primary px-4">Shop The Deal</a>
                 </div>
-                
+
                 <div class="col-md-6 order-1 order-md-2">
                     <div class="position-relative h-100 w-100" style="min-height: 400px;">
                         <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800" alt="Flash Sale" class="position-absolute w-100 h-100 object-fit-cover rounded-4" style="box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
@@ -179,13 +183,13 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Newsletter (Minimal) -->
     <section class="text-center py-5 border-top ns-border-light">
         <div class="ns-section-label mb-2">Join The Club</div>
         <h2 class="ns-section-title mb-3">10% Off Your First Order</h2>
         <p class="text-muted mb-4 mx-auto" style="max-width: 500px;">Subscribe to receive updates, access to exclusive deals, and more.</p>
-        
+
         <form class="d-flex mx-auto" style="max-width: 400px;">
             <input type="email" class="ns-form-input me-2" placeholder="Your email address" style="border-radius: 9999px;">
             <button class="btn btn-ns-dark" style="border-radius: 9999px; padding-left: 1.5rem; padding-right: 1.5rem;">Subscribe</button>

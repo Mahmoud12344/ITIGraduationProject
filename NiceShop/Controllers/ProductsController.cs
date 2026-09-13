@@ -13,9 +13,19 @@ public class ProductsController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    // GET: Products (Shop All)
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var products = await _context.Products
+            .Include(p => p.Category)
+            .Include(p => p.Brand)
+            .Where(p => p.IsActive)
+            .ToListAsync();
+
+        ViewBag.Categories = await _context.Categories.ToListAsync();
+        ViewBag.Brands = await _context.Brands.ToListAsync();
+
+        return View(products);
     }
 
     public IActionResult Details(string id)
