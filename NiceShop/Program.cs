@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NiceShop.Filters;
 using NiceShop.Models;
 using NiceShop.services;
+using NiceShop.Services;
 
 namespace NiceShop;
 
@@ -34,10 +35,23 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews(opt => { opt.Filters.Add<HandelErrorAttribute>(); }
         );
- 
+
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddScoped<AdminDefualtService>();
+
+        // session setup so guests (not logged in) can have a cart that remembers what they added
+        builder.Services.AddDistributedMemoryCache();
+        builder.Services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromMinutes(30);
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        });
+
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddScoped<ICartService, CartService>();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -50,7 +64,7 @@ public class Program
         using (var scope = app.Services.CreateScope())
         {
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    
+
             // The roles you want in your system
             string[] roleNames = ["Admin"];
 
@@ -71,6 +85,9 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseRouting();
+
+        app.UseSession(); // must be after UseRouting and before UseAuthentication/UseAuthorization
+
         app.UseAuthentication();
         app.UseAuthorization();
 
