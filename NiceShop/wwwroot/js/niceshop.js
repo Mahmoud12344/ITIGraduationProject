@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initFlashSaleCountdown();
     initSearchSuggestions();
     initProductTabs();
+    initProductFilters();
 });
 
 /* ==========================================================================
@@ -251,28 +252,121 @@ function initProductTabs() {
     });
 }
 
-sortSelect.addEventListener('change', applyFiltersAndSort);
-    }
-if (priceRange) {
-    priceRange.addEventListener('input', function () {
-        const val = parseInt(priceRange.value);
-        priceRangeValue.textContent = val >= 2000 ? '$2,000+' : $${ val };
-    });
-}
-if (applyBtn) {
-    applyBtn.addEventListener('click', applyFiltersAndSort);
-}
-if (clearBtn) {
-    clearBtn.addEventListener('click', function () {
-        if (searchInput) searchInput.value = '';
-        if (priceRange) { priceRange.value = 2000; priceRangeValue.textContent = '$2,000+'; }
-        if (inStockSwitch) inStockSwitch.checked = false;
-        document.querySelectorAll('.filter-category:checked, .filter-brand:checked').forEach(cb => cb.checked = false);
-        if (sortSelect) sortSelect.value = 'featured';
-        applyFiltersAndSort();
-    });
-}
+/* ==========================================================================
+   8. PRODUCT FILTERS & SORT (Products/Index page)
+   ========================================================================== */
+function initProductFilters() {
+    const productGrid = document.getElementById('productGrid');
+    if (!productGrid) return; // Not on the Products page — exit silently
 
-// Initial sort on page load
-sortCards(allCards);
+    const sortSelect = document.getElementById('sortSelect');
+    const searchInput = document.getElementById('searchInput');
+    const priceRange = document.getElementById('priceRange');
+    const priceRangeValue = document.getElementById('priceRangeValue');
+    const inStockSwitch = document.getElementById('inStockSwitch');
+    const applyBtn = document.getElementById('applyFiltersBtn');
+    const clearBtn = document.getElementById('clearFiltersBtn');
+    const visibleCount = document.getElementById('visibleCount');
+    const noResultsMsg = document.getElementById('noResultsMsg');
+    const allCards = [...productGrid.querySelectorAll('.product-item')];
+
+    function applyFiltersAndSort() {
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        const maxPrice = priceRange ? parseInt(priceRange.value) : Infinity;
+        const onlyInStock = inStockSwitch ? inStockSwitch.checked : false;
+
+        const selectedCategories = [...document.querySelectorAll('.filter-category:checked')].map(cb => cb.value);
+        const selectedBrands = [...document.querySelectorAll('.filter-brand:checked')].map(cb => cb.value);
+
+        let visible = 0;
+
+        allCards.forEach(card => {
+            const name = card.dataset.name || '';
+            const price = parseFloat(card.dataset.price) || 0;
+            const category = card.dataset.category || '';
+            const brand = card.dataset.brand || '';
+            const inStock = card.dataset.instock === '1';
+
+            let show = true;
+
+            // Text search
+            if (query && !name.includes(query)) show = false;
+
+            // Price filter
+            if (price > maxPrice) show = false;
+
+            // Category filter
+            if (selectedCategories.length > 0 && !selectedCategories.includes(category)) show = false;
+
+            // Brand filter
+            if (selectedBrands.length > 0 && !selectedBrands.includes(brand)) show = false;
+
+            // In-stock filter
+            if (onlyInStock && !inStock) show = false;
+
+            card.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+
+        // Update visible count
+        if (visibleCount) visibleCount.textContent = visible;
+
+        // Show/hide "no results" message
+        if (noResultsMsg) {
+            noResultsMsg.classList.toggle('d-none', visible > 0);
+        }
+
+        // Sort the visible cards
+        sortCards(allCards);
+    }
+
+    function sortCards(cards) {
+        if (!sortSelect) return;
+        const sortValue = sortSelect.value;
+
+        const sorted = [...cards].sort((a, b) => {
+            switch (sortValue) {
+                case 'price-asc':
+                    return (parseFloat(a.dataset.price) || 0) - (parseFloat(b.dataset.price) || 0);
+                case 'price-desc':
+                    return (parseFloat(b.dataset.price) || 0) - (parseFloat(a.dataset.price) || 0);
+                case 'rating-desc':
+                    return (parseFloat(b.dataset.rating) || 0) - (parseFloat(a.dataset.rating) || 0);
+                case 'new':
+                    return (parseInt(b.dataset.created) || 0) - (parseInt(a.dataset.created) || 0);
+                case 'featured':
+                default:
+                    return (parseInt(b.dataset.featured) || 0) - (parseInt(a.dataset.featured) || 0);
+            }
+        });
+
+        sorted.forEach(card => productGrid.appendChild(card));
+    }
+
+    // Wire up event listeners
+    if (sortSelect) {
+        sortSelect.addEventListener('change', applyFiltersAndSort);
+    }
+    if (priceRange) {
+        priceRange.addEventListener('input', function () {
+            const val = parseInt(priceRange.value);
+            priceRangeValue.textContent = val >= 2000 ? '$2,000+' : `$${val}`;
+        });
+    }
+    if (applyBtn) {
+        applyBtn.addEventListener('click', applyFiltersAndSort);
+    }
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+            if (searchInput) searchInput.value = '';
+            if (priceRange) { priceRange.value = 2000; priceRangeValue.textContent = '$2,000+'; }
+            if (inStockSwitch) inStockSwitch.checked = false;
+            document.querySelectorAll('.filter-category:checked, .filter-brand:checked').forEach(cb => cb.checked = false);
+            if (sortSelect) sortSelect.value = 'featured';
+            applyFiltersAndSort();
+        });
+    }
+
+    // Initial sort on page load
+    sortCards(allCards);
 }
