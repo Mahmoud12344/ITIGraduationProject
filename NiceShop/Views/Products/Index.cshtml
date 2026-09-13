@@ -1,6 +1,9 @@
+@model IEnumerable<NiceShop.Models.Product>
 
 @{
     ViewData["Title"] = "Shop All";
+    var categories = ViewBag.Categories as List<NiceShop.Models.Category>;
+    var brands = ViewBag.Brands as List<NiceShop.Models.Brand>;
 }
 
 <!-- Page Header -->
@@ -18,13 +21,12 @@
 </div>
 
 <div class="container pb-5">
-    
-    <!-- Top Controls -->
+
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-3 border-bottom ns-border-light gap-3">
         <div class="text-muted" style="font-Size: 0.8125rem;">
-            Showing <span class="fw-bold text-body">12</span> of <span class="fw-bold text-body">120</span> Products
+            Showing <span class="fw-bold text-body" id="visibleCount">@Model.Count()</span> of <span class="fw-bold text-body">@Model.Count()</span> Products
         </div>
-        
+
         <div class="d-flex align-items-center gap-3">
             <div class="d-flex align-items-center gap-2">
                 <label for="sortSelect" class="text-muted text-uppercase fw-bold" style="font-Size: 0.6875rem; letter-spacing: 0.05em;">Sort By</label>
@@ -33,9 +35,10 @@
                     <option value="new">Newest Arrivals</option>
                     <option value="price-asc">Price: Low to High</option>
                     <option value="price-desc">Price: High to Low</option>
+                    <option value="rating-desc">Highest Rated</option>
                 </select>
             </div>
-            
+
             <div class="d-lg-none">
                 <button class="btn btn-ns-outline py-1 px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterSidebar">
                     <i class="bi bi-funnel"></i> Filters
@@ -45,84 +48,100 @@
     </div>
 
     <div class="row">
-        <!-- Sidebar Filters (Desktop) -->
         <aside class="col-lg-3 d-none d-lg-block">
             <div class="ns-filter-sidebar">
-                
-                <!-- Search -->
+
                 <div class="mb-4">
                     <div class="ns-filter-label">Search</div>
                     <div class="position-relative">
-                        <input type="text" class="ns-form-input pe-4" placeholder="Search products...">
+                        <input type="text" id="searchInput" class="ns-form-input pe-4" placeholder="Search products...">
                         <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-2 text-muted"></i>
                     </div>
                 </div>
 
-                <!-- Categories -->
                 <div class="mb-4 border-top ns-border-light pt-4">
                     <div class="ns-filter-label mb-3">Categories</div>
-                    <div class="d-flex flex-column gap-2">
-                        <!-- TODO: Loop over Categories here. Each category needs an Id, Name, and ItemCount. Determine 'checked' state based on filters. -->
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="cat-1">
-                            <label class="form-check-label text-muted d-flex justify-content-between" for="cat-1" style="font-Size: 0.8125rem;">
-                                <span>Category Name</span>
-                                <span class="opacity-50">120</span>
-                            </label>
-                        </div>
+                    <div class="d-flex flex-column gap-2" id="categoryFilterList">
+                        @if (categories != null)
+                        {
+                            foreach (var cat in categories)
+                            {
+                                var catCount = Model.Count(p => p.CategoryId == cat.Id);
+                                <div class="form-check">
+                                    <input class="form-check-input filter-category" type="checkbox" id="cat-@cat.Id" value="@cat.Id" />
+                                    <label class="form-check-label text-muted d-flex justify-content-between" for="cat-@cat.Id" style="font-Size: 0.8125rem;">
+                                        <span>@cat.Name</span>
+                                        <span class="opacity-50">@catCount</span>
+                                    </label>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
 
-                <!-- Brands -->
                 <div class="mb-4 border-top ns-border-light pt-4">
                     <div class="ns-filter-label mb-3">Brands</div>
-                    <div class="d-flex flex-column gap-2">
-                        <!-- TODO: Loop over Brands here. Each brand needs an Id, Name, and ProductCount. -->
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="brand-1">
-                            <label class="form-check-label text-muted d-flex justify-content-between" for="brand-1" style="font-Size: 0.8125rem;">
-                                <span>Brand Name</span>
-                                <span class="opacity-50">45</span>
-                            </label>
-                        </div>
+                    <div class="d-flex flex-column gap-2" id="brandFilterList">
+                        @if (brands != null)
+                        {
+                            foreach (var brand in brands)
+                            {
+                                var brandCount = Model.Count(p => p.BrandId == brand.Id);
+                                <div class="form-check">
+                                    <input class="form-check-input filter-brand" type="checkbox" id="brand-@brand.Id" value="@brand.Id" />
+                                    <label class="form-check-label text-muted d-flex justify-content-between" for="brand-@brand.Id" style="font-Size: 0.8125rem;">
+                                        <span>@brand.Name</span>
+                                        <span class="opacity-50">@brandCount</span>
+                                    </label>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
 
-                <!-- Price Range -->
                 <div class="mb-4 border-top ns-border-light pt-4">
                     <div class="ns-filter-label mb-3">Price Range</div>
-                    <input type="range" class="form-range" min="0" max="2000" id="priceRange">
+                    <input type="range" class="form-range" min="0" max="2000" id="priceRange" value="2000" />
                     <div class="d-flex justify-content-between text-muted mt-2" style="font-Size: 0.75rem;">
                         <span>$0</span>
-                        <span>$2,000+</span>
+                        <span id="priceRangeValue">$2,000+</span>
                     </div>
                 </div>
-                
-                <!-- Availability -->
+
                 <div class="mb-4 border-top ns-border-light pt-4">
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="inStockSwitch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="inStockSwitch" />
                         <label class="form-check-label ns-filter-label ms-2" for="inStockSwitch" style="margin-bottom: 0;">In Stock Only</label>
                     </div>
                 </div>
-                
-                <button class="btn btn-ns-dark w-100">Apply Filters</button>
+
+                <button class="btn btn-ns-dark w-100" id="applyFiltersBtn" type="button">Apply Filters</button>
+                <button class="btn btn-ns-outline w-100 mt-2" id="clearFiltersBtn" type="button">Clear All</button>
 
             </div>
         </aside>
 
-        <!-- Product Grid -->
         <main class="col-12 col-lg-9">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                <!-- TODO: Loop over Products here. Render a _ProductCard partial for each. Add a 'No products found' state conditionally. -->
-                <div class="col">
-                    <partial name="Partials/_ProductCard" />
-                </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="productGrid">
+                @foreach (var product in Model)
+                {
+                    <div class="col product-item"
+                         data-id="@product.Id"
+                         data-name="@product.Name.ToLower()"
+                         data-price="@product.Price"
+                         data-category="@product.CategoryId"
+                         data-brand="@(product.BrandId?.ToString() ?? "")"
+                         data-rating="@product.Rating"
+                         data-created="@product.CreatedAt.Ticks"
+                         data-featured="@(product.IsFeatured ? "1" : "0")"
+                         data-instock="@(product.Stock > 0 ? "1" : "0")">
+                        <partial name="Partials/_ProductCard" model="product" />
+                    </div>
+                }
             </div>
-            
-            <!-- Pagination -->
-            <!-- Pagination -->
-            <!-- TODO: Conditionally render pagination and loop over page numbers -->
+
+            <p class="text-muted text-center py-5 d-none" id="noResultsMsg">No products found matching your filters.</p>
+
             <nav class="mt-5 d-flex justify-content-center" aria-label="Page navigation">
                 <ul class="pagination pagination-sm">
                     <li class="page-item disabled">
@@ -130,31 +149,19 @@
                             <span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
                         </a>
                     </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
-                        </a>
-                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
                 </ul>
             </nav>
         </main>
     </div>
 </div>
 
-<!-- Mobile Filter Offcanvas -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="filterSidebar" aria-labelledby="filterSidebarLabel">
     <div class="offcanvas-header border-bottom">
         <h5 class="offcanvas-title font-serif fw-bold" id="filterSidebarLabel"><i class="bi bi-funnel me-2"></i>Filters</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <!-- Content duplicated from aside above for mobile view. Ideally use a PartialView for filters. -->
-        <p class="text-muted small">Filters content goes here...</p>
+        <p class="text-muted small">Use the desktop sidebar filters for now.</p>
     </div>
 </div>

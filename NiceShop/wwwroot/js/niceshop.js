@@ -250,3 +250,29 @@ function initProductTabs() {
         });
     });
 }
+
+sortSelect.addEventListener('change', applyFiltersAndSort);
+    }
+if (priceRange) {
+    priceRange.addEventListener('input', function () {
+        const val = parseInt(priceRange.value);
+        priceRangeValue.textContent = val >= 2000 ? '$2,000+' : $${ val };
+    });
+}
+if (applyBtn) {
+    applyBtn.addEventListener('click', applyFiltersAndSort);
+}
+if (clearBtn) {
+    clearBtn.addEventListener('click', function () {
+        if (searchInput) searchInput.value = '';
+        if (priceRange) { priceRange.value = 2000; priceRangeValue.textContent = '$2,000+'; }
+        if (inStockSwitch) inStockSwitch.checked = false;
+        document.querySelectorAll('.filter-category:checked, .filter-brand:checked').forEach(cb => cb.checked = false);
+        if (sortSelect) sortSelect.value = 'featured';
+        applyFiltersAndSort();
+    });
+}
+
+// Initial sort on page load
+sortCards(allCards);
+}
