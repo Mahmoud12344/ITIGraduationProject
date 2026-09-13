@@ -1,0 +1,117 @@
+@model IEnumerable<NiceShop.Models.Brand>
+@{
+    ViewData["Title"] = "Brands";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- delete brand error message -->
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<!-- ===============  -->
+<!-- Page Header -->
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+        <h1 class="font-serif fw-bold h3 mb-1">Brands</h1>
+        <p class="text-muted mb-0">Manage Brands.</p>
+    </div>
+    <div>
+        <button class="btn btn-ns-dark" data-bs-toggle="modal" data-bs-target="#addBrandModal">
+            <i class="bi bi-plus-lg me-1"></i> Add Brand
+        </button>
+    </div>
+</div>
+
+<!-- Grid Layout -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    @foreach (var brand in Model)
+    {
+        <div class="col">
+            <div class="card h-100 ns-admin-card overflow-hidden border-0 shadow-sm">
+                
+                <!-- brand Image Cover -->
+                @if (brand.Image != null)
+                {
+                    <img src="@brand.Image.FilePath" class="card-img-top object-fit-cover" alt="@brand.Name" style="height: 180px;" />
+                }
+                else
+                {
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center text-muted border-bottom" style="height: 180px;">
+                        <i class="bi bi-image" style="font-size: 3rem;"></i>
+                    </div>
+                }
+
+                <!-- Card Body (Text) -->
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-1 text-truncate">@brand.Name</h5>
+                    <p class="card-text text-muted small mb-0">@brand.Country</p>
+                </div>
+                
+                <!-- Card Footer (Actions) -->
+                <div class="card-footer bg-white border-top-0 d-flex justify-content-end gap-2 pb-3">
+                    <!--edit brand-->
+                    <a asp-action="EditBrand" asp-route-id="@brand.Id" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-pencil"></i> Edit
+                    </a>
+                    <!-- delete brand-->
+                    <form asp-action="DeleteBrand" method="post" onsubmit="return confirm('Delete this brand?');">
+                        <input type="hidden" name="id" value="@brand.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }   
+</div>
+
+<!-- Empty State -->
+@if (!Model.Any())
+{
+    <div class="text-center py-5 ns-admin-card mt-2">
+        <i class="bi bi-folder2-open text-muted mb-3" style="font-size: 3rem;"></i>
+        <h5 class="fw-bold">No categories yet</h5>
+        <p class="text-muted mb-0">Click the 'Add Brand' button to get started.</p>
+    </div>
+}
+
+<!-- Add brand Modal -->
+<div class="modal fade" id="addBrandModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="AddBrand" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Add New Brand</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Name</label>
+                        <input type="text" name="name" class="form-control bg-light border-light" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Country</label>
+                        <input type="text" name="country" class="form-control bg-light border-light" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Brand Image (Optional)</label>
+                        <input type="file" name="imageFile" class="form-control bg-light border-light" accept="image/*" />
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-link text-muted text-decoration-none" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-ns-dark">Save Brand</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+

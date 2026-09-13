@@ -1,113 +1,235 @@
+@model IEnumerable<NiceShop.Models.Product>
+
 @{
-    ViewData["Title"] = "Products Management";
+    ViewData["Title"] = "Products List";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    int pageSize = 8;
+    int totalItemsCount = Model.Count();
+    int totalPages = totalItemsCount == 0 ? 1 : (int)Math.Ceiling(totalItemsCount / (double)pageSize);
+    int cardIndex = 0;
 }
 
-<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
-    <div>
-        <h1 class="font-serif fw-bold h3 mb-1">Products</h1>
-        <p class="text-muted mb-0">Manage your inventory, pricing, and product details.</p>
-    </div>
+<div class="container-fluid py-2">
     
-    <div class="d-flex gap-2">
-        <!-- Would normally trigger a modal for a new product -->
-        <a href="#" class="btn btn-ns-dark btn-sm"><i class="bi bi-plus-lg me-1"></i> Add Product</a>
+<!-- UNIFIED TOP BAR (Server-Side Filtering) -->
+<div class="d-flex justify-content-between align-items-center mb-4 pb-3" style="border-bottom: 1px solid rgba(255, 193, 7, 0.12);">
+
+    <h1 class="font-serif fw-bold h3 mb-1">Products List </h1>
+    
+    <div class="d-flex align-items-center gap-3">
+        
+        <!-- Filter Form -->
+        <form method="get" asp-action="Products" class="d-flex align-items-center gap-2 m-0">
+            
+            <!-- Search -->
+            <div class="position-relative">
+                <i class="bi bi-search ns-search-icon"></i>
+                <input type="text" name="searchName" class="ns-search-input" placeholder="Search..." value="@Context.Request.Query["searchName"]">
+            </div>
+            
+            <!-- Category -->
+            <select name="category" class="form-select form-select-sm border-light bg-light" style="width: auto; border-radius: 8px;">
+                <option value="">All Categories</option>
+                @if (ViewBag.Categories != null)
+                {
+                    foreach (var cat in ViewBag.Categories)
+                    {
+                        var isSelected = Context.Request.Query["category"] == cat ? "selected" : null;
+                        <option value="@cat" selected="@isSelected">@cat</option>
+                    }
+                }
+            </select>
+
+            <!-- Activity -->
+            <select name="isActive" class="form-select form-select-sm border-light bg-light" style="width: auto; border-radius: 8px;">
+                <option value="">Activity: All</option>
+                <option value="true" selected="@(Context.Request.Query["isActive"] == "true" ? "selected" : null)">Active</option>
+                <option value="false" selected="@(Context.Request.Query["isActive"] == "false" ? "selected" : null)">Inactive</option>
+            </select>
+
+            <!-- Stock -->
+            <select name="stockStatus" class="form-select form-select-sm border-light bg-light" style="width: auto; border-radius: 8px;">
+                <option value="">Stock: All</option>
+                <option value="in" selected="@(Context.Request.Query["stockStatus"] == "in" ? "selected" : null)">In Stock</option>
+                <option value="out" selected="@(Context.Request.Query["stockStatus"] == "out" ? "selected" : null)">Out of Stock</option>
+            </select>
+
+            <button type="submit" class="btn btn-sm btn-secondary ms-1" style="border-radius: 8px;">Apply</button>
+        </form>
+
+        <!-- Add Icon -->
+        <a asp-action="AddProduct" class="ns-btn-add text-decoration-none ms-2">
+            <i class="bi bi-plus-lg"></i>
+        </a>
+
     </div>
 </div>
 
-<div class="ns-admin-card mb-4">
-    <form method="get" class="row g-3">
-        <div class="col-md-5">
-            <div class="position-relative">
-                <input type="text" name="SearchQuery" class="ns-form-input pe-4" placeholder="Search by name or SKU...">
-                <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-2 text-muted"></i>
+
+
+    <!-- MAIN FORM FOR MULTI-DELETE -->
+    <form asp-action="DeleteSelected" method="post" id="multiDeleteForm">
+        
+        <!-- ACTIONS BAR -->
+
+
+        <!-- OVERVIEW HEADER & MULTI-DELETE TRIGGER -->
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <!--  Delete Selected -->
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-sm btn-outline-danger rounded-3 px-3" onclick="return confirm('Are you sure you want to delete the selected products?');">
+                    <i class="bi bi-trash me-1"></i> Delete Selected
+                </button>
             </div>
         </div>
-        <div class="col-md-3">
-            <select name="CategoryFilter" class="form-select ns-form-input">
-                <option value="">All Categories</option>
-                <!-- TODO: Loop over Categories -->
-                <option value="category-slug">Category Name</option>
-            </select>
+
+        <!-- PRODUCTS GRID -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4" id="productsGrid">
+            @foreach (var item in Model)
+            {
+                var thumbnail = item.Images?.FirstOrDefault(i => i.IsDefault)?.FilePath ?? "/assets/placeholder.jpg";
+                cardIndex++;
+                int cardPageNumber = ((cardIndex - 1) / pageSize) + 1;
+
+                <div class="col" data-page="@cardPageNumber" style="@(cardPageNumber == 1 ? "" : "display:none;")">
+                    <div class="ns-product-card">
+                        
+                        <!-- Image Box -->
+                        <div class="ns-image-wrapper">
+                            <div class="ns-image-inner">
+                                <img src="@thumbnail" alt="@item.Name" />
+                            </div>
+                            
+                            <!-- Top Left Checkbox for Multi-Select -->
+                            <input type="checkbox" name="ids" value="@item.Id" class="form-check-input ns-card-checkbox">
+                            
+                            <!-- Top Right 3-Dots Menu -->
+                                <div class="dropdown position-absolute" style="top: 10px; right: 10px;">                                <button class="ns-card-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2">
+                                    <li>
+                                        <a class="dropdown-item small" asp-action="EditProduct" asp-route-id="@item.Id">
+                                            <i class="bi bi-pencil me-2 text-primary"></i> Edit
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <!-- Keep single delete functioning via a button inside this form -->
+                                        <button type="submit" asp-action="DeleteProduct" asp-route-id="@item.Id" class="dropdown-item small text-danger" onclick="return confirm('Delete this specific product?');">
+                                            <i class="bi bi-trash me-2"></i> Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Bottom Right Status Dot (Green for Active, Gray for Inactive) -->
+                            <span class="ns-card-status" style="background-color: @(item.IsActive ? "#10b981" : "#94a3b8");"></span>
+                        </div>
+
+                        <!-- Product Details: Left side Title/Price, Right side Colors/Sizes -->
+                        <div class="d-flex justify-content-between align-items-start mt-2 px-1">
+                            
+                            <!-- Left: Title & Price -->
+                            <div class="text-start overflow-hidden pe-2">
+                                <h3 class="ns-card-title text-truncate" title="@item.Name">@item.Name</h3>
+                                <div class="ns-card-price mt-1">$@item.Price</div>
+                            </div>
+                            
+                            <!-- Right: Colors & Sizes -->
+                            <div class="d-flex flex-column align-items-end gap-2 flex-shrink-0">
+                                @if (item.Colors != null && item.Colors.Any())
+                                {
+                                    <div class="d-flex gap-1 justify-content-end flex-wrap" style="max-width: 60px;">
+                                        @foreach (var color in item.Colors.Take(4))
+                                        {
+                                            <span class="rounded-circle border border-secondary border-opacity-25" style="width: 14px; height: 14px; background-color: @color.HexCode;" title="@color.Name"></span>                                        
+                                        }
+                                    </div>
+                                }
+                                
+                                @if (item.Sizes != null && item.Sizes.Any())
+                                {
+                                    <span class="text-muted text-end fw-medium" style="font-size: 0.75rem;">
+                                        @string.Join(", ", item.Sizes.Select(s => s.Code ?? s.Name).Take(3))
+                                    </span>
+                                }
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-ns-outline w-100">Filter</button>
+    </form> <!-- END MULTI-DELETE FORM -->
+
+    <!-- BOTTOM PAGINATION -->
+    <div class="d-flex justify-content-between align-items-center ns-pagination-container">
+        <div class="d-flex align-items-center gap-1">
+            <button type="button" class="ns-page-link" id="firstPageBtn"><i class="bi bi-chevron-double-left small"></i></button>
+            <button type="button" class="ns-page-link" id="prevPageBtn"><i class="bi bi-chevron-left small"></i></button>
+            @for (int p = 1; p <= totalPages; p++)
+            {
+                <button type="button" class="ns-page-link page-num-btn @(p == 1 ? "active" : "")" data-page="@p">@p</button>
+            }
+            <button type="button" class="ns-page-link" id="nextPageBtn"><i class="bi bi-chevron-right small"></i></button>
+            <button type="button" class="ns-page-link" id="lastPageBtn"><i class="bi bi-chevron-double-right small"></i></button>
         </div>
-    </form>
+        <div class="text-muted small" id="pageInfoText">
+            1-@(Math.Min(pageSize, totalItemsCount)) out of @totalItemsCount items
+        </div>
+    </div>
 </div>
 
-<div class="ns-admin-card p-0 overflow-hidden">
-    <div class="table-responsive">
-        <table class="table table-hover ns-admin-table mb-0">
-            <thead>
-                <tr>
-                    <th style="width: 40px;">
-                        <input type="checkbox" class="form-check-input mt-0">
-                    </th>
-                    <th>Product</th>
-                    <th>Category & Brand</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Status</th>
-                    <th class="text-end">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- TODO: Loop over Products -->
-                <tr>
-                    <td>
-                        <input type="checkbox" class="form-check-input mt-0" value="product-id">
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="bg-light rounded" style="width: 40px; height: 40px; overflow: hidden; flex-shrink: 0;">
-                                <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=100" class="w-100 h-100 object-fit-cover">
-                            </div>
-                            <div>
-                                <div class="fw-bold line-clamp-1" style="max-width: 250px;">Product Name</div>
-                                <div class="text-muted" style="font-Size: 0.6875rem;">SKU: ITEM-SKU</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div>Category Name</div>
-                        <div class="text-muted" style="font-Size: 0.6875rem;">Brand Name</div>
-                    </td>
-                    <td>
-                        <div class="fw-bold">$99.99</div>
-                        <!-- TODO: Conditionally show original price if on sale -->
-                        <div class="text-muted text-decoration-line-through" style="font-Size: 0.6875rem;">$129.99</div>
-                    </td>
-                    <td>
-                        <div class="ns-stock-adjuster">
-                            <button type="button" onclick="window.nsAdmin.updateStock('product-id', -1)"><i class="bi bi-dash"></i></button>
-                            <input type="number" id="stock-product-id" value="10" class="form-control form-control-sm text-center bg-transparent border-0 px-0" style="width: 40px; font-weight: bold; box-shadow: none;" readonly>
-                            <button type="button" onclick="window.nsAdmin.updateStock('product-id', 1)"><i class="bi bi-plus"></i></button>
-                        </div>
-                    </td>
-                    <td>
-                        <!-- TODO: Toggle active class and text based on product status -->
-                        <button type="button" class="ns-toggle-active is-active" onclick="window.nsAdmin.toggleProductActive(this, 'product-id')">
-                            Active
-                        </button>
-                    </td>
-                    <td class="text-end">
-                        <button class="btn btn-sm btn-link text-muted p-1" title="Edit"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-link text-danger p-1" title="Delete" data-confirm="Are you sure you want to delete this product?"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <!-- Pagination (Simplified) -->
-    <div class="d-flex justify-content-between align-items-center p-3 border-top ns-admin-border bg-light ns-bg-surface">
-        <div class="text-muted small">Showing 1 to 10 of 50 entries</div>
-        <ul class="pagination pagination-sm mb-0">
-            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </div>
-</div>
+<script>
+    (function () {
+        var pageSize = @pageSize;
+        var totalItems = @totalItemsCount;
+        var totalPages = @totalPages;
+        var currentPage = 1;
+
+        var cards = document.querySelectorAll('#productsGrid [data-page]');
+        var pageButtons = document.querySelectorAll('.page-num-btn');
+        var prevBtn = document.getElementById('prevPageBtn');
+        var nextBtn = document.getElementById('nextPageBtn');
+        var firstBtn = document.getElementById('firstPageBtn');
+        var lastBtn = document.getElementById('lastPageBtn');
+        var pageInfoText = document.getElementById('pageInfoText');
+
+        function showPage(page) {
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+            currentPage = page;
+
+            cards.forEach(function (card) {
+                var cardPage = parseInt(card.getAttribute('data-page'), 10);
+                card.style.display = (cardPage === currentPage) ? '' : 'none';
+            });
+
+            pageButtons.forEach(function (btn) {
+                var btnPage = parseInt(btn.getAttribute('data-page'), 10);
+                btn.classList.toggle('active', btnPage === currentPage);
+            });
+
+            var startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+            var endItem = Math.min(currentPage * pageSize, totalItems);
+            if (pageInfoText) {
+                pageInfoText.textContent = startItem + '-' + endItem + ' out of ' + totalItems + ' items';
+            }
+        }
+
+        pageButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                showPage(parseInt(btn.getAttribute('data-page'), 10));
+            });
+        });
+
+        if (prevBtn) prevBtn.addEventListener('click', function () { showPage(currentPage - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { showPage(currentPage + 1); });
+        if (firstBtn) firstBtn.addEventListener('click', function () { showPage(1); });
+        if (lastBtn) lastBtn.addEventListener('click', function () { showPage(totalPages); });
+
+        showPage(1);
+    })();
+</script>

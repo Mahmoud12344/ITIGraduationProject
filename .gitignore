@@ -29,6 +29,9 @@ project.fragment.lock.json
 artifacts/
 
 # ASP.NET Scaffolding
+# Visual Studio cache/options directory
+.vs/ss
+
 ScaffoldingReadMe.txt
 
 # NuGet Packages
