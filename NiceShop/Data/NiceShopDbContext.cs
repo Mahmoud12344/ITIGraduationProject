@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NiceShop.Models;
 using Color = NiceShop.Models.Color;
@@ -6,7 +7,7 @@ using Size = NiceShop.Models.Size;
 
 namespace NiceShop.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext :IdentityDbContext<ApplicationUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
     {
@@ -260,6 +261,13 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.SetNull);
 
             e.HasIndex(b => b.Name).IsUnique();
+
+            e.HasData(
+            new Brand { Id = 1, Name = "Nike", Country = "USA", ProductCount = 0 },
+            new Brand { Id = 2, Name = "Adidas", Country = "Germany", ProductCount = 0 },
+            new Brand { Id = 3, Name = "Zara", Country = "Spain", ProductCount = 0 },
+            new Brand { Id = 4, Name = "Gucci", Country = "Italy", ProductCount = 0 }
+        );
         });
     }
     private static void ConfigureCategory(ModelBuilder builder)
@@ -352,6 +360,14 @@ public class ApplicationDbContext : DbContext
             e.Property(c => c.HexCode).IsRequired().HasMaxLength(7); // "#FFFFFF"
 
             e.HasIndex(c => c.Name).IsUnique();
+
+            e.HasData(
+            new Color { Id = 1, Name = "Black", HexCode = "#000000" },
+            new Color { Id = 2, Name = "White", HexCode = "#FFFFFF" },
+            new Color { Id = 3, Name = "Red", HexCode = "#EF4444" },
+            new Color { Id = 4, Name = "Blue", HexCode = "#3B82F6" },
+            new Color { Id = 5, Name = "Green", HexCode = "#10B981" }
+            );
         });
     }
     private static void ConfigureSize(ModelBuilder builder)
@@ -362,6 +378,13 @@ public class ApplicationDbContext : DbContext
             e.Property(s => s.Code).HasMaxLength(10);
 
             e.HasIndex(s => s.Name).IsUnique();
+
+            e.HasData(
+            new Size { Id = 1, Name = "Small", Code = "S" },
+            new Size { Id = 2, Name = "Medium", Code = "M" },
+            new Size { Id = 3, Name = "Large", Code = "L" },
+            new Size { Id = 4, Name = "Extra Large", Code = "XL" }
+            );
         });
     }
     
