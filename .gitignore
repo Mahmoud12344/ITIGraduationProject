@@ -62,3 +62,6 @@ nunit-*.xml
 [Oo]bj/
 [Bb]in/
 .vs/
+
+# Personal files
+NiceShop/myFiles/
