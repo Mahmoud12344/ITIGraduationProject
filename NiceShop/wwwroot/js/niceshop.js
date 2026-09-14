@@ -252,105 +252,103 @@ function initProductTabs() {
     });
 }
 
-/* ==========================================================================
-   8. PRODUCT FILTERS & SORT (Products/Index page)
+            /* ==========================================================================
+   8. SHOP PAGE: SEARCH, FILTER & SORT (Client-side)
    ========================================================================== */
-function initProductFilters() {
-    const productGrid = document.getElementById('productGrid');
-    if (!productGrid) return; // Not on the Products page — exit silently
+document.addEventListener('DOMContentLoaded', function () {
+    initShopFilters();
+});
 
-    const sortSelect = document.getElementById('sortSelect');
+function initShopFilters() {
+    const grid = document.getElementById('productGrid');
+    if (!grid) return;
+
     const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
     const priceRange = document.getElementById('priceRange');
     const priceRangeValue = document.getElementById('priceRangeValue');
     const inStockSwitch = document.getElementById('inStockSwitch');
     const applyBtn = document.getElementById('applyFiltersBtn');
     const clearBtn = document.getElementById('clearFiltersBtn');
-    const visibleCount = document.getElementById('visibleCount');
     const noResultsMsg = document.getElementById('noResultsMsg');
-    const allCards = [...productGrid.querySelectorAll('.product-item')];
+    const visibleCountEl = document.getElementById('visibleCount');
+
+    const allCards = Array.from(grid.querySelectorAll('.product-item'));
+
+    function getCheckedValues(selector) {
+        return Array.from(document.querySelectorAll(selector + ':checked')).map(el => el.value);
+    }
 
     function applyFiltersAndSort() {
-        const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
-        const maxPrice = priceRange ? parseInt(priceRange.value) : Infinity;
-        const onlyInStock = inStockSwitch ? inStockSwitch.checked : false;
+        const searchTerm = (searchInput?.value || '').trim().toLowerCase();
+        const maxPrice = parseFloat(priceRange?.value || 2000);
+        const inStockOnly = inStockSwitch?.checked || false;
+        const selectedCategories = getCheckedValues('.filter-category');
+        const selectedBrands = getCheckedValues('.filter-brand');
 
-        const selectedCategories = [...document.querySelectorAll('.filter-category:checked')].map(cb => cb.value);
-        const selectedBrands = [...document.querySelectorAll('.filter-brand:checked')].map(cb => cb.value);
-
-        let visible = 0;
+        let visibleCards = [];
 
         allCards.forEach(card => {
             const name = card.dataset.name || '';
-            const price = parseFloat(card.dataset.price) || 0;
-            const category = card.dataset.category || '';
-            const brand = card.dataset.brand || '';
+            const price = parseFloat(card.dataset.price || 0);
+            const categoryId = card.dataset.category;
+            const brandId = card.dataset.brand;
             const inStock = card.dataset.instock === '1';
 
-            let show = true;
+            let visible = true;
 
-            // Text search
-            if (query && !name.includes(query)) show = false;
+            if (searchTerm && !name.includes(searchTerm)) visible = false;
+            if (price > maxPrice) visible = false;
+            if (inStockOnly && !inStock) visible = false;
+            if (selectedCategories.length > 0 && !selectedCategories.includes(categoryId)) visible = false;
+            if (selectedBrands.length > 0 && !selectedBrands.includes(brandId)) visible = false;
 
-            // Price filter
-            if (price > maxPrice) show = false;
-
-            // Category filter
-            if (selectedCategories.length > 0 && !selectedCategories.includes(category)) show = false;
-
-            // Brand filter
-            if (selectedBrands.length > 0 && !selectedBrands.includes(brand)) show = false;
-
-            // In-stock filter
-            if (onlyInStock && !inStock) show = false;
-
-            card.style.display = show ? '' : 'none';
-            if (show) visible++;
+            card.style.display = visible ? '' : 'none';
+            if (visible) visibleCards.push(card);
         });
 
-        // Update visible count
-        if (visibleCount) visibleCount.textContent = visible;
+        sortCards(visibleCards);
 
-        // Show/hide "no results" message
         if (noResultsMsg) {
-            noResultsMsg.classList.toggle('d-none', visible > 0);
+            noResultsMsg.classList.toggle('d-none', visibleCards.length > 0);
         }
-
-        // Sort the visible cards
-        sortCards(allCards);
+        if (visibleCountEl) {
+            visibleCountEl.textContent = visibleCards.length;
+        }
     }
 
-    function sortCards(cards) {
-        if (!sortSelect) return;
-        const sortValue = sortSelect.value;
+    function sortCards(visibleCards) {
+        const sortValue = sortSelect?.value || 'featured';
 
-        const sorted = [...cards].sort((a, b) => {
+        const sorted = [...visibleCards].sort((a, b) => {
             switch (sortValue) {
                 case 'price-asc':
-                    return (parseFloat(a.dataset.price) || 0) - (parseFloat(b.dataset.price) || 0);
+                    return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
                 case 'price-desc':
-                    return (parseFloat(b.dataset.price) || 0) - (parseFloat(a.dataset.price) || 0);
-                case 'rating-desc':
-                    return (parseFloat(b.dataset.rating) || 0) - (parseFloat(a.dataset.rating) || 0);
+                    return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
                 case 'new':
-                    return (parseInt(b.dataset.created) || 0) - (parseInt(a.dataset.created) || 0);
+                    return parseInt(b.dataset.created) - parseInt(a.dataset.created);
+                case 'rating-desc':
+                    return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
                 case 'featured':
                 default:
-                    return (parseInt(b.dataset.featured) || 0) - (parseInt(a.dataset.featured) || 0);
+                    return parseInt(b.dataset.featured) - parseInt(a.dataset.featured);
             }
         });
 
-        sorted.forEach(card => productGrid.appendChild(card));
+        sorted.forEach(card => grid.appendChild(card));
     }
 
-    // Wire up event listeners
+    if (searchInput) {
+        searchInput.addEventListener('input', applyFiltersAndSort);
+    }
     if (sortSelect) {
         sortSelect.addEventListener('change', applyFiltersAndSort);
     }
     if (priceRange) {
         priceRange.addEventListener('input', function () {
             const val = parseInt(priceRange.value);
-            priceRangeValue.textContent = val >= 2000 ? '$2,000+' : `$${val}`;
+            priceRangeValue.textContent = val >= 50000 ? '$50,000+' : `$${val}`;
         });
     }
     if (applyBtn) {
@@ -367,6 +365,5 @@ function initProductFilters() {
         });
     }
 
-    // Initial sort on page load
     sortCards(allCards);
 }

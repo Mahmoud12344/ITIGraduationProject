@@ -16,7 +16,7 @@
 <!-- ===============  -->
 
 <form id="editProductForm" asp-action="EditProduct" method="post" enctype="multipart/form-data">
-        <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Id" />
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="font-serif fw-bold h3 mb-1">Edit Product</h1>
@@ -29,7 +29,7 @@
     </div>
 
     <div class="row g-4">
-        
+
         <!-- Left Column (Main Info & Images) -->
         <div class="col-lg-8">
             <!-- General Information Card -->
@@ -70,7 +70,7 @@
             <!-- Product Images Card -->
             <div class="ns-admin-card p-3">
                 <h2 class="h6 fw-bold mb-3">Product Images</h2>
-                
+
                 <!-- 1. Show Existing Images -->
                 @if (Model.Images != null && Model.Images.Any())
                 {
@@ -84,7 +84,7 @@
                                     <img src="@img.FilePath" alt="@img.Name" style="width: 20px; height: 20px; object-fit: cover; border-radius: 2px;" />
                                     <!-- Image Name -->
                                     <span class="text-truncate" style="max-width: 150px;" title="@img.Name">@img.Name</span>
-                                    
+
                                     <!-- Tag the default thumbnail so you know which is the main picture -->
                                     @if (img.IsDefault)
                                     {
@@ -102,7 +102,7 @@
                     <label class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Add New Images</label>
                     <input type="file" name="imageFiles" id="imageFilesInput" class="form-control bg-light border-light form-control-sm" accept="image/*" multiple />
                     <div class="form-text mt-1 small">These will be added to the existing gallery. First image overall becomes the default thumbnail.</div>
-                    
+
                     <!-- Horizontal File Name Badges Container (For newly selected files before save) -->
                     <div id="selectedFilesList" class="d-flex flex-wrap gap-2 mt-3"></div>
                 </div>
@@ -111,7 +111,7 @@
 
         <!-- Right Column -->
         <div class="col-lg-4">
-            
+
             <!-- Organization Card -->
             <div class="ns-admin-card p-4 mb-4">
                 <h2 class="h6 fw-bold mb-4">Organization</h2>
@@ -196,9 +196,9 @@
                 </div>
             </div>
 
-        </div> 
+        </div>
 
-    </div> 
+    </div>
 </form>
 
 @section Scripts {
@@ -206,12 +206,12 @@
         // Use a DataTransfer object to keep track of files selected across multiple clicks
         let dt = new DataTransfer();
 
-        document.getElementById('imageFilesInput').addEventListener('change', function(e) {
+        document.getElementById('imageFilesInput').addEventListener('change', function (e) {
             // Add newly selected files to our tracking object
             for (let file of this.files) {
                 dt.items.add(file);
             }
-            
+
             // Assign the accumulated files back to the actual input element so the form submits them all
             this.files = dt.files;
 
@@ -229,16 +229,16 @@
                 let badge = document.createElement('div');
                 badge.className = 'badge bg-light text-white border d-flex align-items-center gap-2 py-2 px-3 shadow-sm';
                 badge.innerHTML = `
-                    <i class="bi bi-file-earmark-image text-primary"></i>
-                    <span class="text-truncate" style="max-width: 150px;">${file.name}</span>
-                    <button type="button" class="btn-close btn-close-sm ms-1" style="font-size: 0.65rem;" onclick="removeFile(${i})"></button>
-                `;
+                            <i class="bi bi-file-earmark-image text-primary"></i>
+                            <span class="text-truncate" style="max-width: 150px;">${file.name}</span>
+                            <button type="button" class="btn-close btn-close-sm ms-1" style="font-size: 0.65rem;" onclick="removeFile(${i})"></button>
+                        `;
                 container.appendChild(badge);
             }
         }
 
         // Allows removing a file by clicking the 'X' on its badge
-        window.removeFile = function(index) {
+        window.removeFile = function (index) {
             dt.items.remove(index);
             document.getElementById('imageFilesInput').files = dt.files;
             renderFileBadges();

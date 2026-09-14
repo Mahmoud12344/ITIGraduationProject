@@ -1156,6 +1156,15 @@ namespace NiceShop.Migrations
                         new
                         {
                             Id = 51,
+                            FilePath = "/assets/seed/products/ASTK_women_ASTKWomensCapeTrenchcoat/71i81TMayhL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "71i81TMayhL._AC_SY741_.jpg",
+                            ProductId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 52,
                             FilePath = "/assets/seed/products/ASTK_women_ASTKWomensEssentialPuffJacket/71ZQ6hd7StL._AC_SY741_.jpg",
                             IsDefault = true,
                             Name = "71ZQ6hd7StL._AC_SY741_.jpg",
@@ -1164,7 +1173,16 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 52,
+                            Id = 53,
+                            FilePath = "/assets/seed/products/ASTK_women_ASTKWomensEssentialPuffJacket/71cvCIRw0cL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "71cvCIRw0cL._AC_SY741_.jpg",
+                            ProductId = 2,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 54,
                             FilePath = "/assets/seed/products/AlimensGentle_mens_AlimensGentleSlimFitMensDressShirtsforMenButtonDownLongSleeveDressShirtsWrinkleFreeFormalStainProof/51K5NCVcF0L._AC_SX679_.jpg",
                             IsDefault = true,
                             Name = "51K5NCVcF0L._AC_SX679_.jpg",
@@ -1173,7 +1191,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 53,
+                            Id = 55,
+                            FilePath = "/assets/seed/products/AlimensGentle_mens_AlimensGentleSlimFitMensDressShirtsforMenButtonDownLongSleeveDressShirtsWrinkleFreeFormalStainProof/714eddH2ewL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "714eddH2ewL._AC_SX569_.jpg",
+                            ProductId = 3,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 56,
+                            FilePath = "/assets/seed/products/AlimensGentle_mens_AlimensGentleSlimFitMensDressShirtsforMenButtonDownLongSleeveDressShirtsWrinkleFreeFormalStainProof/71RaeOTscyL._AC_SX569_ (1).jpg",
+                            IsDefault = false,
+                            Name = "71RaeOTscyL._AC_SX569_ (1).jpg",
+                            ProductId = 3,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 57,
+                            FilePath = "/assets/seed/products/AlimensGentle_mens_AlimensGentleSlimFitMensDressShirtsforMenButtonDownLongSleeveDressShirtsWrinkleFreeFormalStainProof/71RaeOTscyL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "71RaeOTscyL._AC_SX569_.jpg",
+                            ProductId = 3,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 58,
                             FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensAEFlex12KhakiShort/61Tv6X+r1dL._AC_SX569_.jpg",
                             IsDefault = true,
                             Name = "61Tv6X+r1dL._AC_SX569_.jpg",
@@ -1182,7 +1227,43 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 54,
+                            Id = 59,
+                            FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensAEFlex12KhakiShort/61eEOHexKHL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "61eEOHexKHL._AC_SX569_.jpg",
+                            ProductId = 4,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 60,
+                            FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensAEFlex12KhakiShort/61l7AKAe6XL._AC_SX569_ (1).jpg",
+                            IsDefault = false,
+                            Name = "61l7AKAe6XL._AC_SX569_ (1).jpg",
+                            ProductId = 4,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 61,
+                            FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensAEFlex12KhakiShort/61l7AKAe6XL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "61l7AKAe6XL._AC_SX569_.jpg",
+                            ProductId = 4,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 62,
+                            FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensAEFlex12KhakiShort/71ZGKUkfuWL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "71ZGKUkfuWL._AC_SX569_.jpg",
+                            ProductId = 4,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 63,
                             FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensSlimFitEverydayOxfordButtonUpShirtSlimFitEverydayOxfordButtonUpShirt/51bEHcCQE0L._AC_SX569_.jpg",
                             IsDefault = true,
                             Name = "51bEHcCQE0L._AC_SX569_.jpg",
@@ -1191,7 +1272,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 55,
+                            Id = 64,
+                            FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensSlimFitEverydayOxfordButtonUpShirtSlimFitEverydayOxfordButtonUpShirt/61RGI5JEkQL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "61RGI5JEkQL._AC_SX569_.jpg",
+                            ProductId = 5,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 65,
+                            FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensSlimFitEverydayOxfordButtonUpShirtSlimFitEverydayOxfordButtonUpShirt/61ucX1Z4TGL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "61ucX1Z4TGL._AC_SX569_.jpg",
+                            ProductId = 5,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 66,
                             FilePath = "/assets/seed/products/AmericanEagle_women_AmericanEagleWomensStretchBarrelJean/710MuP+3MbL._AC_SX466_.jpg",
                             IsDefault = true,
                             Name = "710MuP+3MbL._AC_SX466_.jpg",
@@ -1200,7 +1299,16 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 56,
+                            Id = 67,
+                            FilePath = "/assets/seed/products/AmericanEagle_women_AmericanEagleWomensStretchBarrelJean/81OgKdiATwL._AC_SX466_.jpg",
+                            IsDefault = false,
+                            Name = "81OgKdiATwL._AC_SX466_.jpg",
+                            ProductId = 6,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 68,
                             FilePath = "/assets/seed/products/AmericanEagle_women_AmericanEagleWomensStrigidBarrelJean/61Wc1zcwhpL._AC_SX466_.jpg",
                             IsDefault = true,
                             Name = "61Wc1zcwhpL._AC_SX466_.jpg",
@@ -1209,7 +1317,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 57,
+                            Id = 69,
+                            FilePath = "/assets/seed/products/AmericanEagle_women_AmericanEagleWomensStrigidBarrelJean/71R2u84ujwL._AC_SX466_.jpg",
+                            IsDefault = false,
+                            Name = "71R2u84ujwL._AC_SX466_.jpg",
+                            ProductId = 7,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 70,
+                            FilePath = "/assets/seed/products/AmericanEagle_women_AmericanEagleWomensStrigidBarrelJean/71nOqpeJLML._AC_SX466_.jpg",
+                            IsDefault = false,
+                            Name = "71nOqpeJLML._AC_SX466_.jpg",
+                            ProductId = 7,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 71,
                             FilePath = "/assets/seed/products/AndoraMensOxfordCotton/618Z3nUCUzL._AC_SX679_.jpg",
                             IsDefault = true,
                             Name = "618Z3nUCUzL._AC_SX679_.jpg",
@@ -1218,7 +1344,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 58,
+                            Id = 72,
+                            FilePath = "/assets/seed/products/AndoraMensOxfordCotton/618myyjIRLL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "618myyjIRLL._AC_SX679_.jpg",
+                            ProductId = 8,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 73,
+                            FilePath = "/assets/seed/products/AndoraMensOxfordCotton/61UDkcqc+CL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "61UDkcqc+CL._AC_SX679_.jpg",
+                            ProductId = 8,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 74,
                             FilePath = "/assets/seed/products/AndoraMensSolidPatternHallSleeveWester/611tOusi66L._AC_SX679_.jpg",
                             IsDefault = true,
                             Name = "611tOusi66L._AC_SX679_.jpg",
@@ -1227,7 +1371,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 59,
+                            Id = 75,
+                            FilePath = "/assets/seed/products/AndoraMensSolidPatternHallSleeveWester/61ZxB3vTf4L._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "61ZxB3vTf4L._AC_SX679_.jpg",
+                            ProductId = 9,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 76,
+                            FilePath = "/assets/seed/products/AndoraMensSolidPatternHallSleeveWester/61xjiObk7vL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "61xjiObk7vL._AC_SX679_.jpg",
+                            ProductId = 9,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 77,
                             FilePath = "/assets/seed/products/DubinikFlannelShirtMensCheckedButtonDownOutdoorCottonCasualShirtsFlannelShirtsMensLongSleeve/81o4U3pfCGL._AC_SX679_.jpg",
                             IsDefault = true,
                             Name = "81o4U3pfCGL._AC_SX679_.jpg",
@@ -1236,7 +1398,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 60,
+                            Id = 78,
+                            FilePath = "/assets/seed/products/DubinikFlannelShirtMensCheckedButtonDownOutdoorCottonCasualShirtsFlannelShirtsMensLongSleeve/91dDWgfHgHL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "91dDWgfHgHL._AC_SX679_.jpg",
+                            ProductId = 10,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 79,
+                            FilePath = "/assets/seed/products/DubinikFlannelShirtMensCheckedButtonDownOutdoorCottonCasualShirtsFlannelShirtsMensLongSleeve/91z0Xf8MK2L._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "91z0Xf8MK2L._AC_SX679_.jpg",
+                            ProductId = 10,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 80,
                             FilePath = "/assets/seed/products/FRESKASTORE_women_ShortSleeveBasicTop6229000006/31DQxnVYCOL._AC_.jpg",
                             IsDefault = true,
                             Name = "31DQxnVYCOL._AC_.jpg",
@@ -1245,7 +1425,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 61,
+                            Id = 81,
+                            FilePath = "/assets/seed/products/FRESKASTORE_women_ShortSleeveBasicTop6229000006/41N34DcpLvL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "41N34DcpLvL._AC_SX569_.jpg",
+                            ProductId = 11,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 82,
+                            FilePath = "/assets/seed/products/FRESKASTORE_women_ShortSleeveBasicTop6229000006/41lYW4DS5EL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "41lYW4DS5EL._AC_SX569_.jpg",
+                            ProductId = 11,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 83,
+                            FilePath = "/assets/seed/products/FRESKASTORE_women_ShortSleeveBasicTop6229000006/51KMPUGFdOL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "51KMPUGFdOL._AC_SX569_.jpg",
+                            ProductId = 11,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 84,
                             FilePath = "/assets/seed/products/Generic_women_ESKINOWomensWinterLongCoatSlimWaistBroadclothJacketwithButtonFrontandElegantBeltMultiColorSize/41ivaZqDgsL._AC_SY741_.jpg",
                             IsDefault = true,
                             Name = "41ivaZqDgsL._AC_SY741_.jpg",
@@ -1254,7 +1461,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 62,
+                            Id = 85,
+                            FilePath = "/assets/seed/products/Generic_women_ESKINOWomensWinterLongCoatSlimWaistBroadclothJacketwithButtonFrontandElegantBeltMultiColorSize/611dbxlkzhL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "611dbxlkzhL._AC_SX679_.jpg",
+                            ProductId = 12,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 86,
+                            FilePath = "/assets/seed/products/Generic_women_ESKINOWomensWinterLongCoatSlimWaistBroadclothJacketwithButtonFrontandElegantBeltMultiColorSize/61zMIlPw4PL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "61zMIlPw4PL._AC_SY741_.jpg",
+                            ProductId = 12,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 87,
                             FilePath = "/assets/seed/products/Generic_women_LongWomenCoatGray/51MLt95IRvL._AC_SX569_.jpg",
                             IsDefault = true,
                             Name = "51MLt95IRvL._AC_SX569_.jpg",
@@ -1263,7 +1488,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 63,
+                            Id = 88,
+                            FilePath = "/assets/seed/products/Generic_women_LongWomenCoatGray/61ycJHorzvL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "61ycJHorzvL._AC_SX679_.jpg",
+                            ProductId = 13,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 89,
+                            FilePath = "/assets/seed/products/Generic_women_LongWomenCoatGray/71Tf1MgZAJL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "71Tf1MgZAJL._AC_SY741_.jpg",
+                            ProductId = 13,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 90,
                             FilePath = "/assets/seed/products/Generic_women_WomensPlushFauxFurHoodedJacketBlackCroppedDesignZipUpFrontWinterCasualWear/310L1CYTxuL._AC_.jpg",
                             IsDefault = true,
                             Name = "310L1CYTxuL._AC_.jpg",
@@ -1272,7 +1515,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 64,
+                            Id = 91,
+                            FilePath = "/assets/seed/products/Generic_women_WomensPlushFauxFurHoodedJacketBlackCroppedDesignZipUpFrontWinterCasualWear/31RQ-6P7lWL._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "31RQ-6P7lWL._AC_SX569_.jpg",
+                            ProductId = 15,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 92,
+                            FilePath = "/assets/seed/products/Generic_women_WomensPlushFauxFurHoodedJacketBlackCroppedDesignZipUpFrontWinterCasualWear/41ad9TXIBJL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "41ad9TXIBJL._AC_SY741_.jpg",
+                            ProductId = 15,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 93,
+                            FilePath = "/assets/seed/products/Generic_women_WomensPlushFauxFurHoodedJacketBlackCroppedDesignZipUpFrontWinterCasualWear/51zV68b-ISL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "51zV68b-ISL._AC_SY741_.jpg",
+                            ProductId = 15,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 94,
                             FilePath = "/assets/seed/products/Generic_women_WomensWideLegTrousersHighWaistPleated111TailoredFitSmartCasualFullLengthStraightCutWomensFashion/31zRDa68EJL._AC_.jpg",
                             IsDefault = true,
                             Name = "31zRDa68EJL._AC_.jpg",
@@ -1281,7 +1551,16 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 65,
+                            Id = 95,
+                            FilePath = "/assets/seed/products/Generic_women_WomensWideLegTrousersHighWaistPleated111TailoredFitSmartCasualFullLengthStraightCutWomensFashion/41JfCFjjDaL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "41JfCFjjDaL._AC_SY741_.jpg",
+                            ProductId = 16,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 96,
                             FilePath = "/assets/seed/products/JACKJONES_mens_JACKJONESMensMarcoSunnyChinoShorts/71YqESc2BqL._AC_SX569_.jpg",
                             IsDefault = true,
                             Name = "71YqESc2BqL._AC_SX569_.jpg",
@@ -1290,7 +1569,16 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 66,
+                            Id = 97,
+                            FilePath = "/assets/seed/products/JACKJONES_mens_JACKJONESMensMarcoSunnyChinoShorts/71oKHsfF-3L._AC_SX569_.jpg",
+                            IsDefault = false,
+                            Name = "71oKHsfF-3L._AC_SX569_.jpg",
+                            ProductId = 17,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 98,
                             FilePath = "/assets/seed/products/LCWAIKIKI_kids-wear_LCWAIKIKIBabyGirlsHoodedCardiganandBootieBottomSet/61fKx6h3OEL._AC_SY741_.jpg",
                             IsDefault = true,
                             Name = "61fKx6h3OEL._AC_SY741_.jpg",
@@ -1299,7 +1587,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 67,
+                            Id = 99,
+                            FilePath = "/assets/seed/products/LCWAIKIKI_kids-wear_LCWAIKIKIBabyGirlsHoodedCardiganandBootieBottomSet/61nL1Q9eFDL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "61nL1Q9eFDL._AC_SY741_.jpg",
+                            ProductId = 18,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 100,
+                            FilePath = "/assets/seed/products/LCWAIKIKI_kids-wear_LCWAIKIKIBabyGirlsHoodedCardiganandBootieBottomSet/61p48jb9qAL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "61p48jb9qAL._AC_SY741_.jpg",
+                            ProductId = 18,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 101,
                             FilePath = "/assets/seed/products/LCWAIKIKI_kids-wear_LCWAIKIKIEmbroideredBabyGirlsSet/41oaWVfmf5L._AC_SY741_.jpg",
                             IsDefault = true,
                             Name = "41oaWVfmf5L._AC_SY741_.jpg",
@@ -1308,7 +1614,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 68,
+                            Id = 102,
+                            FilePath = "/assets/seed/products/LCWAIKIKI_kids-wear_LCWAIKIKIEmbroideredBabyGirlsSet/51LmMK8TGfL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "51LmMK8TGfL._AC_SY741_.jpg",
+                            ProductId = 19,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 103,
+                            FilePath = "/assets/seed/products/LCWAIKIKI_kids-wear_LCWAIKIKIEmbroideredBabyGirlsSet/61VTz6tMvHL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "61VTz6tMvHL._AC_SY741_.jpg",
+                            ProductId = 19,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 104,
+                            FilePath = "/assets/seed/products/LCWAIKIKI_kids-wear_LCWAIKIKIEmbroideredBabyGirlsSet/81DgYc28mcL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "81DgYc28mcL._AC_SY741_.jpg",
+                            ProductId = 19,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 105,
                             FilePath = "/assets/seed/products/LaBEAUTE_women_AWideFitPOPLINShirtForWomenWith/31i5NOfxavL._AC_.jpg",
                             IsDefault = true,
                             Name = "31i5NOfxavL._AC_.jpg",
@@ -1317,7 +1650,16 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 69,
+                            Id = 106,
+                            FilePath = "/assets/seed/products/LaBEAUTE_women_AWideFitPOPLINShirtForWomenWith/51d1qu0K5mL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "51d1qu0K5mL._AC_SX679_.jpg",
+                            ProductId = 20,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 107,
                             FilePath = "/assets/seed/products/LevisMensCLASSICWESTERNSTANDARDWovenTops/816b+px-riL._AC_SX679_.jpg",
                             IsDefault = true,
                             Name = "816b+px-riL._AC_SX679_.jpg",
@@ -1326,7 +1668,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 70,
+                            Id = 108,
+                            FilePath = "/assets/seed/products/LevisMensCLASSICWESTERNSTANDARDWovenTops/81YfIJ+CNeL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "81YfIJ+CNeL._AC_SX679_.jpg",
+                            ProductId = 21,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 109,
+                            FilePath = "/assets/seed/products/LevisMensCLASSICWESTERNSTANDARDWovenTops/81dPG-5hOQL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "81dPG-5hOQL._AC_SX679_.jpg",
+                            ProductId = 21,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 110,
+                            FilePath = "/assets/seed/products/LevisMensCLASSICWESTERNSTANDARDWovenTops/91CnONjElrL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "91CnONjElrL._AC_SX679_.jpg",
+                            ProductId = 21,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 111,
                             FilePath = "/assets/seed/products/PUMA_mens_PUMAMensF1ESSLogoPolo180gBlackClassic/51T0ciE+XhL._AC_SX679_.jpg",
                             IsDefault = true,
                             Name = "51T0ciE+XhL._AC_SX679_.jpg",
@@ -1335,7 +1704,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 71,
+                            Id = 112,
+                            FilePath = "/assets/seed/products/PUMA_mens_PUMAMensF1ESSLogoPolo180gBlackClassic/51oKwvsVsTL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "51oKwvsVsTL._AC_SX679_.jpg",
+                            ProductId = 23,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 113,
+                            FilePath = "/assets/seed/products/PUMA_mens_PUMAMensF1ESSLogoPolo180gBlackClassic/51pQf4TcjYL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "51pQf4TcjYL._AC_SX679_.jpg",
+                            ProductId = 23,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 114,
+                            FilePath = "/assets/seed/products/PUMA_mens_PUMAMensF1ESSLogoPolo180gBlackClassic/51ykfRDU6jL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "51ykfRDU6jL._AC_SX679_.jpg",
+                            ProductId = 23,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 115,
                             FilePath = "/assets/seed/products/VisittheadidasStoreadidasMensEssentialsSmallLogoPiquéPoloShirtT-Shirt/71-hHXwye6L._AC_SX679_.jpg",
                             IsDefault = true,
                             Name = "71-hHXwye6L._AC_SX679_.jpg",
@@ -1344,7 +1740,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 72,
+                            Id = 116,
+                            FilePath = "/assets/seed/products/VisittheadidasStoreadidasMensEssentialsSmallLogoPiquéPoloShirtT-Shirt/710jRKOOSuL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "710jRKOOSuL._AC_SX679_.jpg",
+                            ProductId = 24,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 117,
+                            FilePath = "/assets/seed/products/VisittheadidasStoreadidasMensEssentialsSmallLogoPiquéPoloShirtT-Shirt/81nCNaeExPL._AC_SX679_.jpg",
+                            IsDefault = false,
+                            Name = "81nCNaeExPL._AC_SX679_.jpg",
+                            ProductId = 24,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 118,
                             FilePath = "/assets/seed/products/adidas_footwear_adidasCopaPure3LeagueFirmMultiGroundBootsunisexadultShoes/71BZTgWpGhL._AC_SY625_ (1).jpg",
                             IsDefault = true,
                             Name = "71BZTgWpGhL._AC_SY625_ (1).jpg",
@@ -1353,7 +1767,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 73,
+                            Id = 119,
+                            FilePath = "/assets/seed/products/adidas_footwear_adidasCopaPure3LeagueFirmMultiGroundBootsunisexadultShoes/71BZTgWpGhL._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "71BZTgWpGhL._AC_SY625_.jpg",
+                            ProductId = 25,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 120,
+                            FilePath = "/assets/seed/products/adidas_footwear_adidasCopaPure3LeagueFirmMultiGroundBootsunisexadultShoes/71vvjUel52L._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "71vvjUel52L._AC_SY625_.jpg",
+                            ProductId = 25,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 121,
+                            FilePath = "/assets/seed/products/adidas_footwear_adidasCopaPure3LeagueFirmMultiGroundBootsunisexadultShoes/812LfWM33-L._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "812LfWM33-L._AC_SY625_.jpg",
+                            ProductId = 25,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 122,
                             FilePath = "/assets/seed/products/adidas_footwear_adidasUNISEXADULTRESPONSERUNNER2SHOES/51HJ3l10kJL._AC_SX625_.jpg",
                             IsDefault = true,
                             Name = "51HJ3l10kJL._AC_SX625_.jpg",
@@ -1362,7 +1803,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 74,
+                            Id = 123,
+                            FilePath = "/assets/seed/products/adidas_footwear_adidasUNISEXADULTRESPONSERUNNER2SHOES/815FkWPHb9L._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "815FkWPHb9L._AC_SY625_.jpg",
+                            ProductId = 26,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 124,
+                            FilePath = "/assets/seed/products/adidas_footwear_adidasUNISEXADULTRESPONSERUNNER2SHOES/819HbjYgE8L._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "819HbjYgE8L._AC_SY625_.jpg",
+                            ProductId = 26,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 125,
+                            FilePath = "/assets/seed/products/adidas_footwear_adidasUNISEXADULTRESPONSERUNNER2SHOES/91h-sP1VFYL._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "91h-sP1VFYL._AC_SY625_.jpg",
+                            ProductId = 26,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 126,
                             FilePath = "/assets/seed/products/adidas_mens_adidasMens/414h8y8rQvL._AC_SY695_.jpg",
                             IsDefault = true,
                             Name = "414h8y8rQvL._AC_SY695_.jpg",
@@ -1371,7 +1839,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 75,
+                            Id = 127,
+                            FilePath = "/assets/seed/products/adidas_mens_adidasMens/71KReCiVO-L._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "71KReCiVO-L._AC_SY625_.jpg",
+                            ProductId = 27,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 128,
+                            FilePath = "/assets/seed/products/adidas_mens_adidasMens/71YMW58eXeL._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "71YMW58eXeL._AC_SY625_.jpg",
+                            ProductId = 27,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 129,
+                            FilePath = "/assets/seed/products/adidas_mens_adidasMens/81Gm3ktsxIL._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "81Gm3ktsxIL._AC_SY625_.jpg",
+                            ProductId = 27,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 130,
                             FilePath = "/assets/seed/products/adidas_women_adidasWomensUltrarun5RunningShoes/71V4YxrFg8L._AC_SY625_.jpg",
                             IsDefault = true,
                             Name = "71V4YxrFg8L._AC_SY625_.jpg",
@@ -1380,7 +1875,34 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 76,
+                            Id = 131,
+                            FilePath = "/assets/seed/products/adidas_women_adidasWomensUltrarun5RunningShoes/71qdcGuzEmL._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "71qdcGuzEmL._AC_SY625_.jpg",
+                            ProductId = 28,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 132,
+                            FilePath = "/assets/seed/products/adidas_women_adidasWomensUltrarun5RunningShoes/71rZIyBErmL._AC_SY695_.jpg",
+                            IsDefault = false,
+                            Name = "71rZIyBErmL._AC_SY695_.jpg",
+                            ProductId = 28,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 133,
+                            FilePath = "/assets/seed/products/adidas_women_adidasWomensUltrarun5RunningShoes/81rHwe5GmyL._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "81rHwe5GmyL._AC_SY625_.jpg",
+                            ProductId = 28,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 134,
                             FilePath = "/assets/seed/products/adidas_women_adidaswomensCOURTFUNKSneaker/51JWnAJ2fmL._AC_SY625_.jpg",
                             IsDefault = true,
                             Name = "51JWnAJ2fmL._AC_SY625_.jpg",
@@ -1389,7 +1911,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 77,
+                            Id = 135,
+                            FilePath = "/assets/seed/products/adidas_women_adidaswomensCOURTFUNKSneaker/51oOMEiFRVL._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "51oOMEiFRVL._AC_SY625_.jpg",
+                            ProductId = 29,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 136,
+                            FilePath = "/assets/seed/products/adidas_women_adidaswomensCOURTFUNKSneaker/61ApGjmcR-L._AC_SY625_.jpg",
+                            IsDefault = false,
+                            Name = "61ApGjmcR-L._AC_SY625_.jpg",
+                            ProductId = 29,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 137,
                             FilePath = "/assets/seed/products/adidas_women_adidaswomensULTRADREAMDNASHOES/61H70Z36RCL._AC_SX625_.jpg",
                             IsDefault = true,
                             Name = "61H70Z36RCL._AC_SX625_.jpg",
@@ -1398,7 +1938,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 78,
+                            Id = 138,
+                            FilePath = "/assets/seed/products/adidas_women_adidaswomensULTRADREAMDNASHOES/71+iCz5PyuL._AC_SX625_.jpg",
+                            IsDefault = false,
+                            Name = "71+iCz5PyuL._AC_SX625_.jpg",
+                            ProductId = 30,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 139,
+                            FilePath = "/assets/seed/products/adidas_women_adidaswomensULTRADREAMDNASHOES/71Q8K792gqL._AC_SX625_.jpg",
+                            IsDefault = false,
+                            Name = "71Q8K792gqL._AC_SX625_.jpg",
+                            ProductId = 30,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 140,
                             FilePath = "/assets/seed/products/blackGraphicT-ShirtShortSleeveCrewNeckCasualTopforMenandWomen,StylishEverydayShirtforOutings,University,TravelandCasualWearBYHouseofBlack/61CB4aRY1OL._AC_SY741_.jpg",
                             IsDefault = true,
                             Name = "61CB4aRY1OL._AC_SY741_.jpg",
@@ -1407,7 +1965,25 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            Id = 79,
+                            Id = 141,
+                            FilePath = "/assets/seed/products/blackGraphicT-ShirtShortSleeveCrewNeckCasualTopforMenandWomen,StylishEverydayShirtforOutings,University,TravelandCasualWearBYHouseofBlack/61LKWnqmE8L._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "61LKWnqmE8L._AC_SY741_.jpg",
+                            ProductId = 31,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 142,
+                            FilePath = "/assets/seed/products/blackGraphicT-ShirtShortSleeveCrewNeckCasualTopforMenandWomen,StylishEverydayShirtforOutings,University,TravelandCasualWearBYHouseofBlack/61RaJasKrJL._AC_SY741_.jpg",
+                            IsDefault = false,
+                            Name = "61RaJasKrJL._AC_SY741_.jpg",
+                            ProductId = 31,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 143,
                             FilePath = "/assets/seed/products/kidstown_kids-wear_kidstownBoys2PieceSummerSetHighQualityCottonSizes2to5YearsModernDesignandUniqueColors/51TzrEe7lEL._AC_SX679_.jpg",
                             IsDefault = true,
                             Name = "51TzrEe7lEL._AC_SX679_.jpg",
@@ -1645,7 +2221,7 @@ namespace NiceShop.Migrations
                             BrandId = 7,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality ASTKWomens Cape Trenchcoat from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Astkwomens Cape Trenchcoat. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 20.62m,
                             IsActive = true,
                             IsBestseller = true,
@@ -1664,7 +2240,7 @@ namespace NiceShop.Migrations
                             BrandId = 7,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality ASTKWomens Essential Puff Jacket from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Astkwomens Essential Puff Jacket. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 4.82m,
                             IsActive = true,
                             IsBestseller = true,
@@ -1683,7 +2259,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 1,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Alimens Gentle Slim Fit Mens Dress Shirtsfor Men Button Down Long Sleeve Dress Shirts Wrinkle Free Formal Stain Proof from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Alimens Gentle Slim Fit Mens Dress Shirtsfor Men Button Down Long Sleeve Dress Shirts Wrinkle Free Formal Stain Proof. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = true,
@@ -1701,7 +2277,7 @@ namespace NiceShop.Migrations
                             BrandId = 5,
                             CategoryId = 1,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality American Eagle Mens AEFlex12Khaki Short from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the American Eagle Mens Aeflex12Khaki Short. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = false,
@@ -1719,7 +2295,7 @@ namespace NiceShop.Migrations
                             BrandId = 5,
                             CategoryId = 1,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality American Eagle Mens Slim Fit Everyday Oxford Button Up Shirt Slim Fit Everyday Oxford Button Up Shirt from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the American Eagle Mens Slim Fit Everyday Oxford Button Up Shirt Slim Fit Everyday Oxford Button Up Shirt. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 18.35m,
                             IsActive = true,
                             IsBestseller = true,
@@ -1738,7 +2314,7 @@ namespace NiceShop.Migrations
                             BrandId = 5,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality American Eagle Womens Stretch Barrel Jean from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the American Eagle Womens Stretch Barrel Jean. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = false,
@@ -1756,7 +2332,7 @@ namespace NiceShop.Migrations
                             BrandId = 5,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality American Eagle Womens Strigid Barrel Jean from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the American Eagle Womens Strigid Barrel Jean. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 10.94m,
                             IsActive = true,
                             IsBestseller = true,
@@ -1775,7 +2351,7 @@ namespace NiceShop.Migrations
                             BrandId = 6,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Andora Mens Oxford Cotton from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Andora Mens Oxford Cotton. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = false,
@@ -1793,7 +2369,7 @@ namespace NiceShop.Migrations
                             BrandId = 6,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Andora Mens Solid Pattern Hall Sleeve Wester from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Andora Mens Solid Pattern Hall Sleeve Wester. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 9.53m,
                             IsActive = true,
                             IsBestseller = false,
@@ -1812,7 +2388,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Dubinik Flannel Shirt Mens Checked Button Down Outdoor Cotton Casual Shirts Flannel Shirts Mens Long Sleeve from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Dubinik Flannel Shirt Mens Checked Button Down Outdoor Cotton Casual Shirts Flannel Shirts Mens Long Sleeve. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 27.34m,
                             IsActive = true,
                             IsBestseller = true,
@@ -1831,7 +2407,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Short Sleeve Basic Top6229000006 from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Short Sleeve Basic Top6229000006. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = true,
@@ -1849,7 +2425,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality ESKINOWomens Winter Long Coat Slim Waist Broadcloth Jacketwith Button Frontand Elegant Belt Multi Color Size from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Eskinowomens Winter Long Coat Slim Waist Broadcloth Jacketwith Button Frontand Elegant Belt Multi Color Size. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 22.74m,
                             IsActive = true,
                             IsBestseller = false,
@@ -1868,7 +2444,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Long Women Coat Gray from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Long Women Coat Gray. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = true,
                             IsFeatured = true,
@@ -1886,7 +2462,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Womens Dark Brown Wide Leg High Waist Casual Fashion Pants from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Womens Dark Brown Wide Leg High Waist Casual Fashion Pants. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = true,
                             IsFeatured = true,
@@ -1904,7 +2480,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Womens Plush Faux Fur Hooded Jacket Black Cropped Design Zip Up Front Winter Casual Wear from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Womens Plush Faux Fur Hooded Jacket Black Cropped Design Zip Up Front Winter Casual Wear. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 6.22m,
                             IsActive = true,
                             IsBestseller = true,
@@ -1923,7 +2499,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Womens Wide Leg Trousers High Waist Pleated111Tailored Fit Smart Casual Full Length Straight Cut Womens Fashion from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Womens Wide Leg Trousers High Waist Pleated111Tailored Fit Smart Casual Full Length Straight Cut Womens Fashion. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = false,
@@ -1941,7 +2517,7 @@ namespace NiceShop.Migrations
                             BrandId = 8,
                             CategoryId = 1,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality JACKJONESMens Marco Sunny Chino Shorts from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Jackjonesmens Marco Sunny Chino Shorts. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 12.79m,
                             IsActive = true,
                             IsBestseller = true,
@@ -1960,7 +2536,7 @@ namespace NiceShop.Migrations
                             BrandId = 10,
                             CategoryId = 3,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality LCWAIKIKIBaby Girls Hooded Cardiganand Bootie Bottom Set from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Lcwaikikibaby Girls Hooded Cardiganand Bootie Bottom Set. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = true,
@@ -1978,7 +2554,7 @@ namespace NiceShop.Migrations
                             BrandId = 10,
                             CategoryId = 3,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality LCWAIKIKIEmbroidered Baby Girls Set from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Lcwaikikiembroidered Baby Girls Set. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = true,
                             IsFeatured = true,
@@ -1996,7 +2572,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality AWide Fit POPLINShirt For Women With from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Awide Fit Poplinshirt For Women With. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = true,
@@ -2014,7 +2590,7 @@ namespace NiceShop.Migrations
                             BrandId = 9,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Levis Mens CLASSICWESTERNSTANDARDWoven Tops from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Levis Mens Classicwesternstandardwoven Tops. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = true,
                             IsFeatured = false,
@@ -2032,7 +2608,7 @@ namespace NiceShop.Migrations
                             BrandId = 9,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Levis Women Seasonal Fashion Jacket from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Levis Women Seasonal Fashion Jacket. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 5.31m,
                             IsActive = true,
                             IsBestseller = true,
@@ -2051,7 +2627,7 @@ namespace NiceShop.Migrations
                             BrandId = 11,
                             CategoryId = 1,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality PUMAMens F1ESSLogo Polo180g Black Classic from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Pumamens F1Esslogo Polo180G Black Classic. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 26.48m,
                             IsActive = true,
                             IsBestseller = false,
@@ -2070,7 +2646,7 @@ namespace NiceShop.Migrations
                             BrandId = 2,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality Visittheadidas Storeadidas Mens Essentials Small Logo PiquéPolo Shirt T Shirt from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Visittheadidas Storeadidas Mens Essentials Small Logo Piquépolo Shirt T Shirt. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 28.89m,
                             IsActive = true,
                             IsBestseller = true,
@@ -2089,7 +2665,7 @@ namespace NiceShop.Migrations
                             BrandId = 2,
                             CategoryId = 4,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality adidas Copa Pure3League Firm Multi Ground Bootsunisexadult Shoes from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Adidas Copa Pure3League Firm Multi Ground Bootsunisexadult Shoes. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 5.48m,
                             IsActive = true,
                             IsBestseller = true,
@@ -2108,7 +2684,7 @@ namespace NiceShop.Migrations
                             BrandId = 2,
                             CategoryId = 4,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality adidas UNISEXADULTRESPONSERUNNER2SHOES from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Adidas Unisexadultresponserunner2Shoes. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 21.55m,
                             IsActive = true,
                             IsBestseller = true,
@@ -2127,7 +2703,7 @@ namespace NiceShop.Migrations
                             BrandId = 2,
                             CategoryId = 1,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality adidas Mens from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Adidas Mens. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = true,
@@ -2145,7 +2721,7 @@ namespace NiceShop.Migrations
                             BrandId = 2,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality adidas Womens Ultrarun5Running Shoes from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Adidas Womens Ultrarun5Running Shoes. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 4.24m,
                             IsActive = true,
                             IsBestseller = true,
@@ -2164,7 +2740,7 @@ namespace NiceShop.Migrations
                             BrandId = 2,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality adidaswomens COURTFUNKSneaker from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Adidaswomens Courtfunksneaker. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = true,
                             IsFeatured = false,
@@ -2182,7 +2758,7 @@ namespace NiceShop.Migrations
                             BrandId = 2,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality adidaswomens ULTRADREAMDNASHOES from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Adidaswomens Ultradreamdnashoes. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             Discount = 23.3m,
                             IsActive = true,
                             IsBestseller = false,
@@ -2201,12 +2777,12 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality black Graphic T Shirt Short Sleeve Crew Neck Casual Topfor Menand Women,Stylish Everyday Shirtfor Outings,University,Traveland Casual Wear B from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Black Graphic T Shirt Short Sleeve Crew Neck Casual Topfor Menand Women,Stylish Everyday Shirtfor Outings,University,Traveland Casual Wear Byhouseof Black. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = true,
                             IsOnSale = false,
-                            Name = "black Graphic T Shirt Short Sleeve Crew Neck Casual Topfor Menand Women,Stylish Everyday Shirtfor Outings,University,Traveland Casual Wear B",
+                            Name = "black Graphic T Shirt Short Sleeve Crew Neck Casual Topfor Menand Women,Stylish Everyday Shirtfor Outings,University,Traveland Casual Wea...",
                             Price = 137.68m,
                             Rating = 0m,
                             ReviewCount = 0,
@@ -2219,7 +2795,7 @@ namespace NiceShop.Migrations
                             BrandId = 1,
                             CategoryId = 3,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High quality kidstown Boys2Piece Summer Set High Quality Cotton Sizes2to5Years Modern Designand Unique Colors from our latest collection. Comfortable and stylish.",
+                            Description = "Experience ultimate comfort and style with the Kidstown Boys2Piece Summer Set High Quality Cotton Sizes2To5Years Modern Designand Unique Colors. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
                             IsActive = true,
                             IsBestseller = false,
                             IsFeatured = true,
