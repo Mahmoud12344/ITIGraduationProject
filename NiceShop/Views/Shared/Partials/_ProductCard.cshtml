@@ -9,7 +9,10 @@
         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1">
             @if (Model.IsOnSale && Model.Discount.HasValue)
             {
-                <span class="ns-badge-sale">@Model.Discount% OFF</span>
+                if (Model.Discount > 0){
+            <span class="ns-badge-sale">@Model.Discount% OFF</span>
+                    
+                }
             }
             @if (Model.Stock == 0)
             {
