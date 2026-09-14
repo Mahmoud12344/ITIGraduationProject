@@ -1,3 +1,34 @@
+@inject NiceShop.services.ICartService CartService
+@inject NiceShop.Data.ApplicationDbContext DbContext
+@using Microsoft.EntityFrameworkCore
+@using NiceShop.ViewModels.Cart
+
+@{
+    // same logic as CartController.Index, but this runs on every page since the drawer is in the layout
+    var sessionItems = CartService.GetCart();
+    var drawerVm = new CartVM();
+
+    foreach (var item in sessionItems)
+    {
+        var product = await DbContext.Products
+            .Include(p => p.Images)
+            .FirstOrDefaultAsync(p => p.Id == item.ProductId);
+
+        if (product == null) continue;
+
+        drawerVm.Items.Add(new CartLineVM
+        {
+            ProductId = product.Id,
+            ProductName = product.Name,
+            ImageUrl = product.Images.FirstOrDefault()?.FilePath,
+            Price = product.Price,
+            Quantity = item.Quantity,
+            Size = item.Size,
+            Color = item.Color
+        });
+    }
+}
+
 <!-- Cart Offcanvas (Slide from Right) -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel" style="width: 400px; max-width: 100vw;">
     <div class="offcanvas-header border-bottom">
@@ -6,78 +37,64 @@
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    
+
     <div class="offcanvas-body d-flex flex-column p-0">
-        <!-- Scrollable items area -->
         <div class="flex-grow-1 overflow-auto p-3 d-flex flex-column gap-3">
-            
-            <!-- MOCK ITEM 1 (Replace with foreach loop from CartViewModel in real integration) -->
-            <div class="d-flex gap-3 border-bottom pb-3">
-                <div class="bg-light rounded" style="width: 80px; height: 100px; flex-shrink: 0; overflow:hidden;">
-                    <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=160" alt="Product" class="w-100 h-100 object-fit-cover">
-                </div>
-                <div class="d-flex flex-column flex-grow-1 justify-content-between">
-                    <div>
-                        <div class="d-flex justify-content-between align-items-start">
-                            <a href="#" class="text-decoration-none ns-card-title m-0" style="font-Size: 0.8125rem;">
-                                Double-Breasted Cashmere Trench Coat
-                            </a>
-                            <button class="btn btn-link text-muted p-0 ms-2" onclick="window.nsCart.removeItem('prod-1', 'M', 'Camel')">
-                                <i class="bi bi-trash3"></i>
-                            </button>
+            @if (!drawerVm.Items.Any())
+            {
+                <p class="text-muted text-center mt-4">Your bag is empty.</p>
+            }
+            else
+            {
+                @foreach (var item in drawerVm.Items)
+                {
+                    <div class="d-flex gap-3 border-bottom pb-3">
+                        <div class="bg-light rounded" style="width: 80px; height: 100px; flex-shrink: 0; overflow:hidden;">
+                            <img src="@(item.ImageUrl ?? "/images/placeholder.png")" alt="@item.ProductName" class="w-100 h-100 object-fit-cover">
                         </div>
-                        <div class="text-muted mt-1" style="font-Size: 0.6875rem;">Size: M | Color: Camel</div>
-                        <div class="font-serif fw-bold mt-1">$490.00</div>
-                    </div>
-                    
-                    <div class="d-flex align-items-center mt-2 border rounded px-2 py-1" style="width: max-content; background: var(--ns-bg-input);">
-                        <button class="btn btn-link text-body p-0 text-decoration-none" style="font-Size: 0.75rem;" onclick="window.nsCart.updateQuantity('prod-1', 'M', 'Camel', -1)"><i class="bi bi-dash"></i></button>
-                        <span class="mx-3" style="font-Size: 0.75rem; font-weight: 600;">1</span>
-                        <button class="btn btn-link text-body p-0 text-decoration-none" style="font-Size: 0.75rem;" onclick="window.nsCart.updateQuantity('prod-1', 'M', 'Camel', 1)"><i class="bi bi-plus"></i></button>
-                    </div>
-                </div>
-            </div>
+                        <div class="d-flex flex-column flex-grow-1 justify-content-between">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <span class="ns-card-title m-0" style="font-Size: 0.8125rem;">@item.ProductName</span>
+                                    <form method="post" action="/Cart/Remove" class="m-0">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <input type="hidden" name="size" value="@item.Size" />
+                                        <input type="hidden" name="color" value="@item.Color" />
+                                        <button type="submit" class="btn btn-link text-muted p-0 ms-2">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="text-muted mt-1" style="font-Size: 0.6875rem;">
+                                    @if (!string.IsNullOrEmpty(item.Size)) { <text>Size: @item.Size</text> }
+                                    @if (!string.IsNullOrEmpty(item.Color)) { <text> | Color: @item.Color</text> }
+                                </div>
+                                <div class="font-serif fw-bold mt-1">@item.Price.ToString("C")</div>
+                            </div>
 
-            <!-- MOCK ITEM 2 -->
-            <div class="d-flex gap-3 border-bottom pb-3">
-                <div class="bg-light rounded" style="width: 80px; height: 100px; flex-shrink: 0; overflow:hidden;">
-                    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=160" alt="Product" class="w-100 h-100 object-fit-cover">
-                </div>
-                <div class="d-flex flex-column flex-grow-1 justify-content-between">
-                    <div>
-                        <div class="d-flex justify-content-between align-items-start">
-                            <a href="#" class="text-decoration-none ns-card-title m-0" style="font-Size: 0.8125rem;">
-                                Structured Florence Calfskin Tote Bag
-                            </a>
-                            <button class="btn btn-link text-muted p-0 ms-2" onclick="window.nsCart.removeItem('prod-2', 'One Size', 'Cognac')">
-                                <i class="bi bi-trash3"></i>
-                            </button>
+                            <form method="post" action="/Cart/UpdateQuantity" class="d-flex align-items-center mt-2 border rounded px-2 py-1" style="width: max-content; background: var(--ns-bg-input);">
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <input type="hidden" name="size" value="@item.Size" />
+                                <input type="hidden" name="color" value="@item.Color" />
+                                <input type="number" name="quantity" value="@item.Quantity" min="1" class="form-control border-0 bg-transparent text-center p-0" style="width: 30px; font-Size: 0.75rem; box-shadow: none;">
+                                <button type="submit" class="btn btn-link text-body p-0 text-decoration-none ms-1" style="font-Size: 0.75rem;"><i class="bi bi-arrow-repeat"></i></button>
+                            </form>
                         </div>
-                        <div class="text-muted mt-1" style="font-Size: 0.6875rem;">Size: One Size | Color: Cognac</div>
-                        <div class="font-serif fw-bold mt-1">$340.00</div>
                     </div>
-                    
-                    <div class="d-flex align-items-center mt-2 border rounded px-2 py-1" style="width: max-content; background: var(--ns-bg-input);">
-                        <button class="btn btn-link text-body p-0 text-decoration-none" style="font-Size: 0.75rem;" onclick="window.nsCart.updateQuantity('prod-2', 'One Size', 'Cognac', -1)"><i class="bi bi-dash"></i></button>
-                        <span class="mx-3" style="font-Size: 0.75rem; font-weight: 600;">1</span>
-                        <button class="btn btn-link text-body p-0 text-decoration-none" style="font-Size: 0.75rem;" onclick="window.nsCart.updateQuantity('prod-2', 'One Size', 'Cognac', 1)"><i class="bi bi-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-
+                }
+            }
         </div>
-        
-        <!-- Footer / Checkout area -->
+
         <div class="p-3 border-top bg-light" style="background-color: var(--ns-bg-surface) !important;">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-uppercase" style="font-Size: 0.6875rem; font-weight: 700; letter-spacing: 0.05em; color: var(--ns-text-secondary);">Subtotal</span>
-                <span class="font-serif fw-bold fs-5">$830.00</span>
+                <span class="font-serif fw-bold fs-5">@drawerVm.Subtotal.ToString("C")</span>
             </div>
-            
+
             <p class="text-muted text-center" style="font-Size: 0.6875rem;">Shipping and taxes calculated at checkout.</p>
-            
-            <a href="#" class="btn btn-ns-outline w-100 mb-2">View Cart</a>
-            <a href="#" class="btn btn-ns-primary w-100 d-flex justify-content-between align-items-center">
+
+            <a href="/Cart" class="btn btn-ns-outline w-100 mb-2">View Cart</a>
+            <a href="/Checkout" class="btn btn-ns-primary w-100 d-flex justify-content-between align-items-center">
                 <span>Proceed to Checkout</span>
                 <i class="bi bi-arrow-right"></i>
             </a>
