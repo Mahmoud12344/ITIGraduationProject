@@ -21,15 +21,49 @@ public class HomeController : Controller
         ViewBag.FeaturedProducts = await _context.Products
             .Include(p => p.Category)
             .Include(p => p.Brand)
-            .Include(p => p.Images)
+            .Include(p=>p.Images)
             .Where(p => p.IsFeatured && p.IsActive)
             .Take(4)
             .ToListAsync();
 
-        return View();
+        var categories = await _context.Categories.Include(c=>c.Image).Include(c=>c.Products).ToArrayAsync();
+
+        return View(categories);
     }
 
- 
+
+    [HttpGet]
+public async Task<IActionResult> GetFilteredProducts(string filter)
+{
+    var query = _context.Products
+        .Include(p => p.Brand)
+        .Include(p => p.Images)
+        .Where(p => p.IsActive);
+    switch (filter?.ToLower())
+    {
+        case "new":
+            query = query.OrderByDescending(p => p.CreatedAt);
+            break;
+        case "bestsellers":
+            query = query.Where(p => p.IsBestseller);
+            break;
+        case "sale":
+            query = query.Where(p => p.IsOnSale);
+            break;
+        case "trending":
+        default:
+            query = query.Where(p => p.IsFeatured);
+            break;
+    }
+    var products = await query.Take(4).ToListAsync();
+    return PartialView("Partials/_ProductGrid", products);
+}
+
+    public IActionResult Index2()
+    {
+        throw new Exception();
+    }
+
     public IActionResult Privacy()
     {
         return View();
