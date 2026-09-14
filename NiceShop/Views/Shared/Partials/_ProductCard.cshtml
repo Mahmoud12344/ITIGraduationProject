@@ -2,8 +2,8 @@
 
 <div class="ns-product-card">
     <div class="ns-card-img-wrap position-relative">
-        <a asp-action="Details" asp-route-id="@Model.Id">
-            <img src="@(Model.Images.Any() ? Model.Images.First().FilePath : "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500")" alt="@Model.Name" loading="lazy">
+        <a asp-controller= "Products" asp-action="Details" asp-route-id="@Model.Id">
+        <img src="@(Model.Images != null && Model.Images.Any() ? Model.Images.First().FilePath : "NO Image")" alt="@Model.Name" loading="lazy">
         </a>
 
         <div class="position-absolute top-0 start-0 m-2 d-flex flex-column gap-1">
@@ -26,7 +26,7 @@
         </button>
 
         <div class="ns-card-hover-actions">
-            <button class="ns-quick-view-btn" onclick="window.nsQuickView.open('@Model.Id')">Quick View</button>
+            <button class="ns-quick-view-btn ns-btn-quick-view" data-id="@Model.Id">Quick View</button>
         </div>
     </div>
 

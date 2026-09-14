@@ -1,4 +1,6 @@
-<!-- Quick View Modal (Bootstrap Modal) -->
+
+@model NiceShop.Models.Product
+
 <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 overflow-hidden" style="border-radius: 1.25rem;">
@@ -8,56 +10,57 @@
                 <!-- Image side -->
                 <div class="col-md-5 bg-light" style="min-height: 300px;">
                     <!-- This image src would be updated via JS when opening the modal -->
-                    <img id="qv-image" src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800" alt="Product" class="w-100 h-100 object-fit-cover">
+                    <img id="qv-image" src="@(Model.Images.Any()? Model.Images.First().FilePath : "")" alt="@Model.Name" class="w-100 h-100 object-fit-cover">
                 </div>
                 
                 <!-- Info side -->
                 <div class="col-md-7 p-4 p-md-5 d-flex flex-column">
-                    <div class="text-uppercase text-muted fw-bold mb-1" style="font-Size: 0.6875rem; letter-spacing: 0.08em;" id="qv-brand">Maison Noir</div>
-                    <h2 class="font-serif fw-bold h4 mb-2" id="qv-title">Double-Breasted Cashmere Trench Coat</h2>
+                    <div class="text-uppercase text-muted fw-bold mb-1" style="font-Size: 0.6875rem; letter-spacing: 0.08em;" id="qv-brand">@Model.Brand?.Name</div>
+                    <h2 class="font-serif fw-bold h4 mb-2" id="qv-title">@Model.Name</h2>
                     
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="font-serif fw-bold fs-5" id="qv-price">$490.00</div>
+                        <div class="font-serif fw-bold fs-5" id="qv-price">@Model.Price.ToString("C")</div>
                         <div class="ns-stars">
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
-                            <span class="ns-rating-text">(34)</span>
+                            <span class="ns-rating-text">@Model.ReviewCount</span>
                         </div>
                     </div>
                     
                     <p class="text-muted small line-clamp-2 mb-4" id="qv-description">
-                        Expertly tailored in Paris from double-faced Italian cashmere. Features horn buttons, belted waist, structured lapels, and hand-finished storm flaps.
+                        @Model.Description
                     </p>
                     
-                    <!-- Form (submit intercepts or uses standard MVC post) -->
-                    <form method="post" action="/Cart/Add" class="mt-auto">
-                        <input type="hidden" name="productId" id="qv-id" value="prod-1" />
-                        
+                    <form asp-controller="Cart" asp-action="Add" method="post" class="mt-auto">
+                        <input type="hidden" name="productId" id="qv-id" value="@Model.Id" />                        
                         <div class="row g-3 mb-4">
                             <div class="col-6">
                                 <label class="ns-form-label">Size</label>
                                 <select name="Size" class="form-select form-select-sm" id="qv-size">
-                                    <option>XS</option>
-                                    <option>S</option>
-                                    <option selected>M</option>
-                                    <option>L</option>
+                                    @foreach(var size in Model.Sizes)
+                                    {
+                                        <option>@size?.Code</option>
+                                    }
+                                    
                                 </select>
                             </div>
                             <div class="col-6">
                                 <label class="ns-form-label">Color</label>
                                 <select name="color" class="form-select form-select-sm" id="qv-color">
-                                    <option>Camel Tan</option>
-                                    <option>Midnight Noir</option>
+                                    @foreach(var color in Model.Colors)
+                                    {
+                                        <option>@color?.Name</option>
+                                    }
                                 </select>
                             </div>
                         </div>
                         
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-ns-dark flex-grow-1 py-2">Add to Bag</button>
-                            <a id="qv-details-link" href="/Products/Details/prod-1" class="btn btn-ns-outline py-2">View Full Details</a>
+                            <a id="qv-details-link" asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-ns-outline py-2">View Full Details</a>
                         </div>
                     </form>
                 </div>

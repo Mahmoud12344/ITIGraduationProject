@@ -1,3 +1,7 @@
+@using Microsoft.EntityFrameworkCore
+@using NiceShop.Data
+@inject ApplicationDbContext _context
+
 <!-- 1. Announcement Bar -->
 <div class="ns-announcement-bar d-flex justify-content-between align-items-center">
     <div class="d-none d-md-flex align-items-center gap-2">
@@ -146,12 +150,11 @@
                 <div class="row gx-5">
                     <div class="col-4">
                         <div class="ns-mega-menu-heading">Categories</div>
-                        <a href="#" class="ns-mega-menu-link">Women's Ready-to-Wear</a>
-                        <a href="#" class="ns-mega-menu-link">Men's Tailoring</a>
-                        <a href="#" class="ns-mega-menu-link">Outerwear & Coats</a>
-                        <a href="#" class="ns-mega-menu-link">Leather Goods</a>
-                        <a href="#" class="ns-mega-menu-link">Footwear</a>
-                        <a href="#" class="ns-mega-menu-link">Accessories & Watches</a>
+                        @foreach(var category in _context.Categories.Where(p=>p.Products.Any()).ToList() )
+                        {
+                            <a asp-controller="Products" asp-action="ByCategory" asp-route-id = "@category.Id" class="ns-mega-menu-link">@category.Name</a>
+                        }
+                        
                     </div>
                     <div class="col-4">
                         <div class="ns-mega-menu-heading">Featured Brands</div>
