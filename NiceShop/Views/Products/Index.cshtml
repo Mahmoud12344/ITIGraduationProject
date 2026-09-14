@@ -131,7 +131,7 @@
                          data-price="@product.Price"
                          data-category="@product.CategoryId"
                          data-brand="@(product.BrandId?.ToString() ?? "")"
-                         data-rating="@product.Rating"
+                         data-rating="@(product.Rating>0?product.Rating : "no rating yet"  )"
                          data-created="@product.CreatedAt.Ticks"
                          data-featured="@(product.IsFeatured ? "1" : "0")"
                          data-instock="@(product.Stock > 0 ? "1" : "0")">

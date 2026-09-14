@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initFlashSaleCountdown();
     initSearchSuggestions();
     initProductTabs();
+    initProductFilters();
 });
 
 /* ==========================================================================

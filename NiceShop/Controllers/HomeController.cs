@@ -21,6 +21,7 @@ public class HomeController : Controller
         ViewBag.FeaturedProducts = await _context.Products
             .Include(p => p.Category)
             .Include(p => p.Brand)
+            .Include(p => p.Images)
             .Where(p => p.IsFeatured && p.IsActive)
             .Take(4)
             .ToListAsync();
@@ -28,11 +29,7 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Index2()
-    {
-        throw new Exception();
-    }
-
+ 
     public IActionResult Privacy()
     {
         return View();

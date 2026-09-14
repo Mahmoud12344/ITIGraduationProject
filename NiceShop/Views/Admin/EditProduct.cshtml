@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-md-4 mb-2">
                         <label asp-for="Stock" class="form-label fw-semibold small text-muted text-uppercase tracking-wider">Stock</label>
-                        <input asp-for="Stock" class="form-control bg-light border-light form-control-sm" />
+                        <input asp-for="Stock" class="form-control bg-light border-light form-control-sm" @*value="0" *@ />
                         <span asp-validation-for="Stock" class="text-danger small"></span>
                     </div>
                     <div class="col-md-4 mb-2">

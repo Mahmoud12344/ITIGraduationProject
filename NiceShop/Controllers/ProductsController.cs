@@ -19,7 +19,8 @@ public class ProductsController : Controller
         var products = await _context.Products
             .Include(p => p.Category)
             .Include(p => p.Brand)
-            .Include(p => p.Images)
+            .Include(p=>p.Images)
+            .Include(p=>p.Colors)
             .Where(p => p.IsActive)
             .ToListAsync();
 
