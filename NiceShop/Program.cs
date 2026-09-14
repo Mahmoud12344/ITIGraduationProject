@@ -39,6 +39,14 @@ public class Program
         builder.Services.AddScoped<AdminDefualtService>();
         var app = builder.Build();
 
+        var supportedCultures = new[] { new System.Globalization.CultureInfo("en-EG") };
+        app.UseRequestLocalization(new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-EG"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures
+        });
+
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
         {
