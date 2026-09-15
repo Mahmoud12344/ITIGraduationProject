@@ -1,0 +1,17 @@
+@model IEnumerable<NiceShop.Models.Product>
+
+@if (!Model.Any())
+{
+    <div class="col-12 text-center text-muted py-5">
+        No products found in this category yet.
+    </div>
+}
+else
+{
+    @foreach (var product in Model)
+    {
+        <div class="col">
+            <partial name="Partials/_ProductCard" model="product" />
+        </div>
+    }
+}
