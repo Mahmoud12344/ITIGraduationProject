@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.VisualBasic;
 using NiceShop.Models;
+using NiceShop.services;
 using NiceShop.ViewModels;
 
 namespace NiceShop.Controllers;
@@ -13,11 +14,13 @@ public class AuthController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly ICartService _cartService;
 
-    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ICartService cartService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _cartService = cartService;
     }
 
     [HttpGet]
@@ -62,6 +65,8 @@ public class AuthController : Controller
         if (res.Succeeded)
         {
             await _signInManager.SignInAsync(user, false);
+            // user might have added stuff to the cart before making an account, move it over
+            await _cartService.MergeGuestCartIntoDbAsync();
             return RedirectToAction("Index");
         }
 
@@ -110,6 +115,8 @@ public class AuthController : Controller
         }
 
         await _signInManager.SignInAsync(appuser, authVm.Login.RememberMe);
+        // move any guest cart items over to this user's db cart now that they're logged in
+        await _cartService.MergeGuestCartIntoDbAsync();
 
         return RedirectToAction("Index", "Home");
     }

@@ -417,3 +417,69 @@ document.addEventListener('click', function (e) {
             window.location.reload();
         })
         .catch(err => {
+            console.log('add to cart failed', err);
+            if (window.nsToast) {
+                window.nsToast.show('Could not add item, try again', 'error');
+            }
+        })
+        .finally(() => {
+            btn.disabled = false;
+        });
+});
+
+/* ==========================================================================
+   10. cart drawer +/- and remove buttons
+   these forms in _CartDrawer.cshtml still post to the real controller actions,
+   we just catch the submit here so it doesnt take you to /Cart every time
+   ========================================================================== */
+document.addEventListener('submit', function (e) {
+    const form = e.target.closest('[data-cart-ajax-form]');
+    if (!form) return;
+
+    e.preventDefault();
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
+    const formData = new FormData(form);
+    const body = new URLSearchParams();
+    formData.forEach((value, key) => body.append(key, value));
+
+    fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body
+    })
+        .then(res => {
+            if (!res.ok) throw new Error('bad response');
+            // remember the drawer was open so we can reopen it, see section 11
+            sessionStorage.setItem('nsCartDrawerOpen', '1');
+            // controller redirects to /Cart, we dont care about that html,
+            // just reload the current page so the drawer numbers update
+            window.location.reload();
+        })
+        .catch(err => {
+            console.log('cart drawer action failed', err);
+            if (window.nsToast) {
+                window.nsToast.show('Could not update cart, try again', 'error');
+            }
+            if (submitBtn) submitBtn.disabled = false;
+        });
+});
+
+/* ==========================================================================
+   11. keep cart drawer open after reload
+   the add/update/remove buttons above do a full page reload, and that closes
+   the drawer since bootstrap doesnt remember it was open. so we save a flag
+   in sessionStorage before reloading and check it here to open it again
+   ========================================================================== */
+function reopenCartDrawerIfNeeded() {
+    if (sessionStorage.getItem('nsCartDrawerOpen') !== '1') return;
+    sessionStorage.removeItem('nsCartDrawerOpen');
+
+    const drawerEl = document.getElementById('cartDrawer');
+    if (!drawerEl || typeof bootstrap === 'undefined') return;
+
+    const drawer = bootstrap.Offcanvas.getOrCreateInstance(drawerEl);
+    drawer.show();
+}
