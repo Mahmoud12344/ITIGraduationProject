@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.VisualBasic;
+using NiceShop.Data;
 using NiceShop.Models;
 using NiceShop.ViewModels;
 
@@ -12,10 +13,12 @@ namespace NiceShop.Controllers;
 public class AuthController : Controller {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly ApplicationDbContext _applicationDbContext ;
 
-    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) {
+    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,ApplicationDbContext context) {
         _userManager = userManager;
         _signInManager = signInManager;
+        _applicationDbContext = context;
     }
 
     [HttpGet]
@@ -49,14 +52,23 @@ public class AuthController : Controller {
         user.UserName = urvm.Email;
         user.Email = urvm.Email;
         user.PhoneNumber = urvm.Phone;
+        var identityResult = await _userManager.CreateAsync(user, urvm.Password);
 
-        var res = await _userManager.CreateAsync(user, urvm.Password);
-        if (res.Succeeded){
+        if (identityResult.Succeeded){
             await _signInManager.SignInAsync(user, false);
+            var customer = new Customer() {
+                FName = urvm.Fname,
+                LName = urvm.Lname,
+                Id = user.Id
+            };
+
+            await _applicationDbContext.Customers.AddAsync(customer);
+            await _applicationDbContext.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
-
-        foreach (var error in res.Errors){
+      
+        foreach (var error in identityResult.Errors){
             ModelState.AddModelError("", error.Description);
         }
 
