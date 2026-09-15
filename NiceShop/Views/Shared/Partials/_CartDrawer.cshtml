@@ -5,8 +5,8 @@
 
 @{
     // same logic as CartController.Index, but this runs on every page since the drawer is in the layout
-    var sessionItems = CartService.GetCart();
-    var drawerVm = new CartVM();
+var sessionItems = await CartService.GetCartAsync();
+var drawerVm = new CartVM();
 
     foreach (var item in sessionItems)
     {

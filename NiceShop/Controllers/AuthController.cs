@@ -9,18 +9,22 @@ using NiceShop.ViewModels;
 namespace NiceShop.Controllers;
 
 // [Authorize]
-public class AuthController : Controller {
+public class AuthController : Controller
+{
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) {
+    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+    {
         _userManager = userManager;
         _signInManager = signInManager;
     }
 
     [HttpGet]
-    public IActionResult Index() {
-        var model = new AuthVM {
+    public IActionResult Index()
+    {
+        var model = new AuthVM
+        {
             ActiveTab = "login"
         };
 
@@ -29,8 +33,10 @@ public class AuthController : Controller {
 
 
     [HttpGet]
-    public IActionResult CreateAccount() {
-        var model = new AuthVM {
+    public IActionResult CreateAccount()
+    {
+        var model = new AuthVM
+        {
             ActiveTab = "register"
         };
 
@@ -38,9 +44,11 @@ public class AuthController : Controller {
     }
 
     [HttpPost]
-[ValidateAntiForgeryToken]
-    public async Task<IActionResult> CreateAccount(UserRegistrationVM urvm) {
-        if (!ModelState.IsValid){
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateAccount(UserRegistrationVM urvm)
+    {
+        if (!ModelState.IsValid)
+        {
             var authVmInvalid = new AuthVM { Register = urvm, ActiveTab = "register" };
             return View(nameof(Index), authVmInvalid);
         }
@@ -51,12 +59,14 @@ public class AuthController : Controller {
         user.PhoneNumber = urvm.Phone;
 
         var res = await _userManager.CreateAsync(user, urvm.Password);
-        if (res.Succeeded){
+        if (res.Succeeded)
+        {
             await _signInManager.SignInAsync(user, false);
             return RedirectToAction("Index");
         }
 
-        foreach (var error in res.Errors){
+        foreach (var error in res.Errors)
+        {
             ModelState.AddModelError("", error.Description);
         }
 
@@ -66,41 +76,47 @@ public class AuthController : Controller {
     }
 
     [HttpGet]
-    public async Task<IActionResult> SignIn() {
+    public async Task<IActionResult> SignIn()
+    {
         return View("Index");
     }
 
     [HttpPost]
-[ValidateAntiForgeryToken]
-    public async Task<IActionResult> SaveSignIn(AuthVM authVm) {
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SaveSignIn(AuthVM authVm)
+    {
         authVm.ActiveTab = "login";
         bool loginValid = ModelState
             .Where(kvp => kvp.Key.StartsWith("Login"))
             .All(kvp => kvp.Value.ValidationState == ModelValidationState.Valid);
-        if (!loginValid){
+        if (!loginValid)
+        {
             return View("Index", authVm);
         }
 
         var appuser = await _userManager.FindByNameAsync(authVm.Login.Email);
-        if (appuser is null){
+        if (appuser is null)
+        {
             ModelState.AddModelError("", "Username can't wrong ");
             return View("Index", authVm);
         }
 
-        var isPresent = await _userManager.CheckPasswordAsync(appuser,authVm.Login.Password);
-        if (!isPresent){
+        var isPresent = await _userManager.CheckPasswordAsync(appuser, authVm.Login.Password);
+        if (!isPresent)
+        {
             ModelState.AddModelError("", "Wrong Password ");
             return View("Index", authVm);
-            
+
         }
-        
+
         await _signInManager.SignInAsync(appuser, authVm.Login.RememberMe);
- 
+
         return RedirectToAction("Index", "Home");
     }
 
 
-    public async Task<IActionResult> SignOut() {
+    public async Task<IActionResult> SignOut()
+    {
         await _signInManager.SignOutAsync();
 
         return View(nameof(Index), new AuthVM() { ActiveTab = "login" });

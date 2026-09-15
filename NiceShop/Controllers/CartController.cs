@@ -19,17 +19,16 @@ public class CartController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var sessionItems = _cartService.GetCart();
+        var sessionItems = await _cartService.GetCartAsync();
         var vm = new CartVM();
 
         foreach (var item in sessionItems)
         {
-            // session only has the ids, so go get the real product info from the db
             var product = await _context.Products
                 .Include(p => p.Images)
                 .FirstOrDefaultAsync(p => p.Id == item.ProductId);
 
-            if (product == null) continue; // product got deleted or doesnt exist, just skip it
+            if (product == null) continue;
 
             vm.Items.Add(new CartLineVM
             {
@@ -47,23 +46,23 @@ public class CartController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(int productId, int quantity, string? size, string? color)
+    public async Task<IActionResult> Add(int productId, int quantity, string? size, string? color)
     {
-        _cartService.AddToCart(productId, quantity, size, color);
+        await _cartService.AddToCartAsync(productId, quantity, size, color);
         return RedirectToAction("Index");
     }
 
     [HttpPost]
-    public IActionResult Remove(int productId, string? size, string? color)
+    public async Task<IActionResult> Remove(int productId, string? size, string? color)
     {
-        _cartService.RemoveFromCart(productId, size, color);
+        await _cartService.RemoveFromCartAsync(productId, size, color);
         return RedirectToAction("Index");
     }
 
     [HttpPost]
-    public IActionResult UpdateQuantity(int productId, string? size, string? color, int quantity)
+    public async Task<IActionResult> UpdateQuantity(int productId, string? size, string? color, int quantity)
     {
-        _cartService.UpdateQuantity(productId, size, color, quantity);
+        await _cartService.UpdateQuantityAsync(productId, size, color, quantity);
         return RedirectToAction("Index");
     }
 }
