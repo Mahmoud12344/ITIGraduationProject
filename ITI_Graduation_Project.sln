@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceShop", "NiceShop\NiceShop.csproj", "{DC883D6F-FB52-4C74-9EDF-84FACE411AA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiAPI", "AiAPI\AiAPI.csproj", "{CF2364FD-4DF0-4FC8-A6BE-CC8ECF38CD27}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,9 +12,5 @@ Global
 		{DC883D6F-FB52-4C74-9EDF-84FACE411AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC883D6F-FB52-4C74-9EDF-84FACE411AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC883D6F-FB52-4C74-9EDF-84FACE411AA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF2364FD-4DF0-4FC8-A6BE-CC8ECF38CD27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF2364FD-4DF0-4FC8-A6BE-CC8ECF38CD27}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF2364FD-4DF0-4FC8-A6BE-CC8ECF38CD27}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF2364FD-4DF0-4FC8-A6BE-CC8ECF38CD27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
