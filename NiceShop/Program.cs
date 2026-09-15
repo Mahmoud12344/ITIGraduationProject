@@ -37,6 +37,8 @@ public class Program
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddScoped<AdminDefualtService>();
+        builder.Services.AddScoped<DashboardService>();
+        
         var app = builder.Build();
 
         var supportedCultures = new[] { new System.Globalization.CultureInfo("en-EG") };

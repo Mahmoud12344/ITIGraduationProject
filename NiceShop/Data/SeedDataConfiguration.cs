@@ -88,52 +88,230 @@ public static class SeedDataConfiguration
 
         // 5. Seed Products (Corrected Categories & Added Descriptions)
         builder.Entity<Product>().HasData(
-            new Product { Id = 1, Name = "ASTKWomens Cape Trenchcoat", Description = "Stay warm and stylish with this elegant cape trench coat, featuring a timeless silhouette, sophisticated double-breasted front, and premium wind-resistant fabric.", Price = 103.12m, Stock = 0, CategoryId = 2, BrandId = 7, IsFeatured = false, IsBestseller = true, IsOnSale = true, Discount = 20.62m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 2, Name = "ASTKWomens Essential Puff Jacket", Description = "A must-have winter essential, this puff jacket offers lightweight insulation, a water-resistant outer shell, and an ultra-cozy fit without compromising on your everyday style.", Price = 24.12m, Stock = 0, CategoryId = 2, BrandId = 7, IsFeatured = true, IsBestseller = true, IsOnSale = true, Discount = 4.82m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 3, Name = "Alimens Gentle Slim Fit Mens Dress Shirts...", Description = "Premium slim-fit dress shirt crafted from breathable wrinkle-free cotton. Perfectly tailored for formal occasions, weddings, or a sharp look at the modern office.", Price = 96.59m, Stock = 0, CategoryId = 1, BrandId = 1, IsFeatured = true, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 4, Name = "American Eagle Mens AEFlex12Khaki Short", Description = "Comfortable and versatile khaki shorts equipped with signature AEFlex technology for superior mobility and a stretch waistband for all-day comfort.", Price = 32.05m, Stock = 0, CategoryId = 1, BrandId = 5, IsFeatured = false, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 5, Name = "American Eagle Mens Slim Fit Everyday Oxford...", Description = "Classic slim-fit Oxford shirt designed for everyday wear. Made from durable yet soft brushed cotton for a tailored, smart-casual look.", Price = 91.76m, Stock = 100, CategoryId = 1, BrandId = 5, IsFeatured = false, IsBestseller = true, IsOnSale = true, Discount = 18.35m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 6, Name = "American Eagle Womens Stretch Barrel Jean", Description = "Trendy stretch barrel jeans offering a relaxed, curved fit. Features high-quality stretch denim that moves with you for ultimate everyday comfort.", Price = 132.63m, Stock = 50, CategoryId = 2, BrandId = 5, IsFeatured = false, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 7, Name = "American Eagle Womens Strigid Barrel Jean", Description = "Rigid structured denim with a high-waisted vintage cut. The barrel leg brings a modern, edgy twist to classic non-stretch denim.", Price = 54.7m, Stock = 0, CategoryId = 2, BrandId = 5, IsFeatured = true, IsBestseller = true, IsOnSale = true, Discount = 10.94m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            
-            // Moved to Men's (CategoryId = 1)
-            new Product { Id = 8, Name = "Andora Mens Oxford Cotton", Description = "High-quality Oxford cotton shirt offering durability, breathability, and a sharp, structured fit. An essential staple for any gentleman's wardrobe.", Price = 49.77m, Stock = 0, CategoryId = 1, BrandId = 6, IsFeatured = false, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 9, Name = "Andora Mens Solid Pattern Hall Sleeve Wester", Description = "A casual half-sleeve western shirt with a clean solid pattern. Lightweight and perfect for a laid-back weekend or warm-weather outings.", Price = 47.63m, Stock = 50, CategoryId = 1, BrandId = 6, IsFeatured = false, IsBestseller = false, IsOnSale = true, Discount = 9.53m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 10, Name = "Dubinik Flannel Shirt Mens Checked...", Description = "Classic checked flannel shirt made from ultra-soft, brushed fabric. Ideal for layering over tees during the crisp autumn and winter months.", Price = 136.71m, Stock = 50, CategoryId = 1, BrandId = 1, IsFeatured = false, IsBestseller = true, IsOnSale = true, Discount = 27.34m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            
-            new Product { Id = 11, Name = "Short Sleeve Basic Top6229000006", Description = "An everyday essential short-sleeve top. Crafted with soft, breathable modal-blend fabric, it’s versatile enough to tuck into jeans or layer under a blazer.", Price = 40.79m, Stock = 50, CategoryId = 2, BrandId = 1, IsFeatured = true, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 12, Name = "ESKINOWomens Winter Long Coat...", Description = "Stay cozy in this elegant long winter coat, designed with a heavy-duty wind-resistant outer shell, deep pockets, and a heavily insulated lining.", Price = 113.68m, Stock = 100, CategoryId = 2, BrandId = 1, IsFeatured = false, IsBestseller = false, IsOnSale = true, Discount = 22.74m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 13, Name = "Long Women Coat Gray", Description = "Chic gray long coat with a tailored, slim fit. Features an elegant lapel collar, providing a highly sophisticated outer layer for colder seasons.", Price = 133.85m, Stock = 20, CategoryId = 2, BrandId = 1, IsFeatured = true, IsBestseller = true, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 14, Name = "Womens Dark Brown Wide Leg High Waist...", Description = "Flattering dark brown wide-leg trousers featuring a high waist and a smooth, flowing drape. Perfect for office wear or elevated evening outfits.", Price = 97.85m, Stock = 50, CategoryId = 2, BrandId = 1, IsFeatured = true, IsBestseller = true, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 15, Name = "Womens Plush Faux Fur Hooded Jacket...", Description = "Ultra-soft plush faux fur hooded jacket. Combines luxury, deep warmth, and a modern streetwear aesthetic for cold days out on the town.", Price = 31.12m, Stock = 50, CategoryId = 2, BrandId = 1, IsFeatured = true, IsBestseller = true, IsOnSale = true, Discount = 6.22m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 16, Name = "Womens Wide Leg Trousers...", Description = "Elegant wide-leg trousers crafted from premium anti-wrinkle fabric. Offering superior comfort, practical side pockets, and a beautifully polished silhouette.", Price = 140.75m, Stock = 10, CategoryId = 2, BrandId = 1, IsFeatured = false, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 17, Name = "JACKJONESMens Marco Sunny Chino Shorts", Description = "Classic Marco Sunny chino shorts featuring a tailored slim fit, breathable stretch-cotton fabric, and versatile styling options for sunny days.", Price = 63.94m, Stock = 100, CategoryId = 1, BrandId = 8, IsFeatured = true, IsBestseller = true, IsOnSale = true, Discount = 12.79m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 18, Name = "LCWAIKIKIBaby Girls Hooded Cardigan...", Description = "Adorable hooded cardigan for baby girls. Made from soft, skin-friendly knit material to keep your little one warm and comfortable all day.", Price = 131.74m, Stock = 0, CategoryId = 3, BrandId = 10, IsFeatured = true, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 19, Name = "LCWAIKIKIEmbroidered Baby Girls Set", Description = "Beautifully embroidered two-piece set for baby girls. Blends exceptional comfort with delicate floral detailing for special occasions or daily wear.", Price = 124.96m, Stock = 10, CategoryId = 3, BrandId = 10, IsFeatured = true, IsBestseller = true, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 20, Name = "AWide Fit POPLINShirt For Women With", Description = "A relaxed, wide-fit poplin shirt for women. Features drop shoulders and a crisp collar, offering a breathable and effortlessly chic oversized look.", Price = 104.94m, Stock = 0, CategoryId = 2, BrandId = 1, IsFeatured = true, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            
-            // Moved to Men's (CategoryId = 1)
-            new Product { Id = 21, Name = "Levis Mens CLASSICWESTERNSTANDARDWoven Tops", Description = "The iconic standard western woven top by Levi's. Features signature pearl snaps, pointed yokes, and legendary durable denim construction.", Price = 89.71m, Stock = 10, CategoryId = 1, BrandId = 9, IsFeatured = false, IsBestseller = true, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            
-            new Product { Id = 22, Name = "Levis Women Seasonal Fashion Jacket", Description = "A versatile seasonal trucker jacket offering lightweight protection. Designed with a slightly cropped fit and timeless denim styling.", Price = 26.57m, Stock = 100, CategoryId = 2, BrandId = 9, IsFeatured = true, IsBestseller = true, IsOnSale = true, Discount = 5.31m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 23, Name = "PUMAMens F1ESSLogo Polo180g Black Classic", Description = "Sporty and classic F1-inspired polo shirt. Features a lightweight 180g breathable pique fabric, ribbed collar, and a sleek understated logo design.", Price = 132.39m, Stock = 0, CategoryId = 1, BrandId = 11, IsFeatured = true, IsBestseller = false, IsOnSale = true, Discount = 26.48m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            
-            // Moved to Men's (CategoryId = 1)
-            new Product { Id = 24, Name = "Visittheadidas Storeadidas Mens Essentials Small Logo...", Description = "Essential small logo t-shirt crafted from a premium soft cotton blend. Delivers ultimate casual comfort and clean, minimalist athletic style.", Price = 144.44m, Stock = 100, CategoryId = 1, BrandId = 2, IsFeatured = false, IsBestseller = true, IsOnSale = true, Discount = 28.89m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            
-            // Moved to Men's Footwear (CategoryId = 5)
-            new Product { Id = 25, Name = "adidas Copa Pure3League Firm Multi Ground Boots...", Description = "High-performance firm multi-ground football boots. Designed with a synthetic leather upper for a soft touch, optimal traction, and precision ball control.", Price = 27.42m, Stock = 100, CategoryId = 5, BrandId = 2, IsFeatured = false, IsBestseller = true, IsOnSale = true, Discount = 5.48m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 26, Name = "adidas UNISEXADULTRESPONSERUNNER2SHOES", Description = "Durable and highly responsive running shoes built for everyday training. Features a breathable mesh upper and a supportive cushioned midsole.", Price = 107.77m, Stock = 10, CategoryId = 5, BrandId = 2, IsFeatured = false, IsBestseller = true, IsOnSale = true, Discount = 21.55m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            
-            new Product { Id = 27, Name = "adidas Mens", Description = "Classic athletic apparel designed to provide maximum comfort and freedom of movement. Perfect for intense workouts or relaxed rest days.", Price = 107.05m, Stock = 20, CategoryId = 1, BrandId = 2, IsFeatured = true, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            
-            // Moved to Women's Footwear (CategoryId = 6)
-            new Product { Id = 28, Name = "adidas Womens Ultrarun5Running Shoes", Description = "Lightweight and breathable Ultrarun running shoes tailored for women. Features advanced bounce cushioning for an energized and smooth stride.", Price = 21.2m, Stock = 100, CategoryId = 6, BrandId = 2, IsFeatured = true, IsBestseller = true, IsOnSale = true, Discount = 4.24m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 29, Name = "adidaswomens COURTFUNKSneaker", Description = "Stylish and highly comfortable court funk sneakers. Blending retro tennis aesthetics with modern platform soles and streetwear flair.", Price = 57.04m, Stock = 50, CategoryId = 6, BrandId = 2, IsFeatured = false, IsBestseller = true, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 30, Name = "adidaswomens ULTRADREAMDNASHOES", Description = "Experience unmatched comfort with these ultra-dream DNA shoes. Engineered with adaptive cloud-like cushioning for all-day wear and support.", Price = 116.5m, Stock = 10, CategoryId = 6, BrandId = 2, IsFeatured = false, IsBestseller = false, IsOnSale = true, Discount = 23.3m, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            
-            new Product { Id = 31, Name = "black Graphic T Shirt Short Sleeve Crew Neck...", Description = "A casual black graphic t-shirt with a classic crew neck and short sleeves. Made from soft cotton, perfect for everyday casual wear.", Price = 137.68m, Stock = 0, CategoryId = 2, BrandId = 1, IsFeatured = true, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new Product { Id = 32, Name = "kidstown Boys2Piece Summer Set...", Description = "Fun and comfortable two-piece summer set for boys. Made with breathable, lightweight fabric to keep them cool and active during warm sunny days.", Price = 102.81m, Stock = 20, CategoryId = 3, BrandId = 1, IsFeatured = true, IsBestseller = false, IsOnSale = false, Discount = null, IsActive = true, CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc) }
+            new Product { 
+                Id = 1, Name = "ASTKWomens Cape Trenchcoat", Description = "Experience ultimate comfort and style with the Astkwomens Cape Trenchcoat. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 1250.00m, Stock = 0, CategoryId = 2, BrandId = 7,
+                IsFeatured = false, IsBestseller = true, IsOnSale = true,
+                Discount = 250.00m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 2, Name = "ASTKWomens Essential Puff Jacket", Description = "Experience ultimate comfort and style with the Astkwomens Essential Puff Jacket. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 850.00m, Stock = 0, CategoryId = 2, BrandId = 7,
+                IsFeatured = true, IsBestseller = true, IsOnSale = true,
+                Discount = 150.00m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 3, Name = "Alimens Gentle Slim Fit Mens Dress Shirtsfor Men Button Down Long Sleeve Dress Shirts Wrinkle Free Formal Stain Proof", Description = "Experience ultimate comfort and style with the Alimens Gentle Slim Fit Mens Dress Shirtsfor Men Button Down Long Sleeve Dress Shirts Wrinkle Free Formal Stain Proof. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 550.00m, Stock = 0, CategoryId = 1, BrandId = 1,
+                IsFeatured = true, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 4, Name = "American Eagle Mens AEFlex12Khaki Short", Description = "Experience ultimate comfort and style with the American Eagle Mens Aeflex12Khaki Short. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 450.00m, Stock = 0, CategoryId = 1, BrandId = 5,
+                IsFeatured = false, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 5, Name = "American Eagle Mens Slim Fit Everyday Oxford Button Up Shirt Slim Fit Everyday Oxford Button Up Shirt", Description = "Experience ultimate comfort and style with the American Eagle Mens Slim Fit Everyday Oxford Button Up Shirt Slim Fit Everyday Oxford Button Up Shirt. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 91.76m, Stock = 2, CategoryId = 1, BrandId = 5,
+                IsFeatured = false, IsBestseller = true, IsOnSale = true,
+                Discount = 18.35m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 6, Name = "American Eagle Womens Stretch Barrel Jean", Description = "Experience ultimate comfort and style with the American Eagle Womens Stretch Barrel Jean. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 132.63m, Stock = 4, CategoryId = 2, BrandId = 5,
+                IsFeatured = false, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 7, Name = "American Eagle Womens Strigid Barrel Jean", Description = "Experience ultimate comfort and style with the American Eagle Womens Strigid Barrel Jean. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 54.7m, Stock = 0, CategoryId = 2, BrandId = 5,
+                IsFeatured = true, IsBestseller = true, IsOnSale = true,
+                Discount = 10.94m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 8, Name = "Andora Mens Oxford Cotton", Description = "Experience ultimate comfort and style with the Andora Mens Oxford Cotton. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 49.77m, Stock = 0, CategoryId = 2, BrandId = 6,
+                IsFeatured = false, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 9, Name = "Andora Mens Solid Pattern Hall Sleeve Wester", Description = "Experience ultimate comfort and style with the Andora Mens Solid Pattern Hall Sleeve Wester. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 47.63m, Stock = 1, CategoryId = 2, BrandId = 6,
+                IsFeatured = false, IsBestseller = false, IsOnSale = true,
+                Discount = 9.53m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 10, Name = "Dubinik Flannel Shirt Mens Checked Button Down Outdoor Cotton Casual Shirts Flannel Shirts Mens Long Sleeve", Description = "Experience ultimate comfort and style with the Dubinik Flannel Shirt Mens Checked Button Down Outdoor Cotton Casual Shirts Flannel Shirts Mens Long Sleeve. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 136.71m, Stock = 50, CategoryId = 2, BrandId = 1,
+                IsFeatured = false, IsBestseller = true, IsOnSale = true,
+                Discount = 27.34m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 11, Name = "Short Sleeve Basic Top6229000006", Description = "Experience ultimate comfort and style with the Short Sleeve Basic Top6229000006. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 40.79m, Stock = 50, CategoryId = 2, BrandId = 1,
+                IsFeatured = true, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 12, Name = "ESKINOWomens Winter Long Coat Slim Waist Broadcloth Jacketwith Button Frontand Elegant Belt Multi Color Size", Description = "Experience ultimate comfort and style with the Eskinowomens Winter Long Coat Slim Waist Broadcloth Jacketwith Button Frontand Elegant Belt Multi Color Size. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 113.68m, Stock = 100, CategoryId = 2, BrandId = 1,
+                IsFeatured = false, IsBestseller = false, IsOnSale = true,
+                Discount = 22.74m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 13, Name = "Long Women Coat Gray", Description = "Experience ultimate comfort and style with the Long Women Coat Gray. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 133.85m, Stock = 20, CategoryId = 2, BrandId = 1,
+                IsFeatured = true, IsBestseller = true, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 14, Name = "Womens Dark Brown Wide Leg High Waist Casual Fashion Pants", Description = "Experience ultimate comfort and style with the Womens Dark Brown Wide Leg High Waist Casual Fashion Pants. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 97.85m, Stock = 50, CategoryId = 2, BrandId = 1,
+                IsFeatured = true, IsBestseller = true, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 15, Name = "Womens Plush Faux Fur Hooded Jacket Black Cropped Design Zip Up Front Winter Casual Wear", Description = "Experience ultimate comfort and style with the Womens Plush Faux Fur Hooded Jacket Black Cropped Design Zip Up Front Winter Casual Wear. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 31.12m, Stock = 50, CategoryId = 2, BrandId = 1,
+                IsFeatured = true, IsBestseller = true, IsOnSale = true,
+                Discount = 6.22m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 16, Name = "Womens Wide Leg Trousers High Waist Pleated111Tailored Fit Smart Casual Full Length Straight Cut Womens Fashion", Description = "Experience ultimate comfort and style with the Womens Wide Leg Trousers High Waist Pleated111Tailored Fit Smart Casual Full Length Straight Cut Womens Fashion. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 140.75m, Stock = 10, CategoryId = 2, BrandId = 1,
+                IsFeatured = false, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 17, Name = "JACKJONESMens Marco Sunny Chino Shorts", Description = "Experience ultimate comfort and style with the Jackjonesmens Marco Sunny Chino Shorts. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 63.94m, Stock = 100, CategoryId = 1, BrandId = 8,
+                IsFeatured = true, IsBestseller = true, IsOnSale = true,
+                Discount = 12.79m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 18, Name = "LCWAIKIKIBaby Girls Hooded Cardiganand Bootie Bottom Set", Description = "Experience ultimate comfort and style with the Lcwaikikibaby Girls Hooded Cardiganand Bootie Bottom Set. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 131.74m, Stock = 0, CategoryId = 3, BrandId = 10,
+                IsFeatured = true, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 19, Name = "LCWAIKIKIEmbroidered Baby Girls Set", Description = "Experience ultimate comfort and style with the Lcwaikikiembroidered Baby Girls Set. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 124.96m, Stock = 10, CategoryId = 3, BrandId = 10,
+                IsFeatured = true, IsBestseller = true, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 20, Name = "AWide Fit POPLINShirt For Women With", Description = "Experience ultimate comfort and style with the Awide Fit Poplinshirt For Women With. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 104.94m, Stock = 0, CategoryId = 2, BrandId = 1,
+                IsFeatured = true, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 21, Name = "Levis Mens CLASSICWESTERNSTANDARDWoven Tops", Description = "Experience ultimate comfort and style with the Levis Mens Classicwesternstandardwoven Tops. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 89.71m, Stock = 10, CategoryId = 2, BrandId = 9,
+                IsFeatured = false, IsBestseller = true, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 22, Name = "Levis Women Seasonal Fashion Jacket", Description = "Experience ultimate comfort and style with the Levis Women Seasonal Fashion Jacket. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 26.57m, Stock = 100, CategoryId = 2, BrandId = 9,
+                IsFeatured = true, IsBestseller = true, IsOnSale = true,
+                Discount = 5.31m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 23, Name = "PUMAMens F1ESSLogo Polo180g Black Classic", Description = "Experience ultimate comfort and style with the Pumamens F1Esslogo Polo180G Black Classic. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 132.39m, Stock = 0, CategoryId = 1, BrandId = 11,
+                IsFeatured = true, IsBestseller = false, IsOnSale = true,
+                Discount = 26.48m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 24, Name = "Visittheadidas Storeadidas Mens Essentials Small Logo PiquéPolo Shirt T Shirt", Description = "Experience ultimate comfort and style with the Visittheadidas Storeadidas Mens Essentials Small Logo Piquépolo Shirt T Shirt. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 144.44m, Stock = 100, CategoryId = 2, BrandId = 2,
+                IsFeatured = false, IsBestseller = true, IsOnSale = true,
+                Discount = 28.89m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 25, Name = "adidas Copa Pure3League Firm Multi Ground Bootsunisexadult Shoes", Description = "Experience ultimate comfort and style with the Adidas Copa Pure3League Firm Multi Ground Bootsunisexadult Shoes. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 27.42m, Stock = 100, CategoryId = 4, BrandId = 2,
+                IsFeatured = false, IsBestseller = true, IsOnSale = true,
+                Discount = 5.48m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 26, Name = "adidas UNISEXADULTRESPONSERUNNER2SHOES", Description = "Experience ultimate comfort and style with the Adidas Unisexadultresponserunner2Shoes. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 107.77m, Stock = 10, CategoryId = 4, BrandId = 2,
+                IsFeatured = false, IsBestseller = true, IsOnSale = true,
+                Discount = 21.55m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 27, Name = "adidas Mens", Description = "Experience ultimate comfort and style with the Adidas Mens. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 107.05m, Stock = 20, CategoryId = 1, BrandId = 2,
+                IsFeatured = true, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 28, Name = "adidas Womens Ultrarun5Running Shoes", Description = "Experience ultimate comfort and style with the Adidas Womens Ultrarun5Running Shoes. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 21.2m, Stock = 100, CategoryId = 2, BrandId = 2,
+                IsFeatured = true, IsBestseller = true, IsOnSale = true,
+                Discount = 4.24m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 29, Name = "adidaswomens COURTFUNKSneaker", Description = "Experience ultimate comfort and style with the Adidaswomens Courtfunksneaker. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 57.04m, Stock = 50, CategoryId = 2, BrandId = 2,
+                IsFeatured = false, IsBestseller = true, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 30, Name = "adidaswomens ULTRADREAMDNASHOES", Description = "Experience ultimate comfort and style with the Adidaswomens Ultradreamdnashoes. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 116.5m, Stock = 10, CategoryId = 2, BrandId = 2,
+                IsFeatured = false, IsBestseller = false, IsOnSale = true,
+                Discount = 23.3m, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 31, Name = "black Graphic T Shirt Short Sleeve Crew Neck Casual Topfor Menand Women,Stylish Everyday Shirtfor Outings,University,Traveland Casual Wea...", Description = "Experience ultimate comfort and style with the Black Graphic T Shirt Short Sleeve Crew Neck Casual Topfor Menand Women,Stylish Everyday Shirtfor Outings,University,Traveland Casual Wear Byhouseof Black. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 137.68m, Stock = 0, CategoryId = 2, BrandId = 1,
+                IsFeatured = true, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new Product { 
+                Id = 32, Name = "kidstown Boys2Piece Summer Set High Quality Cotton Sizes2to5Years Modern Designand Unique Colors", Description = "Experience ultimate comfort and style with the Kidstown Boys2Piece Summer Set High Quality Cotton Sizes2To5Years Modern Designand Unique Colors. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
+                Price = 102.81m, Stock = 20, CategoryId = 3, BrandId = 1,
+                IsFeatured = true, IsBestseller = false, IsOnSale = false,
+                Discount = null, IsActive = true,
+                CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc), UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            }
         );
 
         // 6. Seed Product Images
@@ -368,5 +546,74 @@ public static class SeedDataConfiguration
 
         builder.Entity("ColorProduct").HasData(productColors.ToArray());
         builder.Entity("ProductSize").HasData(productSizes.ToArray());
+
+        // ==========================================
+        // SEED DATA FOR DASHBOARD
+        // ==========================================
+
+        var testUserId = "dashboard-test-user-id";
+
+        // Seed ApplicationUser
+        builder.Entity<ApplicationUser>().HasData(
+            new ApplicationUser 
+            { 
+                Id = testUserId, 
+                UserName = "test@dashboard.com", 
+                NormalizedUserName = "TEST@DASHBOARD.COM",
+                Email = "test@dashboard.com",
+                NormalizedEmail = "TEST@DASHBOARD.COM",
+                EmailConfirmed = true,
+                PasswordHash = "AQAAAAEAACcQAAAAEA==...", // dummy hash
+                SecurityStamp = "00000000-0000-0000-0000-000000000000",
+                ConcurrencyStamp = "00000000-0000-0000-0000-000000000000"
+            }
+        );
+
+        // Seed Customer
+        builder.Entity<Customer>().HasData(
+            new Customer { Id = testUserId, FName = "Dashboard", LName = "Tester" }
+        );
+
+        // Seed Address
+        builder.Entity<Address>().HasData(
+            new Address 
+            { 
+                Id = 1, 
+                CustomerId = 1, 
+                Government = "Cairo", 
+                City = "Cairo", 
+                Street = "Test Street", 
+                Building = "1A", 
+                AddressType = AddressType.Home 
+            }
+        );
+
+        // Seed Orders
+        builder.Entity<Order>().HasData(
+            new Order { Id = 1, Number = "ORD-001", CustomerId = testUserId, AddressId = 1, Status = OrderStatus.Confirmed, OrderDate = new DateTime(2026, 9, 15, 0, 0, 0, DateTimeKind.Utc), Subtotal = 2400.00m, ShippingCost = 0m, Total = 2400.00m },
+            new Order { Id = 2, Number = "ORD-002", CustomerId = testUserId, AddressId = 1, Status = OrderStatus.Pending, OrderDate = new DateTime(2026, 9, 15, 0, 0, 0, DateTimeKind.Utc), Subtotal = 550.00m, ShippingCost = 0m, Total = 550.00m },
+            new Order { Id = 3, Number = "ORD-003", CustomerId = testUserId, AddressId = 1, Status = OrderStatus.Confirmed, OrderDate = new DateTime(2026, 9, 1, 0, 0, 0, DateTimeKind.Utc), Subtotal = 1450.00m, ShippingCost = 0m, Total = 1450.00m },
+            new Order { Id = 4, Number = "ORD-004", CustomerId = testUserId, AddressId = 1, Status = OrderStatus.Confirmed, OrderDate = new DateTime(2026, 8, 15, 0, 0, 0, DateTimeKind.Utc), Subtotal = 5600.00m, ShippingCost = 0m, Total = 5600.00m },
+            new Order { Id = 5, Number = "ORD-005", CustomerId = testUserId, AddressId = 1, Status = OrderStatus.Confirmed, OrderDate = new DateTime(2026, 6, 15, 0, 0, 0, DateTimeKind.Utc), Subtotal = 3000.00m, ShippingCost = 0m, Total = 3000.00m },
+            new Order { Id = 6, Number = "ORD-006", CustomerId = testUserId, AddressId = 1, Status = OrderStatus.Confirmed, OrderDate = new DateTime(2026, 5, 15, 0, 0, 0, DateTimeKind.Utc), Subtotal = 4500.00m, ShippingCost = 0m, Total = 4500.00m }
+        );
+
+        // Seed OrderItems
+        builder.Entity<OrderItem>().HasData(
+            // Order 1 (Total: 2400)
+            new OrderItem { Id = 1, OrderId = 1, ProductId = 1, Name = "ASTKWomens Cape Trenchcoat", Quantity = 1, Price = 1000.00m, Color = "Black" },
+            new OrderItem { Id = 2, OrderId = 1, ProductId = 2, Name = "ASTKWomens Essential Puff Jacket", Quantity = 2, Price = 700.00m, Color = "Red" },
+            // Order 2 (Total: 550)
+            new OrderItem { Id = 3, OrderId = 2, ProductId = 3, Name = "Alimens Gentle Slim Fit Mens Dress", Quantity = 1, Price = 550.00m, Color = "White" },
+            // Order 3 (Total: 1450)
+            new OrderItem { Id = 4, OrderId = 3, ProductId = 1, Name = "ASTKWomens Cape Trenchcoat", Quantity = 1, Price = 1000.00m, Color = "Black" },
+            new OrderItem { Id = 5, OrderId = 3, ProductId = 4, Name = "American Eagle Mens AEFlex12Khaki", Quantity = 1, Price = 450.00m, Color = "Blue" },
+            // Order 4 (Total: 5600)
+            new OrderItem { Id = 6, OrderId = 4, ProductId = 2, Name = "ASTKWomens Essential Puff Jacket", Quantity = 8, Price = 700.00m, Color = "Red" },
+            // Order 5 (Total: 3000)
+            new OrderItem { Id = 7, OrderId = 5, ProductId = 1, Name = "ASTKWomens Cape Trenchcoat", Quantity = 3, Price = 1000.00m, Color = "Black" },
+            // Order 6 (Total: 4500)
+            new OrderItem { Id = 8, OrderId = 6, ProductId = 4, Name = "American Eagle Mens AEFlex12Khaki", Quantity = 10, Price = 450.00m, Color = "Blue" }
+        );
     }
 }
