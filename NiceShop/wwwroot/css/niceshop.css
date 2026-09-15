@@ -156,18 +156,27 @@ body {
 .bg-light, .bg-white { background-color: var(--ns-bg-card) !important; }
 .border-light { border-color: var(--ns-border-light) !important; }
 
+/* Fix Bootstrap placeholder color in custom dark mode */
+.form-control::placeholder,
+.form-select::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: var(--ns-text-secondary) !important;
+  opacity: 1; /* Override Bootstrap's default opacity */
+}
+
 ::selection {
   background-color: rgba(251, 191, 36, 0.3);
   color: var(--ns-text);
 }
 
 a {
-  color: var(--ns-text);
+  color: var(--ns-text-accent);
   text-decoration: none;
 }
 
 a:hover {
-  color: var(--ns-text-accent);
+  color: var(--ns-gold-hover);
 }
 
 img {

@@ -13,6 +13,7 @@ public class Program
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true);
         var baseConnection = builder.Configuration.GetConnectionString("DefaultConnection");
         var connectionBuilder = new SqlConnectionStringBuilder(baseConnection);
         var dbServer = builder.Configuration["DbServer"];
@@ -38,6 +39,8 @@ public class Program
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddScoped<AdminDefualtService>();
         builder.Services.AddScoped<DashboardService>();
+        builder.Services.AddHttpClient();
+        builder.Services.AddScoped<NiceShop.Services.IAiChatService, NiceShop.Services.AiChatService>();
         
         var app = builder.Build();
 
