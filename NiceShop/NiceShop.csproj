@@ -152,6 +152,9 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
+      <PackageReference Include="SwaggerUi" Version="1.1.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.2.3" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.2.3" />
      
     </ItemGroup>
 
