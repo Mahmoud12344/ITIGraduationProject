@@ -44,7 +44,47 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ColorsId = 5,
+                            ColorsId = 2,
+                            ProductsId = 1
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 1
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 1
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 1
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 1
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 1
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 2
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 2
+                        },
+                        new
+                        {
+                            ColorsId = 3,
                             ProductsId = 2
                         },
                         new
@@ -54,8 +94,28 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ColorsId = 1,
+                            ColorsId = 6,
                             ProductsId = 2
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 2
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 2
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 2
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 3
                         },
                         new
                         {
@@ -70,7 +130,77 @@ namespace NiceShop.Migrations
                         new
                         {
                             ColorsId = 4,
+                            ProductsId = 3
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 3
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 3
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 3
+                        },
+                        new
+                        {
+                            ColorsId = 11,
+                            ProductsId = 3
+                        },
+                        new
+                        {
+                            ColorsId = 1,
                             ProductsId = 4
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 4
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 4
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 4
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 4
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 4
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 4
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 4
+                        },
+                        new
+                        {
+                            ColorsId = 12,
+                            ProductsId = 4
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 5
                         },
                         new
                         {
@@ -80,7 +210,87 @@ namespace NiceShop.Migrations
                         new
                         {
                             ColorsId = 3,
+                            ProductsId = 5
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 5
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 5
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 5
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 5
+                        },
+                        new
+                        {
+                            ColorsId = 13,
+                            ProductsId = 5
+                        },
+                        new
+                        {
+                            ColorsId = 1,
                             ProductsId = 6
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 6
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 6
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 6
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 6
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 6
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 6
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 6
+                        },
+                        new
+                        {
+                            ColorsId = 11,
+                            ProductsId = 6
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 7
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 7
                         },
                         new
                         {
@@ -89,8 +299,58 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ColorsId = 2,
+                            ColorsId = 4,
                             ProductsId = 7
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 7
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 7
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 7
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 8
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 8
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 8
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 8
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 8
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 8
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 8
                         },
                         new
                         {
@@ -99,6 +359,16 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 12,
+                            ProductsId = 8
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 9
+                        },
+                        new
+                        {
                             ColorsId = 2,
                             ProductsId = 9
                         },
@@ -109,12 +379,42 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 4,
+                            ProductsId = 9
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 9
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 9
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 9
+                        },
+                        new
+                        {
+                            ColorsId = 11,
+                            ProductsId = 9
+                        },
+                        new
+                        {
                             ColorsId = 1,
                             ProductsId = 10
                         },
                         new
                         {
-                            ColorsId = 5,
+                            ColorsId = 2,
+                            ProductsId = 10
+                        },
+                        new
+                        {
+                            ColorsId = 3,
                             ProductsId = 10
                         },
                         new
@@ -124,7 +424,37 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 6,
+                            ProductsId = 10
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 10
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 10
+                        },
+                        new
+                        {
                             ColorsId = 5,
+                            ProductsId = 10
+                        },
+                        new
+                        {
+                            ColorsId = 13,
+                            ProductsId = 10
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 11
+                        },
+                        new
+                        {
+                            ColorsId = 2,
                             ProductsId = 11
                         },
                         new
@@ -139,7 +469,32 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 6,
+                            ProductsId = 11
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 11
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 11
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 12
+                        },
+                        new
+                        {
                             ColorsId = 2,
+                            ProductsId = 12
+                        },
+                        new
+                        {
+                            ColorsId = 3,
                             ProductsId = 12
                         },
                         new
@@ -149,7 +504,37 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 6,
+                            ProductsId = 12
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 12
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 12
+                        },
+                        new
+                        {
                             ColorsId = 5,
+                            ProductsId = 12
+                        },
+                        new
+                        {
+                            ColorsId = 11,
+                            ProductsId = 12
+                        },
+                        new
+                        {
+                            ColorsId = 12,
+                            ProductsId = 12
+                        },
+                        new
+                        {
+                            ColorsId = 1,
                             ProductsId = 13
                         },
                         new
@@ -159,7 +544,27 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ColorsId = 1,
+                            ColorsId = 3,
+                            ProductsId = 13
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 13
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 13
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 13
+                        },
+                        new
+                        {
+                            ColorsId = 10,
                             ProductsId = 13
                         },
                         new
@@ -174,7 +579,37 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 3,
+                            ProductsId = 14
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 14
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 14
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 14
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 14
+                        },
+                        new
+                        {
                             ColorsId = 5,
+                            ProductsId = 14
+                        },
+                        new
+                        {
+                            ColorsId = 1,
                             ProductsId = 15
                         },
                         new
@@ -184,8 +619,53 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 3,
+                            ProductsId = 15
+                        },
+                        new
+                        {
                             ColorsId = 4,
                             ProductsId = 15
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 15
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 15
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 15
+                        },
+                        new
+                        {
+                            ColorsId = 11,
+                            ProductsId = 15
+                        },
+                        new
+                        {
+                            ColorsId = 13,
+                            ProductsId = 15
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 16
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 16
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 16
                         },
                         new
                         {
@@ -194,7 +674,27 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ColorsId = 1,
+                            ColorsId = 6,
+                            ProductsId = 16
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 16
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 16
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 16
+                        },
+                        new
+                        {
+                            ColorsId = 12,
                             ProductsId = 16
                         },
                         new
@@ -205,7 +705,92 @@ namespace NiceShop.Migrations
                         new
                         {
                             ColorsId = 2,
+                            ProductsId = 17
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 17
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 17
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 17
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 17
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 17
+                        },
+                        new
+                        {
+                            ColorsId = 1,
                             ProductsId = 18
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 18
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 18
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 18
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 18
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 18
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 18
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 18
+                        },
+                        new
+                        {
+                            ColorsId = 11,
+                            ProductsId = 18
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 19
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 19
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 19
                         },
                         new
                         {
@@ -214,12 +799,67 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ColorsId = 5,
+                            ColorsId = 6,
                             ProductsId = 19
                         },
                         new
                         {
+                            ColorsId = 7,
+                            ProductsId = 19
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 19
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 20
+                        },
+                        new
+                        {
                             ColorsId = 2,
+                            ProductsId = 20
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 20
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 20
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 20
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 20
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 20
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 20
+                        },
+                        new
+                        {
+                            ColorsId = 12,
+                            ProductsId = 20
+                        },
+                        new
+                        {
+                            ColorsId = 13,
                             ProductsId = 20
                         },
                         new
@@ -229,8 +869,53 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 2,
+                            ProductsId = 21
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 21
+                        },
+                        new
+                        {
                             ColorsId = 4,
                             ProductsId = 21
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 21
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 21
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 21
+                        },
+                        new
+                        {
+                            ColorsId = 11,
+                            ProductsId = 21
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 22
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 22
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 22
                         },
                         new
                         {
@@ -239,12 +924,57 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 6,
+                            ProductsId = 22
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 22
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 22
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 22
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 23
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 23
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 23
+                        },
+                        new
+                        {
                             ColorsId = 4,
                             ProductsId = 23
                         },
                         new
                         {
-                            ColorsId = 3,
+                            ColorsId = 6,
+                            ProductsId = 23
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 23
+                        },
+                        new
+                        {
+                            ColorsId = 10,
                             ProductsId = 23
                         },
                         new
@@ -254,17 +984,57 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 2,
+                            ProductsId = 24
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 24
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 24
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 24
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 24
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 24
+                        },
+                        new
+                        {
                             ColorsId = 5,
                             ProductsId = 24
                         },
                         new
                         {
-                            ColorsId = 2,
-                            ProductsId = 25
+                            ColorsId = 11,
+                            ProductsId = 24
+                        },
+                        new
+                        {
+                            ColorsId = 12,
+                            ProductsId = 24
                         },
                         new
                         {
                             ColorsId = 1,
+                            ProductsId = 25
+                        },
+                        new
+                        {
+                            ColorsId = 2,
                             ProductsId = 25
                         },
                         new
@@ -274,7 +1044,62 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 4,
+                            ProductsId = 25
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 25
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 25
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 25
+                        },
+                        new
+                        {
+                            ColorsId = 13,
+                            ProductsId = 25
+                        },
+                        new
+                        {
                             ColorsId = 1,
+                            ProductsId = 26
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 26
+                        },
+                        new
+                        {
+                            ColorsId = 3,
+                            ProductsId = 26
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 26
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 26
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 26
+                        },
+                        new
+                        {
+                            ColorsId = 10,
                             ProductsId = 26
                         },
                         new
@@ -284,8 +1109,13 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 1,
+                            ProductsId = 27
+                        },
+                        new
+                        {
                             ColorsId = 2,
-                            ProductsId = 26
+                            ProductsId = 27
                         },
                         new
                         {
@@ -294,6 +1124,36 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 4,
+                            ProductsId = 27
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 27
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 27
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 27
+                        },
+                        new
+                        {
+                            ColorsId = 11,
+                            ProductsId = 27
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 28
+                        },
+                        new
+                        {
                             ColorsId = 2,
                             ProductsId = 28
                         },
@@ -304,8 +1164,38 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ColorsId = 1,
+                            ColorsId = 4,
                             ProductsId = 28
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 28
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 28
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 28
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 28
+                        },
+                        new
+                        {
+                            ColorsId = 12,
+                            ProductsId = 28
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 29
                         },
                         new
                         {
@@ -319,8 +1209,28 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ColorsId = 1,
+                            ColorsId = 4,
                             ProductsId = 29
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 29
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 29
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 29
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 30
                         },
                         new
                         {
@@ -339,7 +1249,67 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ColorsId = 6,
+                            ProductsId = 30
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 30
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 30
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 30
+                        },
+                        new
+                        {
+                            ColorsId = 11,
+                            ProductsId = 30
+                        },
+                        new
+                        {
+                            ColorsId = 13,
+                            ProductsId = 30
+                        },
+                        new
+                        {
+                            ColorsId = 1,
+                            ProductsId = 31
+                        },
+                        new
+                        {
+                            ColorsId = 2,
+                            ProductsId = 31
+                        },
+                        new
+                        {
                             ColorsId = 3,
+                            ProductsId = 31
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 31
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 31
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 31
+                        },
+                        new
+                        {
+                            ColorsId = 10,
                             ProductsId = 31
                         },
                         new
@@ -349,12 +1319,42 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ColorsId = 5,
+                            ColorsId = 2,
                             ProductsId = 32
                         },
                         new
                         {
                             ColorsId = 3,
+                            ProductsId = 32
+                        },
+                        new
+                        {
+                            ColorsId = 4,
+                            ProductsId = 32
+                        },
+                        new
+                        {
+                            ColorsId = 6,
+                            ProductsId = 32
+                        },
+                        new
+                        {
+                            ColorsId = 7,
+                            ProductsId = 32
+                        },
+                        new
+                        {
+                            ColorsId = 10,
+                            ProductsId = 32
+                        },
+                        new
+                        {
+                            ColorsId = 5,
+                            ProductsId = 32
+                        },
+                        new
+                        {
+                            ColorsId = 12,
                             ProductsId = 32
                         });
                 });
@@ -539,6 +1539,20 @@ namespace NiceShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddressType = 0,
+                            Building = "1A",
+                            City = "Cairo",
+                            CustomerId = 1,
+                            Government = "Cairo",
+                            IsDefault = false,
+                            Street = "Test Street",
+                            ZipCode = ""
+                        });
                 });
 
             modelBuilder.Entity("NiceShop.Models.ApplicationUser", b =>
@@ -609,6 +1623,24 @@ namespace NiceShop.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "dashboard-test-user-id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Email = "test@dashboard.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "TEST@DASHBOARD.COM",
+                            NormalizedUserName = "TEST@DASHBOARD.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA==...",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "00000000-0000-0000-0000-000000000000",
+                            TwoFactorEnabled = false,
+                            UserName = "test@dashboard.com"
+                        });
                 });
 
             modelBuilder.Entity("NiceShop.Models.Brand", b =>
@@ -866,9 +1898,53 @@ namespace NiceShop.Migrations
                         {
                             Id = 4,
                             ImageId = 13,
-                            Name = "Footwear",
-                            Slug = "footwear"
+                            Name = "Unisex Footwear",
+                            Slug = "unisex-footwear"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImageId = 14,
+                            Name = "Men's Footwear",
+                            Slug = "mens-footwear"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImageId = 15,
+                            Name = "Women's Footwear",
+                            Slug = "womens-footwear"
                         });
+                });
+
+            modelBuilder.Entity("NiceShop.Models.ChatMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ChatMessages");
                 });
 
             modelBuilder.Entity("NiceShop.Models.Color", b =>
@@ -926,6 +2002,66 @@ namespace NiceShop.Migrations
                             Id = 5,
                             HexCode = "#10B981",
                             Name = "Green"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            HexCode = "#1E3A8A",
+                            Name = "Navy"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            HexCode = "#F5F5DC",
+                            Name = "Beige"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            HexCode = "#800020",
+                            Name = "Burgundy"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            HexCode = "#4B5320",
+                            Name = "Olive"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            HexCode = "#6B7280",
+                            Name = "Gray"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            HexCode = "#EC4899",
+                            Name = "Pink"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            HexCode = "#D4AF37",
+                            Name = "Gold"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            HexCode = "#C0C0C0",
+                            Name = "Silver"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            HexCode = "#8B4513",
+                            Name = "Brown"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            HexCode = "#8B5CF6",
+                            Name = "Purple"
                         });
                 });
 
@@ -982,6 +2118,14 @@ namespace NiceShop.Migrations
                     b.HasIndex("LName", "FName");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "dashboard-test-user-id",
+                            FName = "Dashboard",
+                            LName = "Tester"
+                        });
                 });
 
             modelBuilder.Entity("NiceShop.Models.Image", b =>
@@ -1054,6 +2198,22 @@ namespace NiceShop.Migrations
                             FilePath = "/assets/seed/categories/footwere.png",
                             IsDefault = true,
                             Name = "footwere.png",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            FilePath = "/assets/seed/categories/mens-footwear.png",
+                            IsDefault = true,
+                            Name = "mens-footwear.png",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 15,
+                            FilePath = "/assets/seed/categories/womens-footwear.png",
+                            IsDefault = true,
+                            Name = "womens-footwear.png",
                             Type = 0
                         },
                         new
@@ -1989,6 +3149,33 @@ namespace NiceShop.Migrations
                             Name = "51TzrEe7lEL._AC_SX679_.jpg",
                             ProductId = 32,
                             Type = 0
+                        },
+                        new
+                        {
+                            Id = 144,
+                            FilePath = "/assets/seed/products/71GjGE4DikL._AC_SY550_.jpg",
+                            IsDefault = true,
+                            Name = "71GjGE4DikL._AC_SY550_.jpg",
+                            ProductId = 14,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 145,
+                            FilePath = "/assets/seed/products/71wwFYwHetL._AC_SY550_.jpg",
+                            IsDefault = true,
+                            Name = "71wwFYwHetL._AC_SY550_.jpg",
+                            ProductId = 14,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 146,
+                            FilePath = "/assets/seed/products/W_OUTERWEAR_DENIM_JACKETS_29945-0265-1.png",
+                            IsDefault = true,
+                            Name = "W_OUTERWEAR_DENIM_JACKETS_29945-0265-1.png",
+                            ProductId = 22,
+                            Type = 0
                         });
                 });
 
@@ -2031,6 +3218,9 @@ namespace NiceShop.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("ShippingCost")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
@@ -2062,6 +3252,80 @@ namespace NiceShop.Migrations
                     b.ToTable("Orders", t =>
                         {
                             t.HasCheckConstraint("CK_Order_Total", "[Total] >= 0");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddressId = 1,
+                            CustomerId = "dashboard-test-user-id",
+                            Number = "ORD-001",
+                            OrderDate = new DateTime(2026, 9, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ShippingCost = 0m,
+                            Status = 1,
+                            Subtotal = 2400.00m,
+                            Total = 2400.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AddressId = 1,
+                            CustomerId = "dashboard-test-user-id",
+                            Number = "ORD-002",
+                            OrderDate = new DateTime(2026, 9, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ShippingCost = 0m,
+                            Status = 0,
+                            Subtotal = 550.00m,
+                            Total = 550.00m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AddressId = 1,
+                            CustomerId = "dashboard-test-user-id",
+                            Number = "ORD-003",
+                            OrderDate = new DateTime(2026, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ShippingCost = 0m,
+                            Status = 1,
+                            Subtotal = 1450.00m,
+                            Total = 1450.00m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AddressId = 1,
+                            CustomerId = "dashboard-test-user-id",
+                            Number = "ORD-004",
+                            OrderDate = new DateTime(2026, 8, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ShippingCost = 0m,
+                            Status = 1,
+                            Subtotal = 5600.00m,
+                            Total = 5600.00m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AddressId = 1,
+                            CustomerId = "dashboard-test-user-id",
+                            Number = "ORD-005",
+                            OrderDate = new DateTime(2026, 6, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ShippingCost = 0m,
+                            Status = 1,
+                            Subtotal = 3000.00m,
+                            Total = 3000.00m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AddressId = 1,
+                            CustomerId = "dashboard-test-user-id",
+                            Number = "ORD-006",
+                            OrderDate = new DateTime(2026, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ShippingCost = 0m,
+                            Status = 1,
+                            Subtotal = 4500.00m,
+                            Total = 4500.00m
                         });
                 });
 
@@ -2110,6 +3374,88 @@ namespace NiceShop.Migrations
                             t.HasCheckConstraint("CK_OrderItem_Price", "[Price] >= 0");
 
                             t.HasCheckConstraint("CK_OrderItem_Quantity", "[Quantity] > 0");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Color = "Black",
+                            Name = "ASTKWomens Cape Trenchcoat",
+                            OrderId = 1,
+                            Price = 1000.00m,
+                            ProductId = 1,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Color = "Red",
+                            Name = "ASTKWomens Essential Puff Jacket",
+                            OrderId = 1,
+                            Price = 700.00m,
+                            ProductId = 2,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Color = "White",
+                            Name = "Alimens Gentle Slim Fit Mens Dress",
+                            OrderId = 2,
+                            Price = 550.00m,
+                            ProductId = 3,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Color = "Black",
+                            Name = "ASTKWomens Cape Trenchcoat",
+                            OrderId = 3,
+                            Price = 1000.00m,
+                            ProductId = 1,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Color = "Blue",
+                            Name = "American Eagle Mens AEFlex12Khaki",
+                            OrderId = 3,
+                            Price = 450.00m,
+                            ProductId = 4,
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Color = "Red",
+                            Name = "ASTKWomens Essential Puff Jacket",
+                            OrderId = 4,
+                            Price = 700.00m,
+                            ProductId = 2,
+                            Quantity = 8
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Color = "Black",
+                            Name = "ASTKWomens Cape Trenchcoat",
+                            OrderId = 5,
+                            Price = 1000.00m,
+                            ProductId = 1,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Color = "Blue",
+                            Name = "American Eagle Mens AEFlex12Khaki",
+                            OrderId = 6,
+                            Price = 450.00m,
+                            ProductId = 4,
+                            Quantity = 10
                         });
                 });
 
@@ -2222,13 +3568,13 @@ namespace NiceShop.Migrations
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Experience ultimate comfort and style with the Astkwomens Cape Trenchcoat. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
-                            Discount = 20.62m,
+                            Discount = 250.00m,
                             IsActive = true,
                             IsBestseller = true,
                             IsFeatured = false,
                             IsOnSale = true,
                             Name = "ASTKWomens Cape Trenchcoat",
-                            Price = 103.12m,
+                            Price = 1250.00m,
                             Rating = 0m,
                             ReviewCount = 0,
                             Stock = 0,
@@ -2241,13 +3587,13 @@ namespace NiceShop.Migrations
                             CategoryId = 2,
                             CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Experience ultimate comfort and style with the Astkwomens Essential Puff Jacket. Crafted with premium materials, this piece from our latest collection is designed to elevate your everyday look. Perfect for any occasion, it seamlessly blends modern design with exceptional durability.",
-                            Discount = 4.82m,
+                            Discount = 150.00m,
                             IsActive = true,
                             IsBestseller = true,
                             IsFeatured = true,
                             IsOnSale = true,
                             Name = "ASTKWomens Essential Puff Jacket",
-                            Price = 24.12m,
+                            Price = 850.00m,
                             Rating = 0m,
                             ReviewCount = 0,
                             Stock = 0,
@@ -2265,7 +3611,7 @@ namespace NiceShop.Migrations
                             IsFeatured = true,
                             IsOnSale = false,
                             Name = "Alimens Gentle Slim Fit Mens Dress Shirtsfor Men Button Down Long Sleeve Dress Shirts Wrinkle Free Formal Stain Proof",
-                            Price = 96.59m,
+                            Price = 550.00m,
                             Rating = 0m,
                             ReviewCount = 0,
                             Stock = 0,
@@ -2283,7 +3629,7 @@ namespace NiceShop.Migrations
                             IsFeatured = false,
                             IsOnSale = false,
                             Name = "American Eagle Mens AEFlex12Khaki Short",
-                            Price = 32.05m,
+                            Price = 450.00m,
                             Rating = 0m,
                             ReviewCount = 0,
                             Stock = 0,
@@ -2305,7 +3651,7 @@ namespace NiceShop.Migrations
                             Price = 91.76m,
                             Rating = 0m,
                             ReviewCount = 0,
-                            Stock = 100,
+                            Stock = 2,
                             UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -2323,7 +3669,7 @@ namespace NiceShop.Migrations
                             Price = 132.63m,
                             Rating = 0m,
                             ReviewCount = 0,
-                            Stock = 50,
+                            Stock = 4,
                             UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -2379,7 +3725,7 @@ namespace NiceShop.Migrations
                             Price = 47.63m,
                             Rating = 0m,
                             ReviewCount = 0,
-                            Stock = 50,
+                            Stock = 1,
                             UpdatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -2908,6 +4254,24 @@ namespace NiceShop.Migrations
                             Id = 4,
                             Code = "XL",
                             Name = "Extra Large"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Code = "XXS",
+                            Name = "Extra Extra Small"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Code = "XS",
+                            Name = "Extra Small"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Code = "XXL",
+                            Name = "Double Extra Large"
                         });
                 });
 
@@ -2929,7 +4293,17 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 1,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 1,
                             SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 1,
+                            SizesId = 2
                         },
                         new
                         {
@@ -2939,7 +4313,27 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 1,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 2,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 2,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 2,
                             SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 2,
+                            SizesId = 3
                         },
                         new
                         {
@@ -2948,11 +4342,41 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ProductsId = 2,
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 3,
+                            SizesId = 6
+                        },
+                        new
+                        {
                             ProductsId = 3,
                             SizesId = 1
                         },
                         new
                         {
+                            ProductsId = 3,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 3,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 3,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 4,
+                            SizesId = 6
+                        },
+                        new
+                        {
                             ProductsId = 4,
                             SizesId = 1
                         },
@@ -2964,12 +4388,22 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 4,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 4,
                             SizesId = 4
                         },
                         new
                         {
+                            ProductsId = 4,
+                            SizesId = 7
+                        },
+                        new
+                        {
                             ProductsId = 5,
-                            SizesId = 3
+                            SizesId = 6
                         },
                         new
                         {
@@ -2979,7 +4413,27 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 5,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 5,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 5,
                             SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 6,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 6,
+                            SizesId = 1
                         },
                         new
                         {
@@ -2993,17 +4447,87 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ProductsId = 6,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 6,
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 7,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 7,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 7,
+                            SizesId = 2
+                        },
+                        new
+                        {
                             ProductsId = 7,
                             SizesId = 3
                         },
                         new
                         {
                             ProductsId = 7,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 8,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 8,
                             SizesId = 1
                         },
                         new
                         {
                             ProductsId = 8,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 8,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 8,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 8,
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 9,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 9,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 9,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 9,
                             SizesId = 3
                         },
                         new
@@ -3014,6 +4538,16 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 10,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 10,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 10,
                             SizesId = 2
                         },
                         new
@@ -3023,13 +4557,43 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ProductsId = 10,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 10,
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 11,
+                            SizesId = 6
+                        },
+                        new
+                        {
                             ProductsId = 11,
                             SizesId = 1
                         },
                         new
                         {
                             ProductsId = 11,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 11,
                             SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 11,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 12,
+                            SizesId = 6
                         },
                         new
                         {
@@ -3039,17 +4603,42 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 12,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 12,
                             SizesId = 3
                         },
                         new
                         {
+                            ProductsId = 12,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 12,
+                            SizesId = 7
+                        },
+                        new
+                        {
                             ProductsId = 13,
-                            SizesId = 3
+                            SizesId = 6
                         },
                         new
                         {
                             ProductsId = 13,
                             SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 13,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 13,
+                            SizesId = 3
                         },
                         new
                         {
@@ -3059,7 +4648,52 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 14,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 14,
                             SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 14,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 14,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 14,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 14,
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 15,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 15,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 15,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 15,
+                            SizesId = 3
                         },
                         new
                         {
@@ -3068,18 +4702,18 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ProductsId = 15,
+                            ProductsId = 16,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 16,
                             SizesId = 1
                         },
                         new
                         {
                             ProductsId = 16,
                             SizesId = 2
-                        },
-                        new
-                        {
-                            ProductsId = 16,
-                            SizesId = 1
                         },
                         new
                         {
@@ -3088,8 +4722,18 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ProductsId = 16,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 16,
+                            SizesId = 7
+                        },
+                        new
+                        {
                             ProductsId = 17,
-                            SizesId = 2
+                            SizesId = 6
                         },
                         new
                         {
@@ -3099,6 +4743,36 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 17,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 17,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 17,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 18,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 18,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 18,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 18,
                             SizesId = 3
                         },
                         new
@@ -3109,12 +4783,12 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 18,
-                            SizesId = 1
+                            SizesId = 7
                         },
                         new
                         {
-                            ProductsId = 18,
-                            SizesId = 2
+                            ProductsId = 19,
+                            SizesId = 6
                         },
                         new
                         {
@@ -3124,7 +4798,27 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 19,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 19,
                             SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 19,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 20,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 20,
+                            SizesId = 1
                         },
                         new
                         {
@@ -3133,13 +4827,48 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ProductsId = 20,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 20,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 20,
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 21,
+                            SizesId = 6
+                        },
+                        new
+                        {
                             ProductsId = 21,
                             SizesId = 1
                         },
                         new
                         {
-                            ProductsId = 22,
+                            ProductsId = 21,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 21,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 21,
                             SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 22,
+                            SizesId = 6
                         },
                         new
                         {
@@ -3148,13 +4877,63 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
-                            ProductsId = 23,
+                            ProductsId = 22,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 22,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 22,
                             SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 22,
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 23,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 23,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 23,
+                            SizesId = 2
                         },
                         new
                         {
                             ProductsId = 23,
                             SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 23,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 24,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 24,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 24,
+                            SizesId = 2
                         },
                         new
                         {
@@ -3163,8 +4942,53 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ProductsId = 24,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 24,
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 25,
+                            SizesId = 6
+                        },
+                        new
+                        {
                             ProductsId = 25,
                             SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 25,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 25,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 25,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 26,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 26,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 26,
+                            SizesId = 2
                         },
                         new
                         {
@@ -3174,17 +4998,22 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 26,
-                            SizesId = 2
+                            SizesId = 4
                         },
                         new
                         {
                             ProductsId = 26,
-                            SizesId = 1
+                            SizesId = 7
                         },
                         new
                         {
                             ProductsId = 27,
-                            SizesId = 4
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 27,
+                            SizesId = 1
                         },
                         new
                         {
@@ -3194,6 +5023,21 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 27,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 27,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 28,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 28,
                             SizesId = 1
                         },
                         new
@@ -3204,7 +5048,22 @@ namespace NiceShop.Migrations
                         new
                         {
                             ProductsId = 28,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 28,
                             SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 28,
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 29,
+                            SizesId = 6
                         },
                         new
                         {
@@ -3213,13 +5072,58 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ProductsId = 29,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 29,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 29,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 30,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 30,
+                            SizesId = 1
+                        },
+                        new
+                        {
+                            ProductsId = 30,
+                            SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 30,
+                            SizesId = 3
+                        },
+                        new
+                        {
                             ProductsId = 30,
                             SizesId = 4
                         },
                         new
                         {
                             ProductsId = 30,
-                            SizesId = 2
+                            SizesId = 7
+                        },
+                        new
+                        {
+                            ProductsId = 31,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 31,
+                            SizesId = 1
                         },
                         new
                         {
@@ -3228,8 +5132,43 @@ namespace NiceShop.Migrations
                         },
                         new
                         {
+                            ProductsId = 31,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 31,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 32,
+                            SizesId = 6
+                        },
+                        new
+                        {
+                            ProductsId = 32,
+                            SizesId = 1
+                        },
+                        new
+                        {
                             ProductsId = 32,
                             SizesId = 2
+                        },
+                        new
+                        {
+                            ProductsId = 32,
+                            SizesId = 3
+                        },
+                        new
+                        {
+                            ProductsId = 32,
+                            SizesId = 4
+                        },
+                        new
+                        {
+                            ProductsId = 32,
+                            SizesId = 7
                         });
                 });
 
@@ -3357,6 +5296,17 @@ namespace NiceShop.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("NiceShop.Models.ChatMessage", b =>
+                {
+                    b.HasOne("NiceShop.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("NiceShop.Models.Customer", b =>

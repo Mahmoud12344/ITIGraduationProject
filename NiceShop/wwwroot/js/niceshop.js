@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     initFlashSaleCountdown();
     initSearchSuggestions();
     initProductTabs();
+    initProductFilters();
+    initQuickView();
+    initProductDetailsPage();
     reopenCartDrawerIfNeeded();
 });
 
@@ -136,7 +139,9 @@ window.nsCart = {
 };
 
 /* ==========================================================================
-   4. QUICK VIEW MODAL
+   4. QUICK VIEW MODAL (legacy manual-open helper, kept for any inline
+      onclick="nsQuickView.open(id)" callers — the real fetch logic that
+      wires up .ns-btn-quick-view buttons lives in initQuickView(), section 9)
    ========================================================================== */
 window.nsQuickView = {
     open: function (productId) {
@@ -230,38 +235,74 @@ function initFlashSaleCountdown() {
 }
 
 /* ==========================================================================
-   7. PRODUCT TAB FILTERING (Home Page)
+   7. PRODUCT TAB FILTERING (Home Page with Swipe)
    ========================================================================== */
 function initProductTabs() {
     const tabs = document.querySelectorAll('.ns-filter-tab');
-    if (tabs.length === 0) return;
+    const container = document.getElementById('featured-products-container');
+
+    if (tabs.length === 0 || !container) return;
+
+    // Give the container its base starting classes
+    container.classList.add('ns-grid-transition', 'ns-swipe-ready');
 
     tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active class from all
+        tab.addEventListener('click', async () => {
+            // Stop if they click the tab that is already active
+            if (tab.classList.contains('active')) return;
+
+            // Update the active button
             tabs.forEach(t => t.classList.remove('active'));
-            // Add to clicked
             tab.classList.add('active');
 
             const targetFilter = tab.getAttribute('data-filter');
 
-            // In a real MVC app, you might trigger an AJAX call here to fetch a PartialView
-            // and replace the contents of a div.
-            console.log('Filtering home products by:', targetFilter);
+            // 1. Trigger the "Swipe Out" animation
+            container.classList.remove('ns-swipe-ready');
+            container.classList.add('ns-swipe-out');
+
+            try {
+                // 2. Fetch the data quietly in the background while it animates
+                const response = await fetch(`/Home/GetFilteredProducts?filter=${targetFilter}`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const html = await response.text();
+
+                // 3. Wait exactly 300ms for the slide-out CSS to finish
+                setTimeout(() => {
+                    // Inject the new products
+                    container.innerHTML = html;
+
+                    // Instantly snap the container invisibly to the right side
+                    container.classList.remove('ns-swipe-out');
+                    container.classList.add('ns-swipe-in');
+
+                    // Force the browser to register the new position (a required JS trick)
+                    void container.offsetWidth;
+
+                    // 4. Trigger the "Swipe In" animation
+                    container.classList.remove('ns-swipe-in');
+                    container.classList.add('ns-swipe-ready');
+
+                }, 300); // This number must match the 0.3s in your CSS
+
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                setTimeout(() => {
+                    container.innerHTML = '<div class="col-12 text-center text-danger py-5">Failed to load products.</div>';
+                    container.classList.remove('ns-swipe-out', 'ns-swipe-in');
+                    container.classList.add('ns-swipe-ready');
+                }, 300);
+            }
         });
     });
 }
 
 /* ==========================================================================
-8. SHOP PAGE: SEARCH, FILTER & SORT (Client-side)
-========================================================================== */
-document.addEventListener('DOMContentLoaded', function () {
-    initShopFilters();
-});
-
-function initShopFilters() {
-    const grid = document.getElementById('productGrid');
-    if (!grid) return;
+   8. PRODUCT FILTERS & SORT (Products/Index page)
+   ========================================================================== */
+function initProductFilters() {
+    const productGrid = document.getElementById('productGrid');
+    if (!productGrid) return; // Exit silently if not on the shop page
 
     const searchInput = document.getElementById('searchInput');
     const sortSelect = document.getElementById('sortSelect');
@@ -270,94 +311,88 @@ function initShopFilters() {
     const inStockSwitch = document.getElementById('inStockSwitch');
     const applyBtn = document.getElementById('applyFiltersBtn');
     const clearBtn = document.getElementById('clearFiltersBtn');
+    const visibleCount = document.getElementById('visibleCount');
     const noResultsMsg = document.getElementById('noResultsMsg');
-    const visibleCountEl = document.getElementById('visibleCount');
 
-    const allCards = Array.from(grid.querySelectorAll('.product-item'));
-
-    function getCheckedValues(selector) {
-        return Array.from(document.querySelectorAll(selector + ':checked')).map(el => el.value);
-    }
+    const allCards = Array.from(productGrid.querySelectorAll('.product-item'));
 
     function applyFiltersAndSort() {
-        const searchTerm = (searchInput?.value || '').trim().toLowerCase();
-        const maxPrice = parseFloat(priceRange?.value || 2000);
-        const inStockOnly = inStockSwitch?.checked || false;
-        const selectedCategories = getCheckedValues('.filter-category');
-        const selectedBrands = getCheckedValues('.filter-brand');
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        const maxPrice = priceRange ? parseInt(priceRange.value) : Infinity;
+        const absoluteMaxSliderValue = priceRange ? parseInt(priceRange.max) : Infinity;
+        const onlyInStock = inStockSwitch ? inStockSwitch.checked : false;
+
+        const selectedCategories = Array.from(document.querySelectorAll('.filter-category:checked')).map(cb => cb.value);
+        const selectedBrands = Array.from(document.querySelectorAll('.filter-brand:checked')).map(cb => cb.value);
 
         let visibleCards = [];
 
         allCards.forEach(card => {
             const name = card.dataset.name || '';
-            const price = parseFloat(card.dataset.price || 0);
-            const categoryId = card.dataset.category;
-            const brandId = card.dataset.brand;
+            const price = parseFloat(card.dataset.price) || 0;
+            const category = card.dataset.category || '';
+            const brand = card.dataset.brand || '';
             const inStock = card.dataset.instock === '1';
 
-            let visible = true;
+            let show = true;
 
-            if (searchTerm && !name.includes(searchTerm)) visible = false;
-            if (price > maxPrice) visible = false;
-            if (inStockOnly && !inStock) visible = false;
-            if (selectedCategories.length > 0 && !selectedCategories.includes(categoryId)) visible = false;
-            if (selectedBrands.length > 0 && !selectedBrands.includes(brandId)) visible = false;
+            // Check filters
+            if (query && !name.includes(query)) show = false;
+            // Only filter by price if slider is not at maximum
+            if (maxPrice < absoluteMaxSliderValue && price > maxPrice) show = false;
+            if (selectedCategories.length > 0 && !selectedCategories.includes(category)) show = false;
+            if (selectedBrands.length > 0 && !selectedBrands.includes(brand)) show = false;
+            if (onlyInStock && !inStock) show = false;
 
-            card.style.display = visible ? '' : 'none';
-            if (visible) visibleCards.push(card);
+            card.style.display = show ? '' : 'none';
+            if (show) visibleCards.push(card);
         });
 
-        sortCards(visibleCards);
+        // Update UI
+        if (visibleCount) visibleCount.textContent = visibleCards.length;
+        if (noResultsMsg) noResultsMsg.classList.toggle('d-none', visibleCards.length > 0);
 
-        if (noResultsMsg) {
-            noResultsMsg.classList.toggle('d-none', visibleCards.length > 0);
-        }
-        if (visibleCountEl) {
-            visibleCountEl.textContent = visibleCards.length;
-        }
+        // Re-sort the remaining cards
+        sortCards(visibleCards);
     }
 
-    function sortCards(visibleCards) {
-        const sortValue = sortSelect?.value || 'featured';
+    function sortCards(cards) {
+        if (!sortSelect) return;
+        const sortValue = sortSelect.value;
 
-        const sorted = [...visibleCards].sort((a, b) => {
+        const sorted = [...cards].sort((a, b) => {
             switch (sortValue) {
-                case 'price-asc':
-                    return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
-                case 'price-desc':
-                    return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
-                case 'new':
-                    return parseInt(b.dataset.created) - parseInt(a.dataset.created);
-                case 'rating-desc':
-                    return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+                case 'price-asc': return (parseFloat(a.dataset.price) || 0) - (parseFloat(b.dataset.price) || 0);
+                case 'price-desc': return (parseFloat(b.dataset.price) || 0) - (parseFloat(a.dataset.price) || 0);
+                case 'rating-desc': return (parseFloat(b.dataset.rating) || 0) - (parseFloat(a.dataset.rating) || 0);
+                case 'new': return (parseInt(b.dataset.created) || 0) - (parseInt(a.dataset.created) || 0);
                 case 'featured':
-                default:
-                    return parseInt(b.dataset.featured) - parseInt(a.dataset.featured);
+                default: return (parseInt(b.dataset.featured) || 0) - (parseInt(a.dataset.featured) || 0);
             }
         });
 
-        sorted.forEach(card => grid.appendChild(card));
+        // Re-append to grid in sorted order
+        sorted.forEach(card => productGrid.appendChild(card));
     }
 
-    if (searchInput) {
-        searchInput.addEventListener('input', applyFiltersAndSort);
-    }
-    if (sortSelect) {
-        sortSelect.addEventListener('change', applyFiltersAndSort);
-    }
+    // Wire up event listeners
+    if (searchInput) searchInput.addEventListener('input', applyFiltersAndSort);
+    if (sortSelect) sortSelect.addEventListener('change', applyFiltersAndSort);
+    if (applyBtn) applyBtn.addEventListener('click', applyFiltersAndSort);
     if (priceRange) {
         priceRange.addEventListener('input', function () {
             const val = parseInt(priceRange.value);
-            priceRangeValue.textContent = val >= 50000 ? '$50,000+' : `$${val}`;
+            const max = parseInt(priceRange.max);
+            priceRangeValue.textContent = val >= max ? `$${max}+` : `$${val}`;
         });
-    }
-    if (applyBtn) {
-        applyBtn.addEventListener('click', applyFiltersAndSort);
     }
     if (clearBtn) {
         clearBtn.addEventListener('click', function () {
             if (searchInput) searchInput.value = '';
-            if (priceRange) { priceRange.value = 2000; priceRangeValue.textContent = '$2,000+'; }
+            if (priceRange) {
+                priceRange.value = priceRange.max;
+                priceRangeValue.textContent = `$${priceRange.max}+`;
+            }
             if (inStockSwitch) inStockSwitch.checked = false;
             document.querySelectorAll('.filter-category:checked, .filter-brand:checked').forEach(cb => cb.checked = false);
             if (sortSelect) sortSelect.value = 'featured';
@@ -365,11 +400,97 @@ function initShopFilters() {
         });
     }
 
+    // Initial sort on load
     sortCards(allCards);
 }
 
 /* ==========================================================================
-   9. add to cart button (added this myself, wasnt wired before)
+   9. QUICK VIEW MODAL FETCH LOGIC
+   wired up here inside DOMContentLoaded so it doesn't matter where the
+   script tag sits or whether it has `defer` — the buttons are guaranteed
+   to exist in the DOM by the time this runs.
+   ========================================================================== */
+function initQuickView() {
+    const quickViewButtons = document.querySelectorAll('.ns-btn-quick-view');
+    const modalContainer = document.getElementById('quickViewModalContainer');
+
+    if (!modalContainer || quickViewButtons.length === 0) return;
+
+    quickViewButtons.forEach(button => {
+        button.addEventListener('click', async function (e) {
+            e.preventDefault();
+            const productId = this.getAttribute('data-id');
+            if (!productId) return;
+
+            const originalIcon = this.innerHTML;
+            this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+            this.disabled = true;
+
+            try {
+                const response = await fetch(`/Products/QuickReview/${productId}`);
+                if (!response.ok) throw new Error('Failed to fetch product data');
+
+                const html = await response.text();
+                modalContainer.innerHTML = html;
+
+                const modalElement = document.getElementById('quickViewModal');
+                const bootstrapModal = new bootstrap.Modal(modalElement);
+                bootstrapModal.show();
+            } catch (error) {
+                console.error('Error:', error);
+                if (window.nsToast) {
+                    window.nsToast.show('Could not load product details, try again', 'error');
+                } else {
+                    alert('Could not load product details. Please try again.');
+                }
+            } finally {
+                this.innerHTML = originalIcon;
+                this.disabled = false;
+            }
+        });
+    });
+}
+
+/* ==========================================================================
+   10. PRODUCT DETAILS PAGE SPECIFICS
+   ========================================================================== */
+function initProductDetailsPage() {
+    // Image gallery swipe
+    document.querySelectorAll('.ns-thumbnail').forEach(img => {
+        img.addEventListener('click', function () {
+            const mainImage = document.getElementById('mainImage');
+            if (mainImage) mainImage.src = this.src;
+        });
+    });
+
+    // Color selector label update
+    document.querySelectorAll('.color-selector').forEach(radio => {
+        radio.addEventListener('change', function () {
+            const colorName = this.getAttribute('data-color-name');
+            const label = document.getElementById('colorTextLabel');
+            if (label) {
+                label.innerHTML = `Color: <span class="fw-normal text-body ms-1">${colorName}</span>`;
+            }
+        });
+    });
+}
+
+/* ==========================================================================
+   11. HOME PAGE CATEGORY SCROLL
+   ========================================================================== */
+window.scrollCategories = function (direction) {
+    const container = document.getElementById('categoryScroll');
+    if (container) {
+        const scrollAmount = container.clientWidth / 2;
+        container.scrollBy({
+            left: direction * scrollAmount,
+            behavior: 'smooth'
+        });
+    }
+};
+
+/* ==========================================================================
+   12. add to cart button (added this myself, wasnt wired before)
    put data-add-to-cart on any button + the data attributes below and it
    will post to /Cart/Add for you. works on any page.
    example: <button data-add-to-cart data-product-id="5" data-size="" data-color="" data-quantity="1">ADD</button>
@@ -411,7 +532,7 @@ document.addEventListener('click', function (e) {
             if (window.nsToast) {
                 window.nsToast.show('Added to your bag!');
             }
-            // remember the drawer was open so we can reopen it, see section 11
+            // remember the drawer was open so we can reopen it, see section 14
             sessionStorage.setItem('nsCartDrawerOpen', '1');
             // just reload the page for now, easiest way to update the cart badge/drawer
             window.location.reload();
@@ -428,7 +549,7 @@ document.addEventListener('click', function (e) {
 });
 
 /* ==========================================================================
-   10. cart drawer +/- and remove buttons
+   13. cart drawer +/- and remove buttons
    these forms in _CartDrawer.cshtml still post to the real controller actions,
    we just catch the submit here so it doesnt take you to /Cart every time
    ========================================================================== */
@@ -452,7 +573,7 @@ document.addEventListener('submit', function (e) {
     })
         .then(res => {
             if (!res.ok) throw new Error('bad response');
-            // remember the drawer was open so we can reopen it, see section 11
+            // remember the drawer was open so we can reopen it, see section 14
             sessionStorage.setItem('nsCartDrawerOpen', '1');
             // controller redirects to /Cart, we dont care about that html,
             // just reload the current page so the drawer numbers update
@@ -468,7 +589,7 @@ document.addEventListener('submit', function (e) {
 });
 
 /* ==========================================================================
-   11. keep cart drawer open after reload
+   14. keep cart drawer open after reload
    the add/update/remove buttons above do a full page reload, and that closes
    the drawer since bootstrap doesnt remember it was open. so we save a flag
    in sessionStorage before reloading and check it here to open it again

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NiceShop.Data;
+using NiceShop.Models;
 
 namespace NiceShop.Controllers;
 
@@ -30,35 +31,43 @@ public class ProductsController : Controller
         return View(products);
     }
 
-    // GET: Products/Details/5
-    public async Task<IActionResult> Details(int id)
-    {
-        var product = await _context.Products
-            .Include(p => p.Category)
-            .Include(p => p.Brand)
-            .Include(p => p.Images)
-            .Include(p => p.Colors)
-            .Include(p => p.Sizes)
-            .Include(p => p.Reviews)
-                .ThenInclude(r => r.Customer)
-            .FirstOrDefaultAsync(p => p.Id == id);
+public async Task<IActionResult> Details(int? id)
+{
+    if(id == null) return NotFound();
 
-        if (product == null)
+    var product = await _context.Products
+        .Include(p => p.Images)
+        .Include(p => p.Brand)
+        .Include(p => p.Sizes)
+        .Include(p => p.Colors)
+        .Include(p => p.Category)
+        .FirstOrDefaultAsync(p => p.Id == id);
+
+    if(product == null) return NotFound();
+
+    ViewBag.RelatedProducts = await _context.Products
+        .Include(p => p.Images)
+        .Include(p => p.Brand)
+        .Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id && p.IsActive)
+        .Take(4)
+        .ToListAsync();
+
+    return View(product);
+}
+
+    //quick review
+
+    public async Task<IActionResult> QuickReview(int id)
+    {
+        var product = await _context.Products.Include(p=>p.Brand).Include(p=>p.Category)
+        .Include(p=>p.Colors).Include(p=>p.Sizes)
+        .Include(p=>p.Images).FirstOrDefaultAsync(p=>p.Id == id);
+
+        if(product == null)
         {
             return NotFound();
         }
-
-        var relatedProducts = await _context.Products
-            .Include(p => p.Category)
-            .Include(p => p.Brand)
-            .Include(p => p.Images)
-            .Where(p => p.CategoryId == product.CategoryId && p.Id != id && p.IsActive)
-            .Take(4)
-            .ToListAsync();
-
-        ViewBag.RelatedProducts = relatedProducts;
-
-        return View(product);
+        return PartialView("Partials/_QuickViewModal", product);
     }
 
     // GET: Products/Categories
@@ -79,8 +88,7 @@ public class ProductsController : Controller
 
         ViewBag.CategoryName = category.Name;
 
-        var products = await _context.Products
-            .Include(p => p.Images)
+        var products = await _context.Products.Include(p=>p.Images)
             .Where(p => p.CategoryId == id && p.IsActive)
             .ToListAsync();
 

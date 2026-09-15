@@ -1,0 +1,426 @@
+@model NiceShop.ViewModels.Admin.DashboardVm 
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-end mb-4">
+    <div>
+        <h1 class="font-serif fw-bold h3 mb-1">Dashboard</h1>
+        <p class="text-muted mb-0">Overview of your store's performance.</p>
+    </div>
+    <div class="text-muted small">
+        @DateTime.Now.ToString("MMMM dd, yyyy")
+    </div>
+</div>
+
+<!-- Metrics Row 1: Sales -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+    <div class="col">
+        <div class="ns-admin-card h-100 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem; letter-spacing: 0.05em;">Sales Today</div>
+                <i class="bi bi-currency-dollar fs-4 opacity-50 text-success"></i>
+            </div>
+            <div class="font-serif fw-bold" style="font-size: 1.75rem;">@Model.SumOfSalesToday.ToString("C")</div>
+            <div class="mt-2 text-success" style="font-size: 0.75rem;">
+                <i class="bi bi-check-circle"></i> @Model.NumberOfSalesToday Orders
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="ns-admin-card h-100 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem; letter-spacing: 0.05em;">Sales This Month</div>
+                <i class="bi bi-graph-up-arrow fs-4 opacity-50 text-primary"></i>
+            </div>
+            <div class="font-serif fw-bold" style="font-size: 1.75rem;">@Model.SumSalesThisMonth.ToString("C")</div>
+            <div class="mt-2 text-primary" style="font-size: 0.75rem;">
+                <i class="bi bi-bar-chart"></i> @Model.NumberOfSalesThisMonth Orders
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="ns-admin-card h-100 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem; letter-spacing: 0.05em;">Total Sales (All Time)</div>
+                <i class="bi bi-bank fs-4 opacity-50" style="color: var(--ns-gold);"></i>
+            </div>
+            <div class="font-serif fw-bold" style="font-size: 1.75rem;">@Model.SumOfSalesAllTime.ToString("C")</div>
+            <div class="mt-2 text-muted" style="font-size: 0.75rem;">
+                @Model.NumberOfSalesAllTime Total Orders
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Metrics Row 2: Counts -->
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    <div class="col">
+        <div class="ns-admin-card h-100 p-3 d-flex align-items-center gap-3" style="border-left: 4px solid var(--ns-warning);">
+            <div class="bg-warning bg-opacity-10 text-warning rounded p-3">
+                <i class="bi bi-box-seam fs-4"></i>
+            </div>
+            <div>
+                <div class="text-muted text-uppercase fw-bold" style="font-size: 0.6875rem;">Pending Orders</div>
+                <div class="font-serif fw-bold fs-4">@Model.NumberPendingOrders</div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="ns-admin-card h-100 p-3 d-flex align-items-center gap-3" style="border-left: 4px solid var(--ns-info);">
+            <div class="bg-info bg-opacity-10 text-info rounded p-3">
+                <i class="bi bi-people fs-4"></i>
+            </div>
+            <div>
+                <div class="text-muted text-uppercase fw-bold" style="font-size: 0.6875rem;">Total Customers</div>
+                <div class="font-serif fw-bold fs-4">@Model.TotalNumberOfCustomers</div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="ns-admin-card h-100 p-3 d-flex align-items-center gap-3" style="border-left: 4px solid var(--ns-success);">
+            <div class="bg-success bg-opacity-10 text-success rounded p-3">
+                <i class="bi bi-tags fs-4"></i>
+            </div>
+            <div>
+                <div class="text-muted text-uppercase fw-bold" style="font-size: 0.6875rem;">Total Products</div>
+                <div class="font-serif fw-bold fs-4">@Model.TotalNumberProducts</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart Section -->
+<div class="row g-4 mb-5">
+    <!-- Best Sellers Bar Chart -->
+    <div class="col-xl-8">
+        <div class="ns-admin-card h-100 p-4">
+            <h2 class="font-serif h5 fw-bold mb-4">Top Selling Products</h2>
+            <div style="position: relative; height: 300px; width: 100%;">
+                <canvas id="bestSellersChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- Order Status Doughnut -->
+    <div class="col-xl-4">
+        <div class="ns-admin-card h-100 p-4">
+            <h2 class="font-serif h5 fw-bold mb-4">Order Fulfillment Ratio</h2>
+            <div style="position: relative; height: 300px; width: 100%; display: flex; justify-content: center;">
+                <canvas id="orderStatusChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Orders (Full Width) -->
+<div class="row g-4 mb-5">
+    <div class="col-xl-12">
+        <div class="ns-admin-card h-100 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="font-serif h5 fw-bold mb-0">Recent Orders</h2>
+                <a asp-controller="Admin" asp-action="Orders" class="btn btn-sm btn-ns-outline">View All</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover ns-admin-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(!Model.RecentOrders.Any()) {
+                            <tr><td colspan="5" class="text-center text-muted small py-4">No recent orders found.</td></tr>
+                        }
+                        @foreach(var order in Model.RecentOrders.OrderByDescending(o => o.OrderDate).Take(6)) {
+                            var custName = order.Customer != null ? $"{order.Customer.FName} {order.Customer.LName}" : "Guest";
+                            <tr>
+                                <td class="fw-bold">@order.Number</td>
+                                <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                                <td>@custName</td>
+                                <td class="fw-bold">@order.Total.ToString("C")</td>
+                                <td>
+                                    @if(order.Status == NiceShop.Models.OrderStatus.Pending) {
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    } else if (order.Status == NiceShop.Models.OrderStatus.Confirmed) {
+                                        <span class="badge bg-success">Confirmed</span>
+                                    } else {
+                                        <span class="badge bg-secondary">@order.Status.ToString()</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inventory Alerts -->
+<div class="row g-4">
+    <!-- Low Stock -->
+    <div class="col-md-6">
+        <div class="ns-admin-card h-100 p-4 border border-warning border-opacity-50">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="font-serif h5 fw-bold mb-0 text-warning"><i class="bi bi-exclamation-triangle me-2"></i>Low Stock Items (@Model.NumberOfLowStockProducts)</h2>
+            </div>
+            @if(!Model.LowStockProducts.Any()) {
+                <div class="d-flex flex-column align-items-center justify-content-center text-center py-4 h-100">
+                    <div class="bg-success bg-opacity-10 text-success rounded-circle p-3 mb-3 d-inline-flex">
+                        <i class="bi bi-check2-all fs-2"></i>
+                    </div>
+                    <h3 class="font-serif h6 fw-bold mb-1">Inventory Looking Good</h3>
+                    <p class="text-muted small mb-0">You have no low stock items right now.</p>
+                </div>
+            } else {
+                <div class="d-flex flex-column gap-3" style="max-height: 310px; overflow-y: auto; padding-right: 0.5rem;">
+                    @foreach(var item in Model.LowStockProducts) {
+                        var thumbnail = item.Images?.FirstOrDefault(i => i.IsDefault)?.FilePath ?? "/assets/placeholder.jpg";
+                        <div class="d-flex align-items-center gap-3 pb-3 border-bottom ns-admin-border position-relative">
+                            <div class="bg-light rounded" style="width: 48px; height: 60px; overflow: hidden; flex-shrink: 0;">
+                                <img src="@thumbnail" class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="flex-grow-1 pe-4">
+                                <div class="fw-bold line-clamp-1" style="font-size: 0.8125rem;" title="@item.Name">@item.Name</div>
+                                <div class="text-warning fw-bold mt-1" style="font-size: 0.75rem;">Only @item.Stock left in stock</div>
+                            </div>
+                            <!-- 3 Dots Edit Menu -->
+                            <div class="dropdown position-absolute" style="top: 50%; right: 0px; transform: translateY(-50%);">                                
+                                <button class="btn btn-link text-muted p-1 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2">
+                                    <li>
+                                        <a class="dropdown-item small" asp-controller="Admin" asp-action="EditProduct" asp-route-id="@item.Id">
+                                            <i class="bi bi-pencil me-2 text-warning"></i> Update Stock
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    
+    <!-- Out of Stock -->
+    <div class="col-md-6">
+        <div class="ns-admin-card h-100 p-4 border border-danger border-opacity-50">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="font-serif h5 fw-bold mb-0 text-danger"><i class="bi bi-slash-circle me-2"></i>Out of Stock Items (@Model.NumberOFOutOfStockProducts)</h2>
+            </div>
+            @if(!Model.OutOfStockProducts.Any()) {
+                <div class="d-flex flex-column align-items-center justify-content-center text-center py-4 h-100">
+                    <div class="bg-success bg-opacity-10 text-success rounded-circle p-3 mb-3 d-inline-flex">
+                        <i class="bi bi-check2-all fs-2"></i>
+                    </div>
+                    <h3 class="font-serif h6 fw-bold mb-1">No Out of Stock Items</h3>
+                    <p class="text-muted small mb-0">All your active products are currently in stock.</p>
+                </div>
+            } else {
+                <div class="d-flex flex-column gap-3" style="max-height: 310px; overflow-y: auto; padding-right: 0.5rem;">
+                    @foreach(var item in Model.OutOfStockProducts) {
+                        var thumbnail = item.Images?.FirstOrDefault(i => i.IsDefault)?.FilePath ?? "/assets/placeholder.jpg";
+                        <div class="d-flex align-items-center gap-3 pb-3 border-bottom ns-admin-border position-relative">
+                            <div class="bg-light rounded" style="width: 48px; height: 60px; overflow: hidden; flex-shrink: 0; opacity: 0.7;">
+                                <img src="@thumbnail" class="w-100 h-100 object-fit-cover" style="filter: grayscale(100%);">
+                            </div>
+                            <div class="flex-grow-1 pe-4">
+                                <div class="fw-bold line-clamp-1 text-muted" style="font-size: 0.8125rem;" title="@item.Name">@item.Name</div>
+                                <div class="text-danger fw-bold mt-1" style="font-size: 0.75rem;">0 in stock</div>
+                            </div>
+                            <!-- 3 Dots Edit Menu -->
+                            <div class="dropdown position-absolute" style="top: 50%; right: 0px; transform: translateY(-50%);">                                
+                                <button class="btn btn-link text-muted p-1 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2">
+                                    <li>
+                                        <a class="dropdown-item small" asp-controller="Admin" asp-action="EditProduct" asp-route-id="@item.Id">
+                                            <i class="bi bi-pencil me-2 text-danger"></i> Update Stock
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Function to grab CSS variable colors safely
+            const getStyleColor = (varName) => getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+            
+            const colorWarning = getStyleColor('--ns-warning') || '#f59e0b';
+            const colorSuccess = getStyleColor('--ns-success') || '#16a34a';
+            const colorGold = getStyleColor('--ns-gold') || '#fbbf24';
+            const colorBorder = getStyleColor('--ns-border') || '#404040';
+            const colorText = getStyleColor('--ns-text-secondary') || '#b0b0b0';
+
+            // Set global defaults for dark/light mode text
+            Chart.defaults.color = colorText;
+            Chart.defaults.borderColor = colorBorder;
+            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+            /* =========================
+               1. Best Sellers Bar Chart
+               ========================= */
+            const bestSellersLabelsRaw = @Html.Raw(Json.Serialize(Model.TopSellingProducts.Select(p => p.Product.Name).ToList()));
+            const bestSellersLabels = bestSellersLabelsRaw.map(name => name.length > 25 ? name.substring(0, 25) + '...' : name);
+            const bestSellersRevenue = @Html.Raw(Json.Serialize(Model.TopSellingProducts.Select(p => p.TotalRevenue).ToList()));
+            const bestSellersQuantity = @Html.Raw(Json.Serialize(Model.TopSellingProducts.Select(p => p.TotalSold).ToList()));
+
+            const ctxBar = document.getElementById('bestSellersChart').getContext('2d');
+            
+            if(bestSellersLabels.length > 0) {
+                new Chart(ctxBar, {
+                    type: 'bar',
+                    data: {
+                        labels: bestSellersLabels,
+                        datasets: [{
+                            label: 'Total Revenue',
+                            data: bestSellersRevenue,
+                            backgroundColor: colorGold,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: { right: 80 } 
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        return bestSellersLabelsRaw[context[0].dataIndex];
+                                    },
+                                    label: function(context) {
+                                        let val = context.raw;
+                                        return new Intl.NumberFormat('en-EG', { style: 'currency', currency: 'EGP' }).format(val) + " (" + bestSellersQuantity[context.dataIndex] + " Units)";
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return new Intl.NumberFormat('en-EG', { notation: "compact", compactDisplay: "short", maximumFractionDigits: 1 }).format(value);
+                                    }
+                                }
+                            },
+                            y: {
+                                position: 'left'
+                            },
+                            y2: {
+                                position: 'right',
+                                type: 'category',
+                                labels: bestSellersQuantity.map(q => q + ' Units'),
+                                grid: { drawOnChartArea: false },
+                                ticks: {
+                                    color: colorText,
+                                    font: { family: "'Plus Jakarta Sans', sans-serif" }
+                                }
+                            }
+                        }
+                    },
+                    plugins: [{
+                        id: 'barLabels',
+                        afterDatasetsDraw(chart, args, pluginOptions) {
+                            const { ctx } = chart;
+                            ctx.save();
+                            ctx.font = "bold 12px 'Plus Jakarta Sans', sans-serif";
+                            ctx.textBaseline = 'middle';
+                            
+                            chart.getDatasetMeta(0).data.forEach((bar, index) => {
+                                const value = bestSellersRevenue[index];
+                                const formatted = new Intl.NumberFormat('en-EG', { style: 'currency', currency: 'EGP' }).format(value);
+                                const textWidth = ctx.measureText(formatted).width;
+                                
+                                if (bar.x - bar.base > textWidth + 20) {
+                                    ctx.fillStyle = "#000"; 
+                                    ctx.textAlign = 'right';
+                                    ctx.fillText(formatted, bar.x - 10, bar.y);
+                                } else {
+                                    ctx.fillStyle = colorText; 
+                                    ctx.textAlign = 'left';
+                                    ctx.fillText(formatted, bar.x + 10, bar.y);
+                                }
+                            });
+                            ctx.restore();
+                        }
+                    }]
+                });
+            } else {
+                 // Fallback if array is empty
+                 ctxBar.font = "14px 'Plus Jakarta Sans'";
+                 ctxBar.fillStyle = colorText;
+                 ctxBar.textAlign = "center";
+                 ctxBar.fillText("No top selling products found.", ctxBar.canvas.width/2, ctxBar.canvas.height/2);
+            }
+
+            /* =========================
+               2. Order Status Doughnut
+               ========================= */
+            // We have Pending Orders, and Total Orders. 
+            // So Fulfilled/Other = Total - Pending.
+            const pendingCount = @Model.NumberPendingOrders;
+            const fulfilledCount = Math.max(0, @Model.NumberOfSalesAllTime - pendingCount);
+
+            const ctxDoughnut = document.getElementById('orderStatusChart').getContext('2d');
+            
+            if(pendingCount > 0 || fulfilledCount > 0) {
+                new Chart(ctxDoughnut, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Pending Orders', 'Fulfilled Orders'],
+                        datasets: [{
+                            data: [pendingCount, fulfilledCount],
+                            backgroundColor: [
+                                colorGold,
+                                colorSuccess 
+                            ],
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            } else {
+                 // Fallback if array is empty
+                 ctxDoughnut.font = "14px 'Plus Jakarta Sans'";
+                 ctxDoughnut.fillStyle = colorText;
+                 ctxDoughnut.textAlign = "center";
+                 ctxDoughnut.fillText("No orders to display.", ctxDoughnut.canvas.width/2, ctxDoughnut.canvas.height/2);
+            }
+        });
+    </script>
+}

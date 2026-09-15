@@ -24,11 +24,7 @@ public class AdminController: Controller
         _webHostEnvironment = webHostEnvironment;
     }
 
-    public IActionResult Dashboard()
-    {
-        return View();
-    }
-
+   
     // GET: Admin/Products
     public async Task<IActionResult> Products(string? searchName, string? category, string? isActive, string? stockStatus)
     {

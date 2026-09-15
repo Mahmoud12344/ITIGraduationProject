@@ -156,18 +156,27 @@ body {
 .bg-light, .bg-white { background-color: var(--ns-bg-card) !important; }
 .border-light { border-color: var(--ns-border-light) !important; }
 
+/* Fix Bootstrap placeholder color in custom dark mode */
+.form-control::placeholder,
+.form-select::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: var(--ns-text-secondary) !important;
+  opacity: 1; /* Override Bootstrap's default opacity */
+}
+
 ::selection {
   background-color: rgba(251, 191, 36, 0.3);
   color: var(--ns-text);
 }
 
 a {
-  color: var(--ns-text);
+  color: var(--ns-text-accent);
   text-decoration: none;
 }
 
 a:hover {
-  color: var(--ns-text-accent);
+  color: var(--ns-gold-hover);
 }
 
 img {
@@ -1931,3 +1940,48 @@ img {
         font-weight: 700;
     }
 
+    /* Product Grid Swipe Animations */
+    .ns-grid-transition {
+        /* This controls the speed of the swipe (0.3 seconds) */
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .ns-swipe-out {
+        opacity: 0;
+        transform: translateX(-40px); /* Slides it to the left */
+    }
+
+    .ns-swipe-in {
+        opacity: 0;
+        transform: translateX(40px); /* Sets up the invisible starting position on the right */
+    }
+
+    .ns-swipe-ready {
+        opacity: 1;
+        transform: translateX(0); /* The natural center position */
+    }
+
+
+        /* Horizontal Scroll Utilities */
+    .ns-horizontal-scroll {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        scroll-snap-type: x mandatory; /* Adds smooth snapping to the cards */
+    }
+
+    /* Chrome, Safari, and Opera */
+    .ns-horizontal-scroll::-webkit-scrollbar {
+        display: none; 
+    }
+
+    /* Snap alignment for the child elements */
+    .ns-horizontal-scroll > div {
+        scroll-snap-align: start;
+    }
+
+
+        /* This draws the black border around the selected color */
+    .btn-check:checked + .ns-color-label {
+        border: 2px solid #000 !important;
+        box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    }

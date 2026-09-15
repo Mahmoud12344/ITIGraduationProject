@@ -1,0 +1,91 @@
+@{
+    ViewData["Title"] = "AI Stylist";
+    ViewData["HideFooter"] = true;
+    ViewData["HideAIWidget"] = true;
+}
+<style>
+    .fs-ai-dropdown-menu .dropdown-item:hover,
+    .fs-ai-dropdown-menu .dropdown-item:focus {
+        background-color: var(--ns-bg-hover) !important;
+        color: var(--ns-gold) !important;
+    }
+    .fs-ai-dropdown-menu .dropdown-item.active {
+        background-color: var(--ns-bg-surface) !important;
+        color: var(--ns-text) !important;
+        font-weight: bold;
+    }
+</style>
+
+<div class="ns-fullscreen-chat-container d-flex flex-column" style="height: calc(100vh - 72px); background-color: var(--ns-bg-surface);">
+    <!-- Header Area -->
+    <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom" style="background-color: var(--ns-bg-card); border-color: var(--ns-border-light) !important;">
+        <div class="d-flex align-items-center gap-3">
+            <div class="ns-ai-header-icon" style="width: 2.5rem; height: 2.5rem; font-size: 1.25rem;">
+                <i class="bi bi-stars text-dark"></i>
+            </div>
+            <div>
+                <h1 class="h5 mb-0 font-serif fw-bold">Maison AI Concierge</h1>
+                <div class="ns-ai-header-status text-success small d-flex align-items-center gap-1">
+                    <span class="ns-status-dot" style="width: 6px; height: 6px; border-radius: 50%; background-color: #16a34a; display: inline-block;"></span> Online
+                </div>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+
+            <button id="fs-ai-reset-btn" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Chat
+            </button>
+        </div>
+    </div>
+
+    <!-- Messages Area -->
+    <div id="fs-ai-messages-area" class="flex-grow-1 overflow-auto p-4 d-flex flex-column gap-3 mx-auto w-100" style="max-width: 800px;">
+        <!-- Welcome Message -->
+        <div class="ns-ai-welcome text-center py-5 ns-animate-fadeIn">
+            <div class="ns-ai-welcome-icon display-4 mb-3">✨</div>
+            <h4 class="font-serif fw-bold">How can I help you style your day?</h4>
+            <p class="text-muted">I'm your personal AI fashion concierge. Ask me for styling advice, product recommendations, or stock checks.</p>
+        </div>
+        
+        <!-- Suggestions -->
+        <div id="fs-ai-suggestions" class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+            <button class="fs-ai-suggestion-pill btn btn-outline-secondary rounded-pill btn-sm">Show me trench coats</button>
+            <button class="fs-ai-suggestion-pill btn btn-outline-secondary rounded-pill btn-sm">What's trending for men?</button>
+            <button class="fs-ai-suggestion-pill btn btn-outline-secondary rounded-pill btn-sm">I need an outfit for a wedding</button>
+        </div>
+    </div>
+
+    <!-- Input Bar -->
+    <div class="p-3 bg-card border-top" style="background-color: var(--ns-bg-card); border-color: var(--ns-border-light) !important;">
+        <div class="mx-auto" style="max-width: 800px;">
+            <div class="d-flex align-items-center rounded-pill shadow-sm" style="background-color: var(--ns-bg-input); border: 1px solid var(--ns-border); padding: 0.25rem;">
+                <!-- Model Selector Dropup -->
+                <div class="dropup ms-2">
+                    <button class="btn btn-sm dropdown-toggle rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: var(--ns-bg-card); color: var(--ns-text-secondary); border: 1px solid var(--ns-border); font-size: 0.75rem;">
+                        <span id="fs-ai-model-label">Auto</span>
+                    </button>
+                    <ul class="dropdown-menu shadow fs-ai-dropdown-menu" style="background-color: var(--ns-bg-elevated); border-color: var(--ns-border); border-radius: 1rem; margin-bottom: 0.5rem; font-size: 0.8rem;">
+                        <li><a class="dropdown-item fs-model-option active" href="#" data-model="" style="color: var(--ns-text);">Auto (Fallback)</a></li>
+                        <li><a class="dropdown-item fs-model-option" href="#" data-model="gemini-3.6-flash" style="color: var(--ns-text);">Gemini 3.6 Flash</a></li>
+                        <li><a class="dropdown-item fs-model-option" href="#" data-model="google/gemma-4-31b-it:free" style="color: var(--ns-text);">Gemma 4 31B</a></li>
+                        <li><a class="dropdown-item fs-model-option" href="#" data-model="nvidia/nemotron-3-super-120b-a12b:free" style="color: var(--ns-text);">Nemotron 120B</a></li>
+                    </ul>
+                </div>
+                <input type="hidden" id="fs-ai-model-select" value="">
+
+                <input type="text" id="fs-ai-input" class="form-control border-0 bg-transparent py-2 shadow-none" placeholder="Ask your stylist anything..." style="color: var(--ns-text);">
+                
+                <button id="fs-ai-send-btn" class="btn rounded-circle d-flex align-items-center justify-content-center shadow-sm flex-shrink-0 me-1" style="width: 36px; height: 36px; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0a0a0a; border: none;">
+                    <i class="bi bi-arrow-up-short fs-5"></i>
+                </button>
+            </div>
+        </div>
+        <div class="text-center text-muted mt-2" style="font-size: 0.65rem;">
+            AI can make mistakes. Consider verifying important information.
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/niceshop-fullscreen-chat.js" asp-append-version="true"></script>
+}

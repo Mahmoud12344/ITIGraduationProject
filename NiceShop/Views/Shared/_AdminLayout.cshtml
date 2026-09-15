@@ -29,7 +29,7 @@
                 var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
             }
         <nav class="flex-grow-1">
-            <a asp-controller="Admin" asp-action="Dashboard" class="ns-sidebar-link @(currentAction == "Dashboard" ? "active" : "")">
+            <a asp-controller="Dashboard" asp-action="Dashboard" class="ns-sidebar-link @(currentAction == "Dashboard" ? "active" : "")">
                 <i class="bi bi-grid-1x2"></i> Dashboard
             </a>
             

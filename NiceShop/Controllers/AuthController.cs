@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.VisualBasic;
+using NiceShop.Data;
 using NiceShop.Models;
 using NiceShop.services;
 using NiceShop.ViewModels;
@@ -10,24 +11,24 @@ using NiceShop.ViewModels;
 namespace NiceShop.Controllers;
 
 // [Authorize]
-public class AuthController : Controller
-{
+public class AuthController : Controller {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly ApplicationDbContext _applicationDbContext ;
     private readonly ICartService _cartService;
 
-    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ICartService cartService)
+    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,ApplicationDbContext context, ICartService cartService)
     {
+
         _userManager = userManager;
         _signInManager = signInManager;
         _cartService = cartService;
+        _applicationDbContext = context;
     }
 
     [HttpGet]
-    public IActionResult Index()
-    {
-        var model = new AuthVM
-        {
+    public IActionResult Index() {
+        var model = new AuthVM {
             ActiveTab = "login"
         };
 
@@ -36,16 +37,13 @@ public class AuthController : Controller
 
 
     [HttpGet]
-    public IActionResult CreateAccount()
-    {
-        var model = new AuthVM
-        {
+    public IActionResult CreateAccount() {
+        var model = new AuthVM {
             ActiveTab = "register"
         };
 
         return View(nameof(Index), model);
     }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateAccount(UserRegistrationVM urvm)
@@ -61,16 +59,36 @@ public class AuthController : Controller
         user.Email = urvm.Email;
         user.PhoneNumber = urvm.Phone;
 
-        var res = await _userManager.CreateAsync(user, urvm.Password);
-        if (res.Succeeded)
+        var identityResult = await _userManager.CreateAsync(user, urvm.Password);
+
+        if (identityResult.Succeeded)
         {
             await _signInManager.SignInAsync(user, false);
+
+            var customer = new Customer()
+            {
+                FName = urvm.Fname,
+                LName = urvm.Lname,
+                Id = user.Id
+            };
+
+            await _applicationDbContext.Customers.AddAsync(customer);
+            await _applicationDbContext.SaveChangesAsync();
+
             // user might have added stuff to the cart before making an account, move it over
-            await _cartService.MergeGuestCartIntoDbAsync();
+            try
+            {
+                await _cartService.MergeGuestCartIntoDbAsync();
+            }
+            catch (Exception ex)
+            {
+                // don't let a cart merge failure break account creation
+             }
+
             return RedirectToAction("Index");
         }
 
-        foreach (var error in res.Errors)
+        foreach (var error in identityResult.Errors)
         {
             ModelState.AddModelError("", error.Description);
         }
@@ -81,49 +99,41 @@ public class AuthController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> SignIn()
-    {
+    public async Task<IActionResult> SignIn() {
         return View("Index");
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> SaveSignIn(AuthVM authVm)
-    {
+[ValidateAntiForgeryToken]
+    public async Task<IActionResult> SaveSignIn(AuthVM authVm) {
         authVm.ActiveTab = "login";
         bool loginValid = ModelState
             .Where(kvp => kvp.Key.StartsWith("Login"))
             .All(kvp => kvp.Value.ValidationState == ModelValidationState.Valid);
-        if (!loginValid)
-        {
+        if (!loginValid){
             return View("Index", authVm);
         }
 
         var appuser = await _userManager.FindByNameAsync(authVm.Login.Email);
-        if (appuser is null)
-        {
+        if (appuser is null){
             ModelState.AddModelError("", "Username can't wrong ");
             return View("Index", authVm);
         }
 
-        var isPresent = await _userManager.CheckPasswordAsync(appuser, authVm.Login.Password);
-        if (!isPresent)
-        {
+        var isPresent = await _userManager.CheckPasswordAsync(appuser,authVm.Login.Password);
+        if (!isPresent){
             ModelState.AddModelError("", "Wrong Password ");
             return View("Index", authVm);
-
+            
         }
-
+        
         await _signInManager.SignInAsync(appuser, authVm.Login.RememberMe);
-        // move any guest cart items over to this user's db cart now that they're logged in
-        await _cartService.MergeGuestCartIntoDbAsync();
-
+ 
         return RedirectToAction("Index", "Home");
     }
 
 
-    public async Task<IActionResult> SignOut()
-    {
+    public async Task<IActionResult> SignOut() {
         await _signInManager.SignOutAsync();
 
         return View(nameof(Index), new AuthVM() { ActiveTab = "login" });

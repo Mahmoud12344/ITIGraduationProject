@@ -1,3 +1,7 @@
+@using Microsoft.EntityFrameworkCore
+@using NiceShop.Data
+@inject ApplicationDbContext _context
+
 <!-- 1. Announcement Bar -->
 @inject NiceShop.services.ICartService CartService
 
@@ -97,7 +101,7 @@
     }
     else
     {
-        <!-- Logged Out: Show Sign In / Register button -->
+        <!-- Logged Out: Show ONLY the Sign In / Register button -->
         <a asp-controller="Auth" asp-action="Index" class="btn btn-link text-decoration-none text-muted p-2 d-none d-md-block" title="Sign In / Register">
             <i class="bi bi-person fs-5"></i>
             <span class="d-none d-md-inline ms-1 fw-bold">Sign In</span>
@@ -133,12 +137,11 @@
                 <div class="row gx-5">
                     <div class="col-4">
                         <div class="ns-mega-menu-heading">Categories</div>
-                        <a href="#" class="ns-mega-menu-link">Women's Ready-to-Wear</a>
-                        <a href="#" class="ns-mega-menu-link">Men's Tailoring</a>
-                        <a href="#" class="ns-mega-menu-link">Outerwear & Coats</a>
-                        <a href="#" class="ns-mega-menu-link">Leather Goods</a>
-                        <a href="#" class="ns-mega-menu-link">Footwear</a>
-                        <a href="#" class="ns-mega-menu-link">Accessories & Watches</a>
+                        @foreach(var category in _context.Categories.Where(p=>p.Products.Any()).ToList() )
+                        {
+                            <a asp-controller="Products" asp-action="ByCategory" asp-route-id = "@category.Id" class="ns-mega-menu-link">@category.Name</a>
+                        }
+                        
                     </div>
                     <div class="col-4">
                         <div class="ns-mega-menu-heading">Featured Brands</div>
@@ -160,10 +163,13 @@
         </div>
         
         <a asp-controller="Products" asp-action="Index" class="ns-nav-link">Shop</a>
+        <a asp-controller="AiStylist" asp-action="Index" class="ns-nav-link">
+            <i class="bi bi-stars"></i> AI Stylist
+        </a>
         <a href="#" class="ns-nav-link ns-sale-link">Flash Sale</a>
         <a href="#" class="ns-nav-link">Track Order</a>
         @if (User.IsInRole("Admin")){
-            <a asp-action="Dashboard" asp-controller="Admin" class="ns-nav-link text-info ms-4"><i class="bi bi-shield-lock"></i> Admin</a>
+            <a asp-action="Dashboard" asp-controller="Dashboard" class="ns-nav-link text-info ms-4"><i class="bi bi-shield-lock"></i> Admin</a>
         }
         </nav>
 </div>

@@ -1,4 +1,6 @@
-﻿namespace NiceShop.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NiceShop.Models;
 
 public class Order
 {
@@ -21,6 +23,7 @@ public class Order
 
     public int AddressId { get; set; }
     public Address Address { get; set; } = null!;
-
+// order date for the dashboard
+    public DateTime OrderDate { get; set; } = DateTime.Now;
     public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }

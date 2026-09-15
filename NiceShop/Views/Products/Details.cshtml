@@ -35,6 +35,8 @@
                         }
                     }
                 </div>
+                
+                <!-- Main Image -->
                 <div class="col-10">
                     <div class="bg-light rounded overflow-hidden position-relative h-100">
                         <img src="@(Model.Images.Any() ? Model.Images.First().FilePath : "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800")"
@@ -43,11 +45,14 @@
                         <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-2">
                             @if (Model.IsOnSale && Model.Discount.HasValue)
                             {
-                                <span class="ns-badge-sale px-2 py-1 fs-6 rounded">@Model.Discount% OFF</span>
+                                <span class="ns-badge-sale px-2 py-1 fs-6 rounded" style="background-color: #dc3545; color: white;">
+                                    @Model.Discount% OFF
+                                </span>
                             }
                         </div>
-
-                        <button class="ns-wishlist-btn m-3" style="width:40px; height:40px; display:flex; align-items:center; justify-content:center;" onclick="window.nsCart.toggleWishlist(this, '@Model.Id')">
+                        
+                        <!-- Wishlist -->
+                        <button class="ns-wishlist-btn m-3 border-0 bg-white rounded-circle shadow-sm position-absolute top-0 end-0" style="width:40px; height:40px; display:flex; align-items:center; justify-content:center;" onclick="window.nsCart.toggleWishlist(this, '@Model.Id')">
                             <i class="bi bi-heart fs-5"></i>
                         </button>
                     </div>
@@ -60,9 +65,11 @@
             <div class="d-flex flex-column h-100">
 
                 <div class="mb-3">
-                    <a href="#" class="text-uppercase text-muted fw-bold text-decoration-none" style="font-Size: 0.75rem; letter-spacing: 0.08em;">@(Model.Brand?.Name ?? "")</a>
+                    <a href="#" class="text-uppercase text-muted fw-bold text-decoration-none" style="font-size: 0.75rem; letter-spacing: 0.08em;">
+                        @(Model.Brand?.Name ?? "NiceShop Exclusive")
+                    </a>
                     <h1 class="font-serif fw-bold display-6 mt-1 mb-2">@Model.Name</h1>
-
+                    
                     <div class="d-flex align-items-center gap-3">
                         <div class="font-serif fw-bold fs-3">@Model.Price.ToString("C")</div>
                         @if (Model.IsOnSale && Model.Discount.HasValue)
@@ -74,21 +81,16 @@
                     </div>
 
                     <div class="d-flex align-items-center gap-2 mt-2">
-                        <div class="ns-stars">
+                        <div class="ns-stars text-warning">
                             @{
                                 var fullStars = (int)Math.Floor(Model.Rating);
-                                decimal ratingRemainder = Model.Rating - fullStars;
-                                bool hasHalfStar = ratingRemainder >= 0.5m;
+                                var hasHalfStar = (Model.Rating - fullStars) >= 0.5m;
                             }
-                            @for (int i = 0; i < fullStars; i++)
-                            {
-                                <i class="bi bi-star-fill"></i>
-                            }
-                            @if (hasHalfStar)
-                            {
-                                <i class="bi bi-star-half"></i>
-                            }
-                            <span class="ns-rating-text">@Model.Rating (@Model.ReviewCount Reviews)</span>
+                            @for (int i = 0; i < fullStars; i++) { <i class="bi bi-star-fill"></i> }
+                            @if (hasHalfStar) { <i class="bi bi-star-half"></i> }
+                            @for (int i = fullStars + (hasHalfStar ? 1 : 0); i < 5; i++) { <i class="bi bi-star"></i> }
+                            
+                            <span class="text-muted ms-2 small">@Model.Rating (@Model.ReviewCount Reviews)</span>
                         </div>
                     </div>
                 </div>
@@ -135,6 +137,12 @@
                             <input type="hidden" name="Size" id="selectedSizeInput" value="@Model.Sizes.First().Name" />
                         </div>
                     }
+                    else if (Model.Stock > 0)
+                    {
+                        <div class="d-flex align-items-center gap-2 mb-3 text-warning" style="font-size: 0.75rem;">
+                            <i class="bi bi-exclamation-circle-fill"></i> <span class="fw-bold">Low Stock — Only @Model.Stock remaining</span>
+                        </div>
+                    }
 
                     <div class="d-flex align-items-center gap-2 mb-3" style="font-Size: 0.75rem;">
                         @if (Model.Stock == 0)
@@ -154,12 +162,14 @@
                     <div class="d-flex gap-2">
                         <div class="d-flex align-items-center border rounded px-2" style="background: var(--ns-bg-input);">
                             <button type="button" class="btn btn-link text-body p-2 text-decoration-none" onclick="this.nextElementSibling.stepDown()"><i class="bi bi-dash"></i></button>
-                            <input type="number" name="quantity" class="form-control border-0 bg-transparent text-center p-0" value="1" min="1" max="@Model.Stock" style="width: 40px; box-shadow: none;">
+                            <!-- Max tied to available stock -->
+                            <input type="number" name="quantity" class="form-control border-0 bg-transparent text-center p-0" value="1" min="1" max="@(Model.Stock > 0 ? Model.Stock : 1)" style="width: 40px; box-shadow: none;">
                             <button type="button" class="btn btn-link text-body p-2 text-decoration-none" onclick="this.previousElementSibling.stepUp()"><i class="bi bi-plus"></i></button>
                         </div>
-
+                        
+                        <!-- Add to Cart Button (Disabled if out of stock) -->
                         <button type="submit" class="btn btn-ns-dark flex-grow-1" @(Model.Stock == 0 ? "disabled" : "")>
-                            <i class="bi bi-bag me-2"></i> Add to Bag
+                            <i class="bi bi-bag me-2"></i> @(Model.Stock == 0 ? "Sold Out" : "Add to Bag")
                         </button>
                     </div>
                 </form>
@@ -174,8 +184,8 @@
                         <div id="collapseDetails" class="accordion-collapse collapse" data-bs-parent="#productAccordion">
                             <div class="accordion-body px-0 pt-0 pb-3 text-muted small">
                                 <ul class="mb-0 ps-3">
-                                    <li>Category: @(Model.Category?.Name ?? "-")</li>
-                                    <li>Brand: @(Model.Brand?.Name ?? "-")</li>
+                                    <li>Category: @(Model.Category?.Name ?? "General")</li>
+                                    <li>Brand: @(Model.Brand?.Name ?? "General")</li>
                                     <li>Added: @Model.CreatedAt.ToString("MMMM yyyy")</li>
                                 </ul>
                             </div>
