@@ -36,8 +36,13 @@ public class CartService : ICartService
         IsLoggedIn ? Ctx.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value : null;
 
     // form posts send "" for an empty hidden input, but code that adds items directly
-    // sends null. without this, "" and null never match and Remove/UpdateQuantity fail silently.
+    // sends null. without this "" and null never match and Remove/UpdateQuantity fail
     private static string? Normalize(string? s) => string.IsNullOrEmpty(s) ? null : s;
+
+    // size/color get saved as "" in the db not null, but Normalize turns "" into null
+    // so we gotta compare with "" here too or it never finds the item (this is why
+    // +/- and remove werent doing anything even tho they returned 200 ok)
+    private static string DbValue(string? s) => s ?? "";
 
     public async Task<List<CartSessionItem>> GetCartAsync()
     {
@@ -63,9 +68,12 @@ public class CartService : ICartService
 
         if (IsLoggedIn)
         {
+            var dbSize = DbValue(size);
+            var dbColor = DbValue(color);
+
             var cart = await GetOrCreateDbCartAsync();
             var existing = cart.CartItems.FirstOrDefault(ci =>
-                ci.ProductId == productId && ci.Size == size && ci.Color == color);
+                ci.ProductId == productId && ci.Size == dbSize && ci.Color == dbColor);
 
             if (existing != null)
                 existing.Quantity += quantity;
@@ -74,8 +82,8 @@ public class CartService : ICartService
                 {
                     ProductId = productId,
                     Quantity = quantity,
-                    Size = size ?? "",
-                    Color = color ?? ""
+                    Size = dbSize,
+                    Color = dbColor
                 });
 
             await _context.SaveChangesAsync();
@@ -99,9 +107,12 @@ public class CartService : ICartService
 
         if (IsLoggedIn)
         {
+            var dbSize = DbValue(size);
+            var dbColor = DbValue(color);
+
             var cart = await GetOrCreateDbCartAsync();
             var item = cart.CartItems.FirstOrDefault(ci =>
-                ci.ProductId == productId && ci.Size == size && ci.Color == color);
+                ci.ProductId == productId && ci.Size == dbSize && ci.Color == dbColor);
 
             if (item != null)
             {
@@ -123,9 +134,12 @@ public class CartService : ICartService
 
         if (IsLoggedIn)
         {
+            var dbSize = DbValue(size);
+            var dbColor = DbValue(color);
+
             var cart = await GetOrCreateDbCartAsync();
             var item = cart.CartItems.FirstOrDefault(ci =>
-                ci.ProductId == productId && ci.Size == size && ci.Color == color);
+                ci.ProductId == productId && ci.Size == dbSize && ci.Color == dbColor);
 
             if (item != null)
             {
@@ -163,11 +177,11 @@ public class CartService : ICartService
 
         foreach (var sItem in sessionCart)
         {
-            var size = Normalize(sItem.Size);
-            var color = Normalize(sItem.Color);
+            var dbSize = DbValue(Normalize(sItem.Size));
+            var dbColor = DbValue(Normalize(sItem.Color));
 
             var existing = cart.CartItems.FirstOrDefault(ci =>
-                ci.ProductId == sItem.ProductId && ci.Size == size && ci.Color == color);
+                ci.ProductId == sItem.ProductId && ci.Size == dbSize && ci.Color == dbColor);
 
             if (existing != null)
                 existing.Quantity += sItem.Quantity;
@@ -176,8 +190,8 @@ public class CartService : ICartService
                 {
                     ProductId = sItem.ProductId,
                     Quantity = sItem.Quantity,
-                    Size = size ?? "",
-                    Color = color ?? ""
+                    Size = dbSize,
+                    Color = dbColor
                 });
         }
 

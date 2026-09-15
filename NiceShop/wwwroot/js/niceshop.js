@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initFlashSaleCountdown();
     initSearchSuggestions();
     initProductTabs();
-    initProductFilters();
+    reopenCartDrawerIfNeeded();
 });
 
 /* ==========================================================================
@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
 function initTheme() {
     const themeToggles = document.querySelectorAll('.ns-theme-toggle');
     const htmlEl = document.documentElement;
-    
+
     // Check local storage first, then system preference
     const savedTheme = localStorage.getItem('niceshop_theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     let currentTheme = 'light';
     if (savedTheme) {
         currentTheme = savedTheme;
@@ -39,13 +39,13 @@ function initTheme() {
         toggle.addEventListener('click', () => {
             const isDark = htmlEl.getAttribute('data-theme') === 'dark';
             const newTheme = isDark ? 'light' : 'dark';
-            
+
             if (newTheme === 'dark') {
                 htmlEl.setAttribute('data-theme', 'dark');
             } else {
                 htmlEl.removeAttribute('data-theme');
             }
-            
+
             localStorage.setItem('niceshop_theme', newTheme);
             updateToggleIcons(newTheme);
         });
@@ -77,7 +77,7 @@ window.nsToast = {
 
         const toastEl = document.createElement('div');
         toastEl.className = `ns-toast ns-toast-${type} mb-2`;
-        
+
         let iconClass = 'bi-check-circle-fill';
         if (type === 'error') iconClass = 'bi-exclamation-triangle-fill';
         if (type === 'info') iconClass = 'bi-info-circle-fill';
@@ -112,21 +112,21 @@ window.nsToast = {
    ========================================================================== */
 // Expose functions globally for inline onclick handlers if needed
 window.nsCart = {
-    updateQuantity: function(productId, size, color, change) {
+    updateQuantity: function (productId, size, color, change) {
         // Implement AJAX call to /Cart/UpdateQuantity
         console.log(`Update ${productId} by ${change}`);
         // Mock success:
         // window.location.reload();
     },
-    removeItem: function(productId, size, color) {
+    removeItem: function (productId, size, color) {
         // Implement AJAX call to /Cart/Remove
         console.log(`Remove ${productId}`);
     },
-    toggleWishlist: function(btnElement, productId) {
+    toggleWishlist: function (btnElement, productId) {
         // Implement AJAX call to /Wishlist/Toggle
         const isAdded = !btnElement.classList.contains('active');
         btnElement.classList.toggle('active');
-        
+
         if (isAdded) {
             window.nsToast.show('Added to your wishlist!');
         } else {
@@ -139,7 +139,7 @@ window.nsCart = {
    4. QUICK VIEW MODAL
    ========================================================================== */
 window.nsQuickView = {
-    open: function(productId) {
+    open: function (productId) {
         console.log('Fetching details for', productId);
         // 1. Show loading state in modal
         // 2. Fetch /Products/QuickView/{productId} via AJAX
@@ -160,10 +160,10 @@ function initSearchSuggestions() {
 
     let timeout = null;
 
-    searchInput.addEventListener('input', function(e) {
+    searchInput.addEventListener('input', function (e) {
         const query = e.target.value.trim();
         clearTimeout(timeout);
-        
+
         if (query.length < 2) {
             dropdown.classList.add('d-none');
             return;
@@ -188,7 +188,7 @@ function initSearchSuggestions() {
     });
 
     // Close on click outside
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
             dropdown.classList.add('d-none');
         }
@@ -202,7 +202,7 @@ function initFlashSaleCountdown() {
     const elH = document.getElementById('sale-h');
     const elM = document.getElementById('sale-m');
     const elS = document.getElementById('sale-s');
-    
+
     if (!elH || !elM || !elS) return;
 
     function update() {
@@ -212,7 +212,7 @@ function initFlashSaleCountdown() {
         end.setHours(now.getHours() + 4);
         end.setMinutes(45);
         end.setSeconds(30);
-        
+
         const diff = end - new Date();
         if (diff <= 0) return; // Sale ended
 
@@ -242,9 +242,9 @@ function initProductTabs() {
             tabs.forEach(t => t.classList.remove('active'));
             // Add to clicked
             tab.classList.add('active');
-            
+
             const targetFilter = tab.getAttribute('data-filter');
-            
+
             // In a real MVC app, you might trigger an AJAX call here to fetch a PartialView
             // and replace the contents of a div.
             console.log('Filtering home products by:', targetFilter);
@@ -252,9 +252,9 @@ function initProductTabs() {
     });
 }
 
-            /* ==========================================================================
-   8. SHOP PAGE: SEARCH, FILTER & SORT (Client-side)
-   ========================================================================== */
+/* ==========================================================================
+8. SHOP PAGE: SEARCH, FILTER & SORT (Client-side)
+========================================================================== */
 document.addEventListener('DOMContentLoaded', function () {
     initShopFilters();
 });
@@ -367,3 +367,53 @@ function initShopFilters() {
 
     sortCards(allCards);
 }
+
+/* ==========================================================================
+   9. add to cart button (added this myself, wasnt wired before)
+   put data-add-to-cart on any button + the data attributes below and it
+   will post to /Cart/Add for you. works on any page.
+   example: <button data-add-to-cart data-product-id="5" data-size="" data-color="" data-quantity="1">ADD</button>
+   ========================================================================== */
+document.addEventListener('click', function (e) {
+    const btn = e.target.closest('[data-add-to-cart]');
+    if (!btn) return;
+
+    e.preventDefault();
+
+    const productId = btn.getAttribute('data-product-id');
+    const size = btn.getAttribute('data-size') || '';
+    const color = btn.getAttribute('data-color') || '';
+    const quantity = btn.getAttribute('data-quantity') || 1;
+
+    if (!productId) {
+        // button has no product id, cant do anything
+        console.log('missing product id on add to cart button');
+        return;
+    }
+
+    btn.disabled = true;
+
+    fetch('/Cart/Add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+            ProductId: productId,
+            Size: size,
+            Color: color,
+            Quantity: quantity
+        })
+    })
+        .then(res => {
+            if (!res.ok) throw new Error('bad response');
+            return res.text();
+        })
+        .then(() => {
+            if (window.nsToast) {
+                window.nsToast.show('Added to your bag!');
+            }
+            // remember the drawer was open so we can reopen it, see section 11
+            sessionStorage.setItem('nsCartDrawerOpen', '1');
+            // just reload the page for now, easiest way to update the cart badge/drawer
+            window.location.reload();
+        })
+        .catch(err => {
