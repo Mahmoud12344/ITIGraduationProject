@@ -25,6 +25,58 @@ function initAIWidget() {
     let isTyping = false;
     let hasUnread = true; // Start with unread welcome message
 
+    // Load History
+    fetch('/api/aichat/history')
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                // If we have history, clear the welcome message if desired, or just append
+                // Let's clear the default suggestions
+                const suggContainer = document.querySelector('.ns-ai-suggestions');
+                if (suggContainer) suggContainer.style.display = 'none';
+
+                data.forEach(msg => {
+                    if (msg.role === 'user') {
+                        addUserMessageUI(msg.content);
+                    } else if (msg.role === 'assistant') {
+                        addAIMessageUI(msg.content);
+                    }
+                });
+            }
+        })
+        .catch(err => console.error('Failed to load chat history', err));
+
+    // UI Add Message helpers extracted for reuse
+    function addUserMessageUI(text) {
+        const html = `
+            <div class="ns-ai-bubble-user ns-animate-fadeIn">
+                <div class="ns-ai-bubble-content">${escapeHTML(text)}</div>
+            </div>
+        `;
+        messagesArea.insertAdjacentHTML('beforeend', html);
+        scrollToBottom();
+    }
+
+    function addAIMessageUI(text) {
+        let htmlContent = '';
+        if (window.marked && window.DOMPurify) {
+            htmlContent = DOMPurify.sanitize(marked.parse(text));
+        } else {
+            htmlContent = escapeHTML(text); // Fallback
+        }
+
+        const html = `
+            <div class="ns-ai-bubble-ai ns-animate-fadeIn">
+                <div class="ns-ai-avatar"><i class="bi bi-stars"></i></div>
+                <div class="ns-ai-bubble-content w-100">
+                    ${htmlContent}
+                </div>
+            </div>
+        `;
+        messagesArea.insertAdjacentHTML('beforeend', html);
+        scrollToBottom();
+    }
+
     // --- Window Toggles ---
     triggerBtn.addEventListener('click', () => {
         if (windowEl.classList.contains('d-none') || isMinimized) {
@@ -37,7 +89,7 @@ function initAIWidget() {
             hasUnread = false;
             scrollToBottom();
         } else {
-            windowEl.classList.add('minimized');
+            windowEl.classList.add('d-none');
             isMinimized = true;
         }
     });
@@ -79,7 +131,7 @@ function initAIWidget() {
         }
 
         // Add user message
-        addUserMessage(text);
+        addUserMessageUI(text);
         inputEl.value = '';
         inputEl.disabled = true;
         sendBtn.disabled = true;
@@ -90,8 +142,7 @@ function initAIWidget() {
         // ---------------------------------------------------------
         // TODO for backend developer: Wire this up to your API
         // ---------------------------------------------------------
-        /*
-        fetch('/api/AI/Chat', {
+        fetch('/api/aichat/ask', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: text })
@@ -99,39 +150,25 @@ function initAIWidget() {
         .then(res => res.json())
         .then(data => {
             hideTypingIndicator();
-            addAIMessage(data.reply, data.products);
-        })
-        .catch(err => {
-            hideTypingIndicator();
-            addAIMessage("I'm sorry, I'm having trouble connecting right now. Please try again later.");
-        });
-        */
-
-        // MOCK RESPONSE FOR TEMPLATE PREVIEW:
-        setTimeout(() => {
-            hideTypingIndicator();
             inputEl.disabled = false;
             sendBtn.disabled = false;
             inputEl.focus();
-
-            const mockReply = "Based on what you're looking for, I'd highly recommend our Cashmere Trench Coat. It's incredibly versatile and perfect for this season.";
             
-            const mockProducts = [
-                {
-                    id: 'prod-1',
-                    name: 'Double-Breasted Cashmere Trench Coat',
-                    price: '$490',
-                    image: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=300'
-                }
-            ];
-
-            addAIMessage(mockReply, text.toLowerCase().includes('coat') ? mockProducts : []);
-
             if (isMinimized) {
                 badge.textContent = '1';
                 badge.classList.remove('d-none');
             }
-        }, 1500);
+            
+            addAIMessageUI(data.response);
+        })
+        .catch(err => {
+            console.error('AI Chat Error:', err);
+            hideTypingIndicator();
+            inputEl.disabled = false;
+            sendBtn.disabled = false;
+            inputEl.focus();
+            addAIMessageUI("I'm sorry, I'm having trouble connecting right now. Please try again later.");
+        });
     }
 
     sendBtn.addEventListener('click', () => sendMessage(inputEl.value));
@@ -151,50 +188,6 @@ function initAIWidget() {
     });
 
     // --- UI Helpers ---
-    function addUserMessage(text) {
-        const html = `
-            <div class="ns-ai-bubble-user ns-animate-fadeIn">
-                <div class="ns-ai-bubble-content">${escapeHTML(text)}</div>
-            </div>
-        `;
-        messagesArea.insertAdjacentHTML('beforeend', html);
-        scrollToBottom();
-    }
-
-    function addAIMessage(text, products = []) {
-        let productsHtml = '';
-        if (products && products.length > 0) {
-            productsHtml = `<div class="ns-ai-products mt-2">`;
-            products.forEach(p => {
-                productsHtml += `
-                    <div class="ns-ai-product-card">
-                        <img src="${p.image}" alt="${escapeHTML(p.name)}">
-                        <div class="ns-ai-product-info">
-                            <div class="ns-ai-product-name">${escapeHTML(p.name)}</div>
-                            <div class="ns-ai-product-price">${p.price}</div>
-                            <div class="ns-ai-product-actions">
-                                <button onclick="window.nsQuickView && window.nsQuickView.open('${p.id}')">Quick View</button>
-                                <a href="/Products/Details/${p.id}">View</a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            productsHtml += `</div>`;
-        }
-
-        const html = `
-            <div class="ns-ai-bubble-ai ns-animate-fadeIn">
-                <div class="ns-ai-avatar"><i class="bi bi-stars"></i></div>
-                <div class="ns-ai-bubble-content w-100">
-                    ${text}
-                    ${productsHtml}
-                </div>
-            </div>
-        `;
-        messagesArea.insertAdjacentHTML('beforeend', html);
-        scrollToBottom();
-    }
 
     let typingEl = null;
     function showTypingIndicator() {

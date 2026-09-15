@@ -65,3 +65,6 @@ nunit-*.xml
 
 # Personal files
 NiceShop/myFiles/
+
+# Local settings
+appsettings.Local.json

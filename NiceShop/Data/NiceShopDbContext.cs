@@ -27,6 +27,7 @@ public class ApplicationDbContext :IdentityDbContext<ApplicationUser>
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Color> Colors => Set<Color>();
     public DbSet<Size> Sizes => Set<Size>();
+    public DbSet<ChatMessage> ChatMessages => Set<ChatMessage>();
 
 
     protected override void OnModelCreating(ModelBuilder builder)
