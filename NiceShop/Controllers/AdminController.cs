@@ -139,8 +139,11 @@ public class AdminController: Controller
             return NotFound();
         }
 
-        var product = await _context.Products.Include(p=>p.Brand)
-            .Include(p=>p.Category).Include(p=>p.Colors).Include(p=>p.Sizes)
+        var product = await _context.Products
+            .Include(p=>p.Brand)
+            .Include(p=>p.Category)
+            .Include(p=>p.Colors)
+            .Include(p=>p.Sizes)
             .Include(p=>p.Images)
             .FirstOrDefaultAsync(p=>p.Id == id);
         if (product == null)
@@ -156,7 +159,7 @@ public class AdminController: Controller
     // POST: Admin/EditProduct/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditProduct(int id, Product product, List<int> sizeIds, List<int> colorIds, List<IFormFile> imageFiles )
+    public async Task<IActionResult> EditProduct(int id, Product product, List<int> sizeIds, List<int> colorIds, List<IFormFile> imageFiles , int stock)
     {
         if (id != product.Id)
         {
@@ -164,8 +167,11 @@ public class AdminController: Controller
         }
          if(ModelState.IsValid)
         {
-            var currentProduct = await _context.Products.Include(p=>p.Brand)
-            .Include(p=>p.Category).Include(p=>p.Colors).Include(p=>p.Sizes)
+            var currentProduct = await _context.Products
+                .Include(p=>p.Brand)
+            .Include(p=>p.Category)
+                .Include(p=>p.Colors)
+                .Include(p=>p.Sizes)
             .Include(p=>p.Images)
             .FirstOrDefaultAsync(p=>p.Id == id);
 
@@ -188,7 +194,7 @@ public class AdminController: Controller
             {
                 currentProduct.Sizes = await _context.Sizes.Where(s=> sizeIds.Contains(s.Id)).ToListAsync();
             }
-
+            
             if(imageFiles!=null && imageFiles.Count>0)
             {
                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "assets", "products");

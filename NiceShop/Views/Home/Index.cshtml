@@ -21,7 +21,7 @@
                     Discover the latest arrivals from the world's most prestigious fashion houses. Curated for the modern sophisticate.
                 </p>
                 <div class="d-flex gap-3">
-                    <a href="#" class="btn btn-ns-primary px-4 py-3">Shop Collection</a>
+                    <a asp-controller="Products" asp-action="Index" class="btn btn-ns-primary px-4 py-3">Shop Collection</a>
                     <a href="#" class="btn btn-ns-outline px-4 py-3 text-white border-white">View Lookbook</a>
                 </div>
 
@@ -57,7 +57,7 @@
                 <h2 class="ns-section-title">Curated Categories</h2>
             </div>
 
-            <a href="#" class="text-decoration-none ns-text-gold fw-bold" style="font-Size: 0.8125rem;">View All <i class="bi bi-arrow-right"></i></a>
+            <a asp-controller="Products" asp-action="Categories" class="text-decoration-none ns-text-gold fw-bold" style="font-Size: 0.8125rem;">View All <i class="bi bi-arrow-right"></i></a>
         </div>
 
         <div class="row row-cols-2 row-cols-md-4 g-4">
@@ -117,8 +117,8 @@
                     <p class="text-white-50 mb-4" style="font-Size: 0.875rem;">Product Description goes here...</p>
 
                     <div class="d-flex align-items-end gap-3 mb-4">
-                        <div class="font-serif fw-bold text-white fs-3">$99.99</div>
-                        <div class="text-white-50 text-decoration-line-through mb-1">$149.99</div>
+                        <div class="font-serif fw-bold text-white fs-3">EGP 99.99</div>
+                        <div class="text-white-50 text-decoration-line-through mb-1">EGP 149.99</div>
                         <div class="text-warning fw-bold mb-1 ms-2">Save 30%</div>
                     </div>
 
@@ -151,7 +151,7 @@
                         </div>
                     </div>
 
-                    <a href="#" class="btn btn-ns-primary px-4">Shop The Deal</a>
+                    <a asp-controller="Products" asp-action="Index" class="btn btn-ns-primary px-4">Shop The Deal</a>
                 </div>
 
                 <div class="col-md-6 order-1 order-md-2">

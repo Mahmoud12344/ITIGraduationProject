@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initFlashSaleCountdown();
     initSearchSuggestions();
     initProductTabs();
+    initProductFilters();
 });
 
 /* ==========================================================================
@@ -251,28 +252,118 @@ function initProductTabs() {
     });
 }
 
-sortSelect.addEventListener('change', applyFiltersAndSort);
-    }
-if (priceRange) {
-    priceRange.addEventListener('input', function () {
-        const val = parseInt(priceRange.value);
-        priceRangeValue.textContent = val >= 2000 ? '$2,000+' : $${ val };
-    });
-}
-if (applyBtn) {
-    applyBtn.addEventListener('click', applyFiltersAndSort);
-}
-if (clearBtn) {
-    clearBtn.addEventListener('click', function () {
-        if (searchInput) searchInput.value = '';
-        if (priceRange) { priceRange.value = 2000; priceRangeValue.textContent = '$2,000+'; }
-        if (inStockSwitch) inStockSwitch.checked = false;
-        document.querySelectorAll('.filter-category:checked, .filter-brand:checked').forEach(cb => cb.checked = false);
-        if (sortSelect) sortSelect.value = 'featured';
-        applyFiltersAndSort();
-    });
-}
+            /* ==========================================================================
+   8. SHOP PAGE: SEARCH, FILTER & SORT (Client-side)
+   ========================================================================== */
+document.addEventListener('DOMContentLoaded', function () {
+    initShopFilters();
+});
 
-// Initial sort on page load
-sortCards(allCards);
+function initShopFilters() {
+    const grid = document.getElementById('productGrid');
+    if (!grid) return;
+
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+    const priceRange = document.getElementById('priceRange');
+    const priceRangeValue = document.getElementById('priceRangeValue');
+    const inStockSwitch = document.getElementById('inStockSwitch');
+    const applyBtn = document.getElementById('applyFiltersBtn');
+    const clearBtn = document.getElementById('clearFiltersBtn');
+    const noResultsMsg = document.getElementById('noResultsMsg');
+    const visibleCountEl = document.getElementById('visibleCount');
+
+    const allCards = Array.from(grid.querySelectorAll('.product-item'));
+
+    function getCheckedValues(selector) {
+        return Array.from(document.querySelectorAll(selector + ':checked')).map(el => el.value);
+    }
+
+    function applyFiltersAndSort() {
+        const searchTerm = (searchInput?.value || '').trim().toLowerCase();
+        const maxPrice = parseFloat(priceRange?.value || 2000);
+        const inStockOnly = inStockSwitch?.checked || false;
+        const selectedCategories = getCheckedValues('.filter-category');
+        const selectedBrands = getCheckedValues('.filter-brand');
+
+        let visibleCards = [];
+
+        allCards.forEach(card => {
+            const name = card.dataset.name || '';
+            const price = parseFloat(card.dataset.price || 0);
+            const categoryId = card.dataset.category;
+            const brandId = card.dataset.brand;
+            const inStock = card.dataset.instock === '1';
+
+            let visible = true;
+
+            if (searchTerm && !name.includes(searchTerm)) visible = false;
+            if (price > maxPrice) visible = false;
+            if (inStockOnly && !inStock) visible = false;
+            if (selectedCategories.length > 0 && !selectedCategories.includes(categoryId)) visible = false;
+            if (selectedBrands.length > 0 && !selectedBrands.includes(brandId)) visible = false;
+
+            card.style.display = visible ? '' : 'none';
+            if (visible) visibleCards.push(card);
+        });
+
+        sortCards(visibleCards);
+
+        if (noResultsMsg) {
+            noResultsMsg.classList.toggle('d-none', visibleCards.length > 0);
+        }
+        if (visibleCountEl) {
+            visibleCountEl.textContent = visibleCards.length;
+        }
+    }
+
+    function sortCards(visibleCards) {
+        const sortValue = sortSelect?.value || 'featured';
+
+        const sorted = [...visibleCards].sort((a, b) => {
+            switch (sortValue) {
+                case 'price-asc':
+                    return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                case 'price-desc':
+                    return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                case 'new':
+                    return parseInt(b.dataset.created) - parseInt(a.dataset.created);
+                case 'rating-desc':
+                    return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+                case 'featured':
+                default:
+                    return parseInt(b.dataset.featured) - parseInt(a.dataset.featured);
+            }
+        });
+
+        sorted.forEach(card => grid.appendChild(card));
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', applyFiltersAndSort);
+    }
+    if (sortSelect) {
+        sortSelect.addEventListener('change', applyFiltersAndSort);
+    }
+    if (priceRange) {
+        priceRange.addEventListener('input', function () {
+            const val = parseInt(priceRange.value);
+            priceRangeValue.textContent = val >= 50000 ? '$50,000+' : `$${val}`;
+        });
+    }
+    if (applyBtn) {
+        applyBtn.addEventListener('click', applyFiltersAndSort);
+    }
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+            if (searchInput) searchInput.value = '';
+            if (priceRange) { priceRange.value = 2000; priceRangeValue.textContent = '$2,000+'; }
+            if (inStockSwitch) inStockSwitch.checked = false;
+            document.querySelectorAll('.filter-category:checked, .filter-brand:checked').forEach(cb => cb.checked = false);
+            if (sortSelect) sortSelect.value = 'featured';
+            applyFiltersAndSort();
+        });
+    }
+
+    sortCards(allCards);
 }
