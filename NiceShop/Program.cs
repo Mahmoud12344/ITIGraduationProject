@@ -8,6 +8,8 @@ namespace NiceShop;
 
 using Microsoft.Data.SqlClient;
 using NiceShop.Data;
+using NiceShop.services;
+
 public class Program
 {
     public static async Task Main(string[] args)
@@ -54,6 +56,7 @@ public class Program
         builder.Services.AddScoped<DashboardService>();
         builder.Services.AddHttpClient();
         builder.Services.AddScoped<NiceShop.Services.IAiChatService, NiceShop.Services.AiChatService>();
+        builder.Services.AddScoped<OrdersService>();
         
         var app = builder.Build();
 
