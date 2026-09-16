@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NiceShop.Models.Category>
+@model IEnumerable<NiceShop.Models.Category>
 
 <div class="container mt-5">
     <h1 class="mb-4">Shop by Category</h1>
@@ -10,7 +10,7 @@
                 <div class="card h-100 shadow-sm">
                     <div class="card-body text-center">
                         <h5 class="card-title">@category.Name</h5>
-                        <a asp-action="ByCategory" asp-route-id="@category.Id" class="btn btn-outline-dark mt-2">
+                        <a asp-action="ByCategory" asp-route-id="@category.Id" class="btn btn-ns-outline mt-2">
                             Browse @category.Name
                         </a>
                     </div>

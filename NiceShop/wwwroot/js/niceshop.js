@@ -34,6 +34,7 @@ function initTheme() {
 
     if (currentTheme === 'dark') {
         htmlEl.setAttribute('data-theme', 'dark');
+        htmlEl.setAttribute('data-bs-theme', 'dark');
         updateToggleIcons('dark');
     }
 
@@ -45,8 +46,10 @@ function initTheme() {
 
             if (newTheme === 'dark') {
                 htmlEl.setAttribute('data-theme', 'dark');
+                htmlEl.setAttribute('data-bs-theme', 'dark');
             } else {
                 htmlEl.removeAttribute('data-theme');
+                htmlEl.removeAttribute('data-bs-theme');
             }
 
             localStorage.setItem('niceshop_theme', newTheme);
