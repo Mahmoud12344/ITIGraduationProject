@@ -19,14 +19,14 @@ public class OrdersController(OrdersService service) : Controller
             Filter = filter     
         };
 
-        return View("~/Views/Admin/Orders.cshtml", vm);
+        return View( vm);
     }
 
     public async Task<IActionResult> OrderDetails(int? Id)
     {
         if(Id == null) return NotFound();
        var vm = await service.GetOrderDetailsAsync(Id);
-       return View(vm);
+       return View( vm);
     }
 
     public async Task<IActionResult> UpdateStatus(int Id, OrderStatus status)

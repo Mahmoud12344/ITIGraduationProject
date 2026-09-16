@@ -83,6 +83,7 @@ public class OrdersService(ApplicationDbContext context)
 
                         CouponId = order.CouponId,
                         CouponCode = order.Coupon?.Code,
+                        Percentage = order.Coupon?.Percentage,
 
                         Notes = order.Notes, 
                         IsCanceled = order.IsCanceled,

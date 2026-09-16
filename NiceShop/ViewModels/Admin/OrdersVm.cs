@@ -32,6 +32,8 @@ public class OrdersVm
 
         public int? CouponId { get; set; }
         public string? CouponCode { get; set; }
+
+         public decimal? Percentage { get; set; }
         
         public OrderStatus Status { get; set; }
         public string? Notes { get; set; }

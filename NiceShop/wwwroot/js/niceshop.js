@@ -473,3 +473,66 @@ function initProductTabs() {
             });
         }
     };
+
+
+    /*==================orders page admin====================*/
+
+
+    (function () {
+    // ---- Filter bar toggle ----
+    var toggleBtn = document.getElementById('toggleFiltersBtn');
+    var filterBar = document.getElementById('ordersFilterBar');
+    var toggleLabel = document.getElementById('toggleFiltersLabel');
+    if (toggleBtn && filterBar) {
+        toggleBtn.addEventListener('click', function () {
+            var hidden = filterBar.style.display === 'none';
+            filterBar.style.display = hidden ? 'flex' : 'none';
+            toggleLabel.textContent = hidden ? 'Hide filters' : 'Show filters';
+        });
+    }
+
+    // ---- Client-side pagination ----
+    var pageSize   = pageSize;
+    var totalItems = totalItemsCount;
+    var totalPages = totalPages;
+    var currentPage = 1;
+
+    var rows        = document.querySelectorAll('#ordersTableBody tr[data-page]');
+    var pageButtons = document.querySelectorAll('.page-num-btn');
+    var pageInfo    = document.getElementById('pageInfoText');
+
+    function showPage(page) {
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
+        currentPage = page;
+
+        rows.forEach(function (row) {
+            row.style.display = (parseInt(row.getAttribute('data-page'), 10) === currentPage) ? '' : 'none';
+        });
+
+        pageButtons.forEach(function (btn) {
+            btn.classList.toggle('active', parseInt(btn.getAttribute('data-page'), 10) === currentPage);
+        });
+
+        var start = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+        var end   = Math.min(currentPage * pageSize, totalItems);
+        if (pageInfo) pageInfo.textContent = start + '-' + end + ' out of ' + totalItems + ' orders';
+    }
+
+    pageButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            showPage(parseInt(btn.getAttribute('data-page'), 10));
+        });
+    });
+
+    var bind = function (id, fn) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('click', fn);
+    };
+    bind('prevPageBtn',  function () { showPage(currentPage - 1); });
+    bind('nextPageBtn',  function () { showPage(currentPage + 1); });
+    bind('firstPageBtn', function () { showPage(1); });
+    bind('lastPageBtn',  function () { showPage(totalPages); });
+
+    showPage(1);
+})();
