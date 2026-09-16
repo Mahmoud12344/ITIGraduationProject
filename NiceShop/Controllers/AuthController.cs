@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.VisualBasic;
 using NiceShop.Data;
 using NiceShop.Models;
-using NiceShop.services;
+using NiceShop.Services;
+using NiceShop.Services;
 using NiceShop.ViewModels;
 
 namespace NiceShop.Controllers;

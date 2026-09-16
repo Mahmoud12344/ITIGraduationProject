@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NiceShop.Data;
-using NiceShop.services;
+using NiceShop.Services;
+using NiceShop.Services;
 using NiceShop.ViewModels.Cart;
 
 namespace NiceShop.Controllers;
