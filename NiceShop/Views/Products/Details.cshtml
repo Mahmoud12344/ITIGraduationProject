@@ -35,7 +35,7 @@
                         }
                     }
                 </div>
-                
+
                 <!-- Main Image -->
                 <div class="col-10">
                     <div class="bg-light rounded overflow-hidden position-relative h-100">
@@ -50,7 +50,7 @@
                                 </span>
                             }
                         </div>
-                        
+
                         <!-- Wishlist -->
                         <button class="ns-wishlist-btn m-3 border-0 bg-white rounded-circle shadow-sm position-absolute top-0 end-0" style="width:40px; height:40px; display:flex; align-items:center; justify-content:center;" onclick="window.nsCart.toggleWishlist(this, '@Model.Id')">
                             <i class="bi bi-heart fs-5"></i>
@@ -69,7 +69,7 @@
                         @(Model.Brand?.Name ?? "NiceShop Exclusive")
                     </a>
                     <h1 class="font-serif fw-bold display-6 mt-1 mb-2">@Model.Name</h1>
-                    
+
                     <div class="d-flex align-items-center gap-3">
                         <div class="font-serif fw-bold fs-3">@Model.Price.ToString("C")</div>
                         @if (Model.IsOnSale && Model.Discount.HasValue)
@@ -89,7 +89,7 @@
                             @for (int i = 0; i < fullStars; i++) { <i class="bi bi-star-fill"></i> }
                             @if (hasHalfStar) { <i class="bi bi-star-half"></i> }
                             @for (int i = fullStars + (hasHalfStar ? 1 : 0); i < 5; i++) { <i class="bi bi-star"></i> }
-                            
+
                             <span class="text-muted ms-2 small">@Model.Rating (@Model.ReviewCount Reviews)</span>
                         </div>
                     </div>
@@ -162,12 +162,10 @@
                     <div class="d-flex gap-2">
                         <div class="d-flex align-items-center border rounded px-2" style="background: var(--ns-bg-input);">
                             <button type="button" class="btn btn-link text-body p-2 text-decoration-none" onclick="this.nextElementSibling.stepDown()"><i class="bi bi-dash"></i></button>
-                            <!-- Max tied to available stock -->
                             <input type="number" name="quantity" class="form-control border-0 bg-transparent text-center p-0" value="1" min="1" max="@(Model.Stock > 0 ? Model.Stock : 1)" style="width: 40px; box-shadow: none;">
                             <button type="button" class="btn btn-link text-body p-2 text-decoration-none" onclick="this.previousElementSibling.stepUp()"><i class="bi bi-plus"></i></button>
                         </div>
-                        
-                        <!-- Add to Cart Button (Disabled if out of stock) -->
+
                         <button type="submit" class="btn btn-ns-dark flex-grow-1" @(Model.Stock == 0 ? "disabled" : "")>
                             <i class="bi bi-bag me-2"></i> @(Model.Stock == 0 ? "Sold Out" : "Add to Bag")
                         </button>
@@ -212,15 +210,43 @@
 
     <!-- Reviews Section -->
     <section class="mt-5 pt-5 border-top ns-border-light">
-        <h2 class="font-serif fw-bold h3 mb-4">Customer Reviews (@Model.ReviewCount)</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="font-serif fw-bold h3 mb-0">Customer Reviews (@Model.ReviewCount)</h2>
+        </div>
 
-        @if (Model.Reviews.Any())
+        @if (TempData["ReviewSuccess"] != null)
         {
-            foreach (var review in Model.Reviews)
+            <div class="alert alert-success" style="font-size: 0.9rem;">@TempData["ReviewSuccess"]</div>
+        }
+        @if (TempData["ReviewError"] != null)
+        {
+            <div class="alert alert-danger" style="font-size: 0.9rem;">@TempData["ReviewError"]</div>
+        }
+
+        @{
+            var approvedReviews = Model.Reviews.Where(r => r.IsApproved).OrderByDescending(r => r.Date).ToList();
+        }
+
+        @if (approvedReviews.Any())
+        {
+            foreach (var review in approvedReviews)
             {
                 <div class="mb-4 pb-4 border-bottom ns-border-light">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <strong>@(review.Customer?.FName ?? "Anonymous")</strong>
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <strong>@(review.Customer?.FName ?? "Anonymous")</strong>
+                            @if (review.IsVerifiedUser)
+                            {
+                                <span class="badge ms-2" style="background-color:#198754; color:#fff; font-size:0.65rem;">
+                                    <i class="bi bi-patch-check-fill me-1"></i>Verified Purchase
+                                </span>
+                            }
+                            <div class="ns-stars text-warning mt-1" style="font-size: 0.8rem;">
+                                @for (int i = 0; i < review.Rating; i++) { <i class="bi bi-star-fill"></i> }
+                                @for (int i = review.Rating; i < 5; i++) { <i class="bi bi-star"></i> }
+                            </div>
+                        </div>
+                        <span class="text-muted small">@review.Date.ToString("MMM dd, yyyy")</span>
                     </div>
                     <p class="text-muted mb-0">@review.Content</p>
                 </div>
@@ -230,6 +256,46 @@
         {
             <p class="text-muted">No reviews yet. Be the first to review this product.</p>
         }
+
+        <!-- Write a Review Form -->
+        <div class="mt-5 pt-4 border-top ns-border-light">
+            <h3 class="font-serif fw-bold h5 mb-3">Write a Review</h3>
+
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+           <form asp-controller="Products" asp-action="AddReview" method="post" class="mb-3" style="max-width: 600px;">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="ProductId" value="@Model.Id" />
+
+                    <div class="mb-3">
+                        <label class="ns-form-label mb-2 d-block">Your Rating</label>
+                        <div class="ns-star-input d-flex gap-1 fs-3" style="cursor: pointer;">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <i class="bi bi-star star-icon" data-value="@i" style="color:#ccc;"></i>
+                            }
+                        </div>
+                        <input type="hidden" name="Rating" id="selectedRatingInput" value="0" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="ns-form-label mb-2 d-block">Your Review</label>
+                        <textarea name="Content" class="form-control" rows="4" placeholder="Tell us what you think about this product..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-ns-dark px-4">
+                        <i class="bi bi-send me-2"></i>Submit Review
+                    </button>
+                </form>
+            }
+            else
+            {
+                <p class="text-muted">
+                    <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path">Log in</a>
+                    to write a review.
+                </p>
+            }
+        </div>
     </section>
 
     <!-- You May Also Like -->
@@ -250,4 +316,43 @@
             </div>
         </section>
     }
+    @section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stars = document.querySelectorAll('.ns-star-input .star-icon');
+            const ratingInput = document.getElementById('selectedRatingInput');
+
+            function paintStars(count) {
+                stars.forEach(function (star) {
+                    const value = parseInt(star.dataset.value);
+                    if (value <= count) {
+                        star.classList.remove('bi-star');
+                        star.classList.add('bi-star-fill');
+                        star.style.color = '#ffc107';
+                    } else {
+                        star.classList.remove('bi-star-fill');
+                        star.classList.add('bi-star');
+                        star.style.color = '#ccc';
+                    }
+                });
+            }
+
+            stars.forEach(function (star) {
+                star.addEventListener('mouseenter', function () {
+                    paintStars(parseInt(star.dataset.value));
+                });
+
+                star.addEventListener('click', function () {
+                    const value = star.dataset.value;
+                    ratingInput.value = value;
+                    paintStars(parseInt(value));
+                });
+            });
+
+            document.querySelector('.ns-star-input').addEventListener('mouseleave', function () {
+                paintStars(parseInt(ratingInput.value));
+            });
+        });
+    </script>
+}
 </div>
