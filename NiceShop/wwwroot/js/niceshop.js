@@ -403,8 +403,22 @@ function initProductFilters() {
         });
     }
 
-    // Initial sort on load
-    sortCards(allCards);
+    // Pre-check filters based on URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const brandFromUrl = urlParams.get('brand');
+    
+    if (brandFromUrl) {
+        const brandCheckboxes = document.querySelectorAll('.filter-brand');
+        brandCheckboxes.forEach(cb => {
+            const label = document.querySelector(`label[for="${cb.id}"] span:first-child`);
+            if (label && label.textContent.trim().toLowerCase() === brandFromUrl.trim().toLowerCase()) {
+                cb.checked = true;
+            }
+        });
+    }
+
+    // Initial sort and apply filters on load
+    applyFiltersAndSort();
 }
 
 /* ==========================================================================
