@@ -18,4 +18,5 @@ public enum ImageType {
     Gallery,
     Banner,
     Product
-}public enum SizeOption { XS, S, M, L, XL, XXL } // snapshot value stored on OrderItem at purchase time
+}
+public enum SizeOption { XS, S, M, L, XL, XXL } // snapshot value stored on OrderItem at purchase time

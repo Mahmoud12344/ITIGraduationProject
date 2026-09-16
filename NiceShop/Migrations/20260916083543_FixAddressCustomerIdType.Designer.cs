@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NiceShop.Data;
 
@@ -11,9 +12,11 @@ using NiceShop.Data;
 namespace NiceShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260916083543_FixAddressCustomerIdType")]
+    partial class FixAddressCustomerIdType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1541,7 +1544,7 @@ namespace NiceShop.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("NiceShop.Models.ApplicationUser", b =>
@@ -1665,7 +1668,7 @@ namespace NiceShop.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
 
                     b.HasData(
                         new
@@ -1785,7 +1788,7 @@ namespace NiceShop.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("NiceShop.Models.CartItem", b =>
@@ -1822,7 +1825,7 @@ namespace NiceShop.Migrations
                     b.HasIndex("CartId", "ProductId", "Size", "Color")
                         .IsUnique();
 
-                    b.ToTable("CartItems", null, t =>
+                    b.ToTable("CartItems", t =>
                         {
                             t.HasCheckConstraint("CK_CartItem_Quantity", "[Quantity] > 0");
                         });
@@ -1859,7 +1862,7 @@ namespace NiceShop.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -1933,7 +1936,7 @@ namespace NiceShop.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ChatMessages", (string)null);
+                    b.ToTable("ChatMessages");
                 });
 
             modelBuilder.Entity("NiceShop.Models.Color", b =>
@@ -1959,7 +1962,7 @@ namespace NiceShop.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Colors", (string)null);
+                    b.ToTable("Colors");
 
                     b.HasData(
                         new
@@ -2081,7 +2084,7 @@ namespace NiceShop.Migrations
 
                     b.HasIndex("ExpiryDate");
 
-                    b.ToTable("Coupons", null, t =>
+                    b.ToTable("Coupons", t =>
                         {
                             t.HasCheckConstraint("CK_Coupon_Percentage", "[Percentage] >= 0 AND [Percentage] <= 100");
                         });
@@ -2106,7 +2109,7 @@ namespace NiceShop.Migrations
 
                     b.HasIndex("LName", "FName");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
 
                     b.HasData(
                         new
@@ -2154,7 +2157,7 @@ namespace NiceShop.Migrations
 
                     b.HasIndex("ProductId", "IsDefault");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
 
                     b.HasData(
                         new
@@ -3238,7 +3241,7 @@ namespace NiceShop.Migrations
 
                     b.HasIndex("CustomerId", "Status");
 
-                    b.ToTable("Orders", null, t =>
+                    b.ToTable("Orders", t =>
                         {
                             t.HasCheckConstraint("CK_Order_Total", "[Total] >= 0");
                         });
@@ -3358,7 +3361,7 @@ namespace NiceShop.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems", null, t =>
+                    b.ToTable("OrderItems", t =>
                         {
                             t.HasCheckConstraint("CK_OrderItem_Price", "[Price] >= 0");
 
@@ -3540,7 +3543,7 @@ namespace NiceShop.Migrations
 
                     b.HasIndex("IsOnSale", "IsActive");
 
-                    b.ToTable("Products", null, t =>
+                    b.ToTable("Products", t =>
                         {
                             t.HasCheckConstraint("CK_Product_Price", "[Price] >= 0");
 
@@ -4189,7 +4192,7 @@ namespace NiceShop.Migrations
 
                     b.HasIndex("ProductId", "IsApproved");
 
-                    b.ToTable("Reviews", null, t =>
+                    b.ToTable("Reviews", t =>
                         {
                             t.HasCheckConstraint("CK_Review_Rating", "[Rating] >= 1 AND [Rating] <= 5");
                         });
@@ -4217,7 +4220,7 @@ namespace NiceShop.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Sizes", (string)null);
+                    b.ToTable("Sizes");
 
                     b.HasData(
                         new
