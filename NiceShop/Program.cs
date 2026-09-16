@@ -32,7 +32,11 @@ public class Program
         }
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(connectionBuilder.ConnectionString));
+            options.UseSqlServer(connectionBuilder.ConnectionString)
+                // we manually edited a migration by hand instead of using Add-Migration for it,
+                // so the model snapshot doesn't match anymore. we know why and it's fine,
+                // this just stops EF from blocking Update-Database over it
+                .ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning)));
         // Add services to the container.
         builder.Services.AddControllersWithViews(opt => { opt.Filters.Add<HandelErrorAttribute>(); }
         );
@@ -57,7 +61,7 @@ public class Program
         builder.Services.AddHttpClient();
         builder.Services.AddScoped<NiceShop.Services.IAiChatService, NiceShop.Services.AiChatService>();
         builder.Services.AddScoped<OrdersService>();
-        
+
         var app = builder.Build();
 
         var supportedCultures = new[] { new System.Globalization.CultureInfo("en-EG") };
@@ -78,7 +82,7 @@ public class Program
         using (var scope = app.Services.CreateScope())
         {
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    
+
             // The roles you want in your system
             string[] roleNames = ["Admin"];
 
