@@ -122,65 +122,64 @@
         </div>
     </section>
 
-    <!-- Flash Sale Banner -->
-    <!-- TODO: Wrap this section in an IF condition to only show if there is an active Flash Sale Product -->
-    <section class="mb-5 pb-4">
-        <div class="ns-flash-sale">
-            <div class="row align-items-center g-5">
-                <div class="col-md-6 order-2 order-md-1">
-                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 bg-danger text-white rounded-pill mb-4" style="font-Size: 0.6875rem; font-weight:700; letter-spacing:0.05em;">
-                        <i class="bi bi-lightning-charge-fill"></i> FLASH SALE
+    <!-- Coupon Banner -->
+    @if (ViewBag.SpecialCoupon != null)
+    {
+        <section class="mb-5 pb-4">
+            <div class="ns-flash-sale" id="coupon-banner-wrapper" data-expiry="@ViewBag.SpecialCoupon.ExpiryDate.ToString("yyyy-MM-ddTHH:mm:ss")">
+                <div class="row align-items-center g-5">
+                    <div class="col-md-6 order-2 order-md-1">
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 bg-warning text-dark rounded-pill mb-4" style="font-Size: 0.6875rem; font-weight:700; letter-spacing:0.05em;">
+                            <i class="bi bi-tag-fill"></i> LIMITED TIME OFFER
+                        </div>
+
+                        <h2 class="font-display display-6 fw-bold mb-3">Special Discount</h2>
+                        <p class="text-white-50 mb-4" style="font-Size: 0.875rem;">Use this exclusive coupon code at checkout to get @(  ViewBag.SpecialCoupon.Percentage.ToString("0.##")) % off your entire order.</p>
+
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="font-serif fw-bold text-white fs-3 border border-2 border-warning px-4 py-2 rounded-3 bg-dark" style="letter-spacing: 0.1em; font-family: monospace;">@ViewBag.SpecialCoupon.Code</div>
+                        </div>
+
+                        <!-- Countdown -->
+                        @if (ViewBag.SpecialCoupon.ExpiryDate <= DateTime.Now)
+                        {
+                            <div class="mb-5 text-danger fw-bold fs-5">Expired</div>
+                        }
+                        else
+                        {
+                            <div id="coupon-countdown-container">
+                                <div class="mb-2 text-white-50" style="font-Size: 0.875rem;">Offer ends in:</div>
+                                <div class="d-flex gap-2 mb-5">
+                                    <div class="ns-countdown-unit">
+                                        <span class="ns-countdown-value" id="sale-h">00</span>
+                                        <span class="ns-countdown-label">Hours</span>
+                                    </div>
+                                    <div class="text-white-50 fs-4 align-self-center">:</div>
+                                    <div class="ns-countdown-unit">
+                                        <span class="ns-countdown-value" id="sale-m">00</span>
+                                        <span class="ns-countdown-label">Mins</span>
+                                    </div>
+                                    <div class="text-white-50 fs-4 align-self-center">:</div>
+                                    <div class="ns-countdown-unit">
+                                        <span class="ns-countdown-value" id="sale-s">00</span>
+                                        <span class="ns-countdown-label">Secs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <a asp-controller="Products" asp-action="Index" class="btn btn-ns-primary px-4">Shop The Deal</a>
                     </div>
 
-                    <h2 class="font-display display-6 fw-bold mb-3">Flash Sale Product Name</h2>
-                    <p class="text-white-50 mb-4" style="font-Size: 0.875rem;">Product Description goes here...</p>
-
-                    <div class="d-flex align-items-end gap-3 mb-4">
-                        <div class="font-serif fw-bold text-white fs-3">EGP 99.99</div>
-                        <div class="text-white-50 text-decoration-line-through mb-1">EGP 149.99</div>
-                        <div class="text-warning fw-bold mb-1 ms-2">Save 30%</div>
-                    </div>
-
-                    <!-- Countdown -->
-                    <div class="d-flex gap-2 mb-4">
-                        <div class="ns-countdown-unit">
-                            <span class="ns-countdown-value" id="sale-h">04</span>
-                            <span class="ns-countdown-label">Hours</span>
+                    <div class="col-md-6 order-1 order-md-2">
+                        <div class="position-relative h-100 w-100" style="min-height: 400px;">
+                            <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800" alt="Flash Sale" class="position-absolute w-100 h-100 object-fit-cover rounded-4" style="box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
                         </div>
-                        <div class="text-white-50 fs-4 align-self-center">:</div>
-                        <div class="ns-countdown-unit">
-                            <span class="ns-countdown-value" id="sale-m">45</span>
-                            <span class="ns-countdown-label">Mins</span>
-                        </div>
-                        <div class="text-white-50 fs-4 align-self-center">:</div>
-                        <div class="ns-countdown-unit">
-                            <span class="ns-countdown-value" id="sale-s">30</span>
-                            <span class="ns-countdown-label">Secs</span>
-                        </div>
-                    </div>
-
-                    <!-- Stock -->
-                    <div class="mb-4" style="max-width: 300px;">
-                        <div class="d-flex justify-content-between text-white-50 mb-2" style="font-Size: 0.6875rem;">
-                            <span>Almost Sold Out!</span>
-                            <span>15 Available</span>
-                        </div>
-                        <div class="ns-stock-bar">
-                            <div class="ns-stock-bar-fill" style="width: 15%;"></div>
-                        </div>
-                    </div>
-
-                    <a asp-controller="Products" asp-action="Index" class="btn btn-ns-primary px-4">Shop The Deal</a>
-                </div>
-
-                <div class="col-md-6 order-1 order-md-2">
-                    <div class="position-relative h-100 w-100" style="min-height: 400px;">
-                        <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800" alt="Flash Sale" class="position-absolute w-100 h-100 object-fit-cover rounded-4" style="box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    }
 
     <!-- Editorial / Lookbook -->
     <section class="mb-5">

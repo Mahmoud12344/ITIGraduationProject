@@ -207,22 +207,32 @@ function initSearchSuggestions() {
    6. FLASH SALE COUNTDOWN (Home Page)
    ========================================================================== */
 function initFlashSaleCountdown() {
+    const wrapper = document.getElementById('coupon-banner-wrapper');
+    if (!wrapper) return;
+
+    const expiryAttr = wrapper.getAttribute('data-expiry');
+    if (!expiryAttr) return;
+
+    const endDate = new Date(expiryAttr);
+
     const elH = document.getElementById('sale-h');
     const elM = document.getElementById('sale-m');
     const elS = document.getElementById('sale-s');
+    const container = document.getElementById('coupon-countdown-container');
 
-    if (!elH || !elM || !elS) return;
+    if (!elH || !elM || !elS || !container) return;
+
+    let intervalId;
 
     function update() {
-        // Mock 4 hours remaining from now (you would pass actual end date from ViewModel)
-        const now = new Date();
-        const end = new Date();
-        end.setHours(now.getHours() + 4);
-        end.setMinutes(45);
-        end.setSeconds(30);
-
-        const diff = end - new Date();
-        if (diff <= 0) return; // Sale ended
+        const diff = endDate - new Date();
+        
+        if (diff <= 0) {
+            // Sale ended
+            container.innerHTML = '<div class="mb-5 text-danger fw-bold fs-5">Expired</div>';
+            clearInterval(intervalId);
+            return;
+        }
 
         const h = Math.floor(diff / (1000 * 60 * 60));
         const m = Math.floor((diff / 1000 / 60) % 60);
@@ -234,7 +244,7 @@ function initFlashSaleCountdown() {
     }
 
     update();
-    setInterval(update, 1000);
+    intervalId = setInterval(update, 1000);
 }
 
 /* ==========================================================================

@@ -28,6 +28,8 @@ public class HomeController : Controller
 
         var categories = await _context.Categories.Include(c=>c.Image).Include(c=>c.Products).ToArrayAsync();
 
+        ViewBag.SpecialCoupon = await _context.Coupons.FirstOrDefaultAsync(c => c.Id == 1);
+
         return View(categories);
     }
 
