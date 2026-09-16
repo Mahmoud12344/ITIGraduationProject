@@ -34,10 +34,23 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews(opt => { opt.Filters.Add<HandelErrorAttribute>(); }
         );
- 
+
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddScoped<AdminDefualtService>();
+
+        // session setup so guests (not logged in) can have a cart that remembers what they added
+        builder.Services.AddDistributedMemoryCache();
+        builder.Services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromMinutes(30);
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        });
+
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddScoped<ICartService, CartService>();
+
         builder.Services.AddScoped<DashboardService>();
         builder.Services.AddHttpClient();
         builder.Services.AddScoped<NiceShop.Services.IAiChatService, NiceShop.Services.AiChatService>();
@@ -83,6 +96,9 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseRouting();
+
+        app.UseSession(); // must be after UseRouting and before UseAuthentication/UseAuthorization
+
         app.UseAuthentication();
         app.UseAuthorization();
 

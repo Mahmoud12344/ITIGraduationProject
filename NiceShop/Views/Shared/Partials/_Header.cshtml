@@ -3,6 +3,8 @@
 @inject ApplicationDbContext _context
 
 <!-- 1. Announcement Bar -->
+@inject NiceShop.Services.ICartService CartService
+
 <div class="ns-announcement-bar d-flex justify-content-between align-items-center">
     <div class="d-none d-md-flex align-items-center gap-2">
         <i class="bi bi-telephone"></i>
@@ -53,27 +55,9 @@
     </div>
 
     <!-- Actions -->
-    @* <div class="d-flex align-items-center gap-3"> *@
-    @*     <button class="ns-theme-toggle d-none d-md-flex" aria-label="Toggle theme"> *@
-    @*         <i class="bi bi-moon"></i> *@
-    @*     </button> *@
-    @*     EGP 1$ this is the acountSection #1# *@
-    @*     EGP 1$ <a asp-action="" class="btn btn-link text-decoration-none text-muted p-2 d-none d-md-block"> #1# *@
-    @*     EGP 1$     <i class="bi bi-person fs-5"></i> #1# *@
-    @*     EGP 1$ </a> #1# *@
-    @* *@
-    @* *@
-    @*     <a href="#" class="btn btn-link text-decoration-none text-muted p-2 position-relative d-none d-md-block"> *@
-    @*         <i class="bi bi-heart fs-5"></i> *@
-    @*     </a> *@
-    @* *@
-    @*     <button class="ns-cart-btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer"> *@
-    @*         <i class="bi bi-bag"></i> *@
-    @*         <span class="d-none d-md-inline ms-1 fw-bold">Cart</span> *@
-    @*         <span class="ns-cart-badge">2</span> *@
-    @*     </button> *@
-    @* </div> *@
-    <!-- Actions -->
+    @{
+        var cartItemCount = (await CartService.GetCartAsync()).Sum(i => i.Quantity);
+    }
 <div class="d-flex align-items-center gap-3">
     
     <!-- Theme Toggle (Always visible) -->
@@ -114,13 +98,6 @@
         <a href="#" class="btn btn-link text-decoration-none text-muted p-2 position-relative d-none d-md-block">
             <i class="bi bi-heart fs-5"></i>
         </a>
-        
-        <!-- 3. Cart -->
-        <button class="ns-cart-btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer">
-            <i class="bi bi-bag"></i>
-            <span class="d-none d-md-inline ms-1 fw-bold">Cart</span>
-            <span class="ns-cart-badge">2</span>
-        </button>
     }
     else
     {
@@ -130,6 +107,16 @@
             <span class="d-none d-md-inline ms-1 fw-bold">Sign In</span>
         </a>
     }
+
+    <!-- 3. Cart - visible for everyone, guest or logged in -->
+    <button class="ns-cart-btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer">
+        <i class="bi bi-bag"></i>
+        <span class="d-none d-md-inline ms-1 fw-bold">Cart</span>
+        @if (cartItemCount > 0)
+        {
+            <span class="ns-cart-badge">@cartItemCount</span>
+        }
+    </button>
 </div>
     
     

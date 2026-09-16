@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.VisualBasic;
 using NiceShop.Data;
 using NiceShop.Models;
+using NiceShop.Services;
+using NiceShop.Services;
 using NiceShop.ViewModels;
 
 namespace NiceShop.Controllers;
@@ -14,10 +16,14 @@ public class AuthController : Controller {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ApplicationDbContext _applicationDbContext ;
+    private readonly ICartService _cartService;
 
-    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,ApplicationDbContext context) {
+    public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,ApplicationDbContext context, ICartService cartService)
+    {
+
         _userManager = userManager;
         _signInManager = signInManager;
+        _cartService = cartService;
         _applicationDbContext = context;
     }
 
@@ -39,11 +45,12 @@ public class AuthController : Controller {
 
         return View(nameof(Index), model);
     }
-
     [HttpPost]
-[ValidateAntiForgeryToken]
-    public async Task<IActionResult> CreateAccount(UserRegistrationVM urvm) {
-        if (!ModelState.IsValid){
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateAccount(UserRegistrationVM urvm)
+    {
+        if (!ModelState.IsValid)
+        {
             var authVmInvalid = new AuthVM { Register = urvm, ActiveTab = "register" };
             return View(nameof(Index), authVmInvalid);
         }
@@ -52,11 +59,15 @@ public class AuthController : Controller {
         user.UserName = urvm.Email;
         user.Email = urvm.Email;
         user.PhoneNumber = urvm.Phone;
+
         var identityResult = await _userManager.CreateAsync(user, urvm.Password);
 
-        if (identityResult.Succeeded){
+        if (identityResult.Succeeded)
+        {
             await _signInManager.SignInAsync(user, false);
-            var customer = new Customer() {
+
+            var customer = new Customer()
+            {
                 FName = urvm.Fname,
                 LName = urvm.Lname,
                 Id = user.Id
@@ -65,10 +76,21 @@ public class AuthController : Controller {
             await _applicationDbContext.Customers.AddAsync(customer);
             await _applicationDbContext.SaveChangesAsync();
 
+            // user might have added stuff to the cart before making an account, move it over
+            try
+            {
+                await _cartService.MergeGuestCartIntoDbAsync();
+            }
+            catch (Exception ex)
+            {
+                // don't let a cart merge failure break account creation
+             }
+
             return RedirectToAction("Index");
         }
-      
-        foreach (var error in identityResult.Errors){
+
+        foreach (var error in identityResult.Errors)
+        {
             ModelState.AddModelError("", error.Description);
         }
 
