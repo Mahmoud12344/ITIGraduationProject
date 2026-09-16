@@ -103,12 +103,12 @@
                     @Html.AntiForgeryToken()
 
                     <div class="d-flex flex-column gap-2 mb-3">
-                        <label class="ns-payment-card selected d-flex align-items-center gap-2">
-                            <input type="radio" name="paymentMethod" value="card" class="form-check-input mt-0" checked>
+                        <label class="ns-payment-card disabled-option fade-on-unselected d-flex align-items-center gap-2">
+                            <input type="radio" name="paymentMethod" value="card" class="form-check-input disabled-option fade-on-unselected  mt-0"  disabled   >
                             <span class="fw-bold">Credit Card</span>
                         </label>
-                        <label class="ns-payment-card d-flex align-items-center gap-2">
-                            <input type="radio" name="paymentMethod" value="cod" class="form-check-input mt-0">
+                        <label  class="ns-payment-card selected d-flex align-items-center gap-2">
+                            <input type="radio" name="paymentMethod" value="cod" class="form-check-input mt-0" checked >
                             <span class="fw-bold">Cash on Delivery</span>
                         </label>
                     </div>
