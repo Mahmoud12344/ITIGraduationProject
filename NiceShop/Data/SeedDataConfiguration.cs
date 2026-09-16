@@ -574,19 +574,24 @@ public static class SeedDataConfiguration
             new Customer { Id = testUserId, FName = "Dashboard", LName = "Tester" }
         );
 
-        // Seed Address
+        // Seed Address — tied to the dashboard test customer above,
+        // so the dashboard's fake Orders (which reference AddressId = 1) still work.
+        // CustomerId used to be a plain int (1) which broke once we made it a real
+        // string FK to Customer.Id — using testUserId here instead since that
+        // customer actually exists.
         builder.Entity<Address>().HasData(
-            new Address 
-            { 
-                Id = 1, 
-                CustomerId = 1, 
-                Government = "Cairo", 
-                City = "Cairo", 
-                Street = "Test Street", 
-                Building = "1A", 
-                AddressType = AddressType.Home 
+            new Address
+            {
+                Id = 1,
+                CustomerId = testUserId,
+                Government = "Cairo",
+                City = "Cairo",
+                Street = "Test Street",
+                Building = "1A",
+                AddressType = AddressType.Home
             }
         );
+
 
         // Seed Orders
         builder.Entity<Order>().HasData(

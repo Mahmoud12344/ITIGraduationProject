@@ -11,7 +11,9 @@ public class Address
     public AddressType AddressType { get; set; }
     public bool IsDefault { get; set; }
 
-    public int CustomerId { get; set; }
+    // was int before, changed to string so it can actually match Customer.Id (which is a string guid)
+    public string CustomerId { get; set; } = string.Empty;
+    public virtual Customer Customer { get; set; }
 
     public ICollection<Order> Orders { get; set; } = new List<Order>();
 }
