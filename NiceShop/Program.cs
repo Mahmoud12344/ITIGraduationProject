@@ -38,6 +38,7 @@ public class Program
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddScoped<AdminDefualtService>();
         builder.Services.AddScoped<DashboardService>();
+        builder.Services.AddScoped<OrdersService>();
         
         var app = builder.Build();
 

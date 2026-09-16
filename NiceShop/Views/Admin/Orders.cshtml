@@ -1,74 +1,627 @@
+@model NiceShop.ViewModels.Admin.OrdersVm?
+@using NiceShop.Models
+
 @{
     ViewData["Title"] = "Orders Management";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    // 1. ADDED ? AFTER MODEL HERE
+    var orders = Model?.Orders ?? new List<NiceShop.ViewModels.Admin.OrdersVm.OrderSummaryVm>();
+
+    int pageSize = 10;
+    int totalItemsCount = orders.Count;
+    int totalPages = totalItemsCount == 0 ? 1 : (int)Math.Ceiling(totalItemsCount / (double)pageSize);
+    int rowIndex = 0;
+
+    var pipeline = new[] { "Pending", "Confirmed", "Shipped", "Delivered" };
+    var pipelineIcons = new[] { "bi-bag-check", "bi-box-seam", "bi-truck", "bi-geo-alt-fill" };
+
+    Func<OrderStatus, string> statusClass = s => s.ToString().ToLower() switch
+    {
+        "pending" => "ns-status-pending",
+        "confirmed" => "ns-status-confirmed",
+        "shipped" => "ns-status-shipped",
+        "delivered" => "ns-status-delivered",
+        "cancelled" or "canceled" => "ns-status-cancelled",
+        _ => "ns-status-pending"
+    };
+
+    Func<OrderStatus, string> statusIcon = s => s.ToString().ToLower() switch
+    {
+        "pending" => "bi-clock-fill",
+        "confirmed" => "bi-check-circle-fill",
+        "shipped" => "bi-truck",
+        "delivered" => "bi-geo-alt-fill",
+        "cancelled" or "canceled" => "bi-x-circle-fill",
+        _ => "bi-circle-fill"
+    };
+
+    Func<OrderStatus, string> statusDot = s => s.ToString().ToLower() switch
+    {
+        "pending" => "#f59e0b",
+        "confirmed" => "#0ea5e9",
+        "shipped" => "#8b5cf6",
+        "delivered" => "#16a34a",
+        "cancelled" or "canceled" => "#dc2626",
+        _ => "#a3a3a3"
+    };
+
+    var allStatuses = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().ToList();
+    
+    // 2. ADDED ? AFTER MODEL HERE
+    var currentStatus = Model?.Filter?.Status;
 }
 
-<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+<!-- ===== FLASH MESSAGES ===== -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- ===== PAGE HEADER ===== -->
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
     <div>
         <h1 class="font-serif fw-bold h3 mb-1">Orders</h1>
-        <p class="text-muted mb-0">Manage customer orders and fulfillments.</p>
+        <p class="text-muted mb-0 small">Track fulfilment and manage customer orders.</p>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+        <button type="button" class="ns-ghost-btn" id="toggleFiltersBtn">
+            <i class="bi bi-sliders"></i> <span id="toggleFiltersLabel">Hide filters</span>
+        </button>
+        <a asp-action="Orders" class="ns-ghost-btn" title="Reset all filters">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset
+        </a>
     </div>
 </div>
 
 <div class="ns-admin-card p-0 overflow-hidden">
-    <!-- Filter Tabs -->
-    <div class="border-bottom ns-admin-border bg-light ns-bg-surface px-4 py-3">
-        <div class="d-flex gap-3 overflow-auto">
-            <!-- TODO: Add active state logic based on current status filter -->
-            <a href="?status=" class="text-decoration-none fw-bold ns-text-gold">All Orders</a>
-            <a href="?status=pending" class="text-decoration-none fw-bold text-muted">Pending</a>
-            <a href="?status=confirmed" class="text-decoration-none fw-bold text-muted">Confirmed</a>
-            <a href="?status=shipped" class="text-decoration-none fw-bold text-muted">Shipped</a>
-            <a href="?status=delivered" class="text-decoration-none fw-bold text-muted">Delivered</a>
-        </div>
+
+    <!-- ===== STATUS TABS ===== -->
+    <div class="ns-orders-tabbar">
+        <a asp-action="Orders"
+           asp-route-SearchQuery="@(Model?.Filter?.SearchQuery)"
+           asp-route-StartDate="@(Model?.Filter?.StartDate?.ToString("yyyy-MM-dd"))"
+           asp-route-EndDate="@(Model?.Filter?.EndDate?.ToString("yyyy-MM-dd"))"
+           class="ns-orders-tab @(currentStatus == null ? "active" : "")">
+            <i class="bi bi-grid-1x2 me-1"></i> All Orders
+        </a>
+
+        @foreach (var st in allStatuses)
+        {
+            <a asp-action="Orders"
+               asp-route-Status="@st"
+               asp-route-SearchQuery="@(Model?.Filter?.SearchQuery)"
+               asp-route-StartDate="@(Model?.Filter?.StartDate?.ToString("yyyy-MM-dd"))"
+               asp-route-EndDate="@(Model?.Filter?.EndDate?.ToString("yyyy-MM-dd"))"
+               class="ns-orders-tab @(currentStatus == st ? "active" : "")">
+                <i class="bi @statusIcon(st) me-1" style="color:@statusDot(st);"></i> @st
+            </a>
+        }
     </div>
-    
+
+    <!-- ===== FILTER BAR ===== -->
+    <form method="get" asp-action="Orders" class="ns-orders-filterbar" id="ordersFilterBar">
+        <input type="hidden" name="Status" value="@(currentStatus?.ToString())" />
+
+        <div class="position-relative">
+            <i class="bi bi-search ns-search-icon"></i>
+            <input type="text" name="SearchQuery" class="ns-search-input"
+                   placeholder="Search order number..."
+                   value="@(Model?.Filter?.SearchQuery)" />
+        </div>
+
+        <span class="ns-filter-divider"></span>
+
+        <div class="ns-date-range">
+            <i class="bi bi-calendar3"></i>
+            <input type="date" name="StartDate" class="ns-date-input"
+                   value="@(Model?.Filter?.StartDate?.ToString("yyyy-MM-dd"))" aria-label="From date" />
+            <span class="ns-date-sep">&ndash;</span>
+            <input type="date" name="EndDate" class="ns-date-input"
+                   value="@(Model?.Filter?.EndDate?.ToString("yyyy-MM-dd"))" aria-label="To date" />
+        </div>
+
+        <span class="ns-filter-divider"></span>
+
+        <div class="ns-select-wrap">
+            <span class="ns-select-dot" style="background-color:@(currentStatus.HasValue ? statusDot(currentStatus.Value) : "#a3a3a3");"></span>
+            <select name="Status" class="ns-select" onchange="this.form.submit()">
+                <option value="">All Order Status</option>
+                @foreach (var st in allStatuses)
+                {
+                    <option value="@st" selected="@(currentStatus == st)">@st</option>
+                }
+            </select>
+            <i class="bi bi-chevron-down ns-select-caret"></i>
+        </div>
+
+        <button type="submit" class="ns-apply-btn">
+            <i class="bi bi-funnel me-1"></i> Apply
+        </button>
+    </form>
+
+    <!-- ===== TABLE ===== -->
     <div class="table-responsive">
-        <table class="table table-hover ns-admin-table mb-0">
+        <table class="table table-hover ns-admin-table mb-0 align-middle">
             <thead>
                 <tr>
-                    <th>Order Number</th>
-                    <th>Date</th>
-                    <th>Customer</th>
-                    <th>Items</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th class="text-end">Actions</th>
+                    <th style="min-width:130px;">Order #</th>
+                    <th style="min-width:190px;">Fulfilment</th>
+                    <th style="min-width:120px;">Status</th>
+                    <th style="min-width:150px;">Order Date</th>
+                    <th style="min-width:170px;">Customer</th>
+                    <th style="min-width:110px;" class="text-end">Total</th>
+                    <th class="text-end" style="min-width:150px;">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- TODO: Loop over Orders here -->
-                <tr>
-                    <td class="fw-bold">
-                        <a href="#" class="text-decoration-none text-body">#ORD-12345</a>
-                    </td>
-                    <td>Jan 01, 2024 12:00 PM</td>
-                    <td>
-                        <div>Customer Name</div>
-                        <div class="text-muted" style="font-Size: 0.6875rem;">customer@example.com</div>
-                    </td>
-                    <td>3 item(s)</td>
-                    <td class="fw-bold">EGP 150.00</td>
-                    <td>
-                        <select class="form-select form-select-sm ns-form-input py-1 fw-bold" style="width: 120px;" onchange="window.nsAdmin.updateOrderStatus('order-id', this)">
-                            <!-- TODO: Bind selected attribute to order status -->
-                            <option value="pending" selected>Pending</option>
-                            <option value="confirmed">Confirmed</option>
-                            <option value="shipped">Shipped</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="cancelled">Cancelled</option>
-                        </select>
-                    </td>
-                    <td class="text-end">
-                        <a href="#" target="_blank" class="btn btn-sm btn-link text-muted p-1" title="View Invoice"><i class="bi bi-receipt"></i></a>
-                    </td>
-                </tr>
+            <tbody id="ordersTableBody">
+                @if (totalItemsCount == 0)
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-5">
+                            <i class="bi bi-inbox d-block mb-2 text-muted" style="font-size:2.25rem;"></i>
+                            <div class="fw-bold mb-1">No orders found</div>
+                            <div class="text-muted small">Try changing the status tab or clearing your filters.</div>
+                        </td>
+                    </tr>
+                }
+
+                @foreach (var order in orders)
+                {
+                    rowIndex++;
+                    int rowPage = ((rowIndex - 1) / pageSize) + 1;
+
+                    var name = order.Status.ToString().ToLower();
+                    bool isCancelled = name == "cancelled" || name == "canceled";
+                    int stepIndex = Array.FindIndex(pipeline, p => string.Equals(p, order.Status.ToString(), StringComparison.OrdinalIgnoreCase));
+
+                    <tr data-page="@rowPage" style="@(rowPage == 1 ? "" : "display:none;")">
+
+                        <!-- Order number -->
+                        <td>
+                            <a asp-action="OrderDetails" asp-route-Id="@order.Id"
+                               class="text-decoration-none fw-bold text-body ns-order-link">
+                                #@order.Number
+                            </a>
+                        </td>
+
+                        <!-- Fulfilment tracker -->
+                        <td>
+                            @if (isCancelled)
+                            {
+                                <div class="ns-track ns-track-cancelled">
+                                    <span class="ns-track-node done"><i class="bi bi-x-lg"></i></span>
+                                    <span class="ns-track-line"></span>
+                                    <span class="ns-track-node"></span>
+                                    <span class="ns-track-line"></span>
+                                    <span class="ns-track-node"></span>
+                                    <span class="ns-track-line"></span>
+                                    <span class="ns-track-node"></span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="ns-track">
+                                    @for (int i = 0; i < pipeline.Length; i++)
+                                    {
+                                        var done = stepIndex >= 0 && i <= stepIndex;
+                                        if (i > 0)
+                                        {
+                                            <span class="ns-track-line @(stepIndex >= 0 && i <= stepIndex ? "done" : "")"></span>
+                                        }
+                                        <span class="ns-track-node @(done ? "done" : "")" title="@pipeline[i]">
+                                            <i class="bi @pipelineIcons[i]"></i>
+                                        </span>
+                                    }
+                                </div>
+                            }
+                        </td>
+
+                        <!-- Status badge -->
+                        <td>
+                            <span class="ns-status-badge @statusClass(order.Status)">
+                                <i class="bi @statusIcon(order.Status)"></i> @order.Status
+                            </span>
+                        </td>
+
+                        <!-- Date -->
+                        <td>
+                            <div class="fw-semibold">@order.OrderDate.ToString("dd MMM yyyy")</div>
+                            <div class="text-muted" style="font-size:0.6875rem;">@order.OrderDate.ToString("hh:mm tt")</div>
+                        </td>
+
+                        <!-- Customer -->
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="ns-avatar">
+                                    @(string.IsNullOrWhiteSpace(order.CustomerName) ? "?" : order.CustomerName.Trim()[0].ToString().ToUpper())
+                                </span>
+                                <span class="fw-semibold text-truncate" style="max-width:130px;" title="@order.CustomerName">
+                                    @order.CustomerName
+                                </span>
+                            </div>
+                        </td>
+
+                        <!-- Total -->
+                        <td class="text-end fw-bold">EGP @order.Total.ToString("N2")</td>
+
+                        <!-- Actions -->
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end align-items-center gap-1">
+
+                                <a asp-action="OrderDetails" asp-route-Id="@order.Id"
+                                   class="ns-icon-btn" title="View details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
+
+                                <!-- Advance status -->
+                                <div class="dropdown">
+                                    <button class="ns-icon-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Update status">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2">
+                                        <li><h6 class="dropdown-header text-uppercase" style="font-size:0.625rem; letter-spacing:.05em;">Move to</h6></li>
+                                        @foreach (var st in allStatuses.Where(s => !s.Equals(order.Status)))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item small d-flex align-items-center gap-2"
+                                                   asp-action="UpdateStatus" asp-route-Id="@order.Id" asp-route-status="@st">
+                                                    <span style="width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; background-color:@statusDot(st);"></span>                                                    
+                                                    @st
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
-    
-    <!-- Pagination (Simplified) -->
-    <div class="d-flex justify-content-between align-items-center p-3 border-top ns-admin-border bg-light ns-bg-surface">
-        <div class="text-muted small">Showing orders matching criteria</div>
+
+    <!-- ===== PAGINATION ===== -->
+    <div class="d-flex justify-content-between align-items-center p-3 border-top ns-admin-border ns-bg-surface">
+        <div class="d-flex align-items-center gap-1">
+            <button type="button" class="ns-page-link" id="firstPageBtn"><i class="bi bi-chevron-double-left small"></i></button>
+            <button type="button" class="ns-page-link" id="prevPageBtn"><i class="bi bi-chevron-left small"></i></button>
+            @for (int p = 1; p <= totalPages; p++)
+            {
+                <button type="button" class="ns-page-link page-num-btn @(p == 1 ? "active" : "")" data-page="@p">@p</button>
+            }
+            <button type="button" class="ns-page-link" id="nextPageBtn"><i class="bi bi-chevron-right small"></i></button>
+            <button type="button" class="ns-page-link" id="lastPageBtn"><i class="bi bi-chevron-double-right small"></i></button>
+        </div>
+        <div class="text-muted small" id="pageInfoText">
+            1-@(Math.Min(pageSize, totalItemsCount)) out of @totalItemsCount orders
+        </div>
     </div>
 </div>
+
+
+<style>
+/* ==========================================================================
+   ORDERS PAGE — move this block into niceshop.css when you're happy with it
+   ========================================================================== */
+
+/* ---- Status tab bar ---- */
+.ns-orders-tabbar {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    padding: .75rem 1rem 0;
+    background-color: var(--ns-admin-card);
+    border-bottom: 1px solid var(--ns-admin-border);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.ns-orders-tabbar::-webkit-scrollbar { display: none; }
+
+.ns-orders-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    white-space: nowrap;
+    padding: .5rem .85rem;
+    font-size: .8125rem;
+    font-weight: 600;
+    color: var(--ns-admin-text-muted);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color .15s ease, border-color .15s ease;
+}
+.ns-orders-tab:hover { color: var(--ns-admin-text); }
+.ns-orders-tab.active {
+    color: var(--ns-gold-text);
+    border-bottom-color: var(--ns-gold);
+    font-weight: 700;
+}
+[data-theme="dark"] .ns-orders-tab.active { color: var(--ns-gold); }
+
+.ns-tab-count {
+    font-size: .625rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: .2rem .4rem;
+    border-radius: 9999px;
+    background-color: var(--ns-bg-surface);
+    color: var(--ns-admin-text-muted);
+    border: 1px solid var(--ns-admin-border);
+}
+.ns-orders-tab.active .ns-tab-count {
+    background-color: var(--ns-gold-light);
+    color: var(--ns-gold-text);
+    border-color: var(--ns-gold-border);
+}
+
+/* ---- Filter bar ---- */
+.ns-orders-filterbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .625rem;
+    padding: .875rem 1rem;
+    background-color: var(--ns-bg-surface);
+    border-bottom: 1px solid var(--ns-admin-border);
+    margin: 0;
+}
+.ns-filter-divider {
+    width: 1px;
+    height: 22px;
+    background-color: var(--ns-admin-border);
+}
+.ns-orders-filterbar .ns-search-input {
+    width: 230px;
+    font-size: .8125rem;
+    background-color: var(--ns-bg-input);
+    border-color: var(--ns-border);
+    color: var(--ns-text);
+}
+
+.ns-date-range {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .4rem .7rem;
+    background-color: var(--ns-bg-input);
+    border: 1px solid var(--ns-border);
+    border-radius: 8px;
+    color: var(--ns-admin-text-muted);
+    font-size: .8125rem;
+}
+.ns-date-input {
+    border: none;
+    background: transparent;
+    color: var(--ns-text);
+    font-size: .8125rem;
+    outline: none;
+    width: 120px;
+}
+.ns-date-sep { color: var(--ns-text-muted); }
+[data-theme="dark"] .ns-date-input::-webkit-calendar-picker-indicator { filter: invert(1) opacity(.6); }
+
+.ns-select-wrap { position: relative; display: inline-flex; align-items: center; }
+.ns-select-dot {
+    position: absolute;
+    left: .7rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+.ns-select {
+    appearance: none;
+    padding: .45rem 2rem .45rem 1.5rem;
+    font-size: .8125rem;
+    font-weight: 600;
+    background-color: var(--ns-bg-input);
+    border: 1px solid var(--ns-border);
+    border-radius: 8px;
+    color: var(--ns-text);
+    outline: none;
+    cursor: pointer;
+}
+.ns-select-caret {
+    position: absolute;
+    right: .7rem;
+    font-size: .7rem;
+    color: var(--ns-text-muted);
+    pointer-events: none;
+}
+
+.ns-apply-btn {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    padding: .45rem 1rem;
+    font-size: .8125rem;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background-color: var(--ns-gold);
+    color: #171717;
+    transition: background-color .15s ease;
+}
+.ns-apply-btn:hover { background-color: var(--ns-gold-hover); }
+
+.ns-ghost-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .45rem .85rem;
+    font-size: .8125rem;
+    font-weight: 600;
+    color: var(--ns-admin-text-muted);
+    background-color: var(--ns-admin-card);
+    border: 1px solid var(--ns-admin-border);
+    border-radius: 8px;
+    text-decoration: none;
+}
+.ns-ghost-btn:hover { color: var(--ns-admin-text); background-color: var(--ns-bg-hover); }
+
+/* ---- Fulfilment tracker ---- */
+.ns-track { display: inline-flex; align-items: center; }
+.ns-track-node {
+    width: 22px; height: 22px;
+    flex: 0 0 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .625rem;
+    background-color: var(--ns-bg-surface);
+    border: 1px solid var(--ns-admin-border);
+    color: var(--ns-text-muted);
+}
+.ns-track-node.done {
+    background-color: var(--ns-text);
+    border-color: var(--ns-text);
+    color: var(--ns-text-inverse);
+}
+[data-theme="dark"] .ns-track-node.done {
+    background-color: var(--ns-gold);
+    border-color: var(--ns-gold);
+    color: #121212;
+}
+.ns-track-line {
+    width: 20px; height: 2px;
+    background-color: var(--ns-admin-border);
+}
+.ns-track-line.done { background-color: var(--ns-text); }
+[data-theme="dark"] .ns-track-line.done { background-color: var(--ns-gold); }
+
+.ns-track-cancelled .ns-track-node.done {
+    background-color: var(--ns-danger);
+    border-color: var(--ns-danger);
+    color: #fff;
+}
+
+/* ---- Row bits ---- */
+.ns-order-link:hover { color: var(--ns-gold-text) !important; text-decoration: underline !important; }
+[data-theme="dark"] .ns-order-link:hover { color: var(--ns-gold) !important; }
+
+.ns-avatar {
+    width: 26px; height: 26px;
+    flex: 0 0 26px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .6875rem;
+    font-weight: 700;
+    background-color: var(--ns-gold-light);
+    color: var(--ns-gold-text);
+    border: 1px solid var(--ns-gold-border);
+}
+[data-theme="dark"] .ns-avatar { color: var(--ns-gold); }
+
+.ns-chip {
+    display: inline-block;
+    min-width: 26px;
+    padding: .15rem .45rem;
+    border-radius: 6px;
+    font-size: .6875rem;
+    font-weight: 700;
+    background-color: var(--ns-bg-surface);
+    border: 1px solid var(--ns-admin-border);
+    color: var(--ns-admin-text-muted);
+}
+
+.ns-icon-btn {
+    width: 28px; height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ns-admin-text-muted);
+    text-decoration: none;
+    font-size: .8125rem;
+}
+.ns-icon-btn:hover {
+    background-color: var(--ns-bg-hover);
+    border-color: var(--ns-admin-border);
+    color: var(--ns-admin-text);
+}
+
+@@media (max-width: 768px) {
+    .ns-apply-btn { margin-left: 0; }
+    .ns-orders-filterbar .ns-search-input { width: 100%; }
+    .ns-filter-divider { display: none; }
+}
+</style>
+
+<script>
+(function () {
+    // ---- Filter bar toggle ----
+    var toggleBtn = document.getElementById('toggleFiltersBtn');
+    var filterBar = document.getElementById('ordersFilterBar');
+    var toggleLabel = document.getElementById('toggleFiltersLabel');
+    if (toggleBtn && filterBar) {
+        toggleBtn.addEventListener('click', function () {
+            var hidden = filterBar.style.display === 'none';
+            filterBar.style.display = hidden ? 'flex' : 'none';
+            toggleLabel.textContent = hidden ? 'Hide filters' : 'Show filters';
+        });
+    }
+
+    // ---- Client-side pagination ----
+    var pageSize   = @pageSize;
+    var totalItems = @totalItemsCount;
+    var totalPages = @totalPages;
+    var currentPage = 1;
+
+    var rows        = document.querySelectorAll('#ordersTableBody tr[data-page]');
+    var pageButtons = document.querySelectorAll('.page-num-btn');
+    var pageInfo    = document.getElementById('pageInfoText');
+
+    function showPage(page) {
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
+        currentPage = page;
+
+        rows.forEach(function (row) {
+            row.style.display = (parseInt(row.getAttribute('data-page'), 10) === currentPage) ? '' : 'none';
+        });
+
+        pageButtons.forEach(function (btn) {
+            btn.classList.toggle('active', parseInt(btn.getAttribute('data-page'), 10) === currentPage);
+        });
+
+        var start = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+        var end   = Math.min(currentPage * pageSize, totalItems);
+        if (pageInfo) pageInfo.textContent = start + '-' + end + ' out of ' + totalItems + ' orders';
+    }
+
+    pageButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            showPage(parseInt(btn.getAttribute('data-page'), 10));
+        });
+    });
+
+    var bind = function (id, fn) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('click', fn);
+    };
+    bind('prevPageBtn',  function () { showPage(currentPage - 1); });
+    bind('nextPageBtn',  function () { showPage(currentPage + 1); });
+    bind('firstPageBtn', function () { showPage(1); });
+    bind('lastPageBtn',  function () { showPage(totalPages); });
+
+    showPage(1);
+})();
+</script>
