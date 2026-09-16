@@ -3,7 +3,7 @@ using NiceShop.Data;
 using NiceShop.Models;
 using NiceShop.ViewModels.Admin;
 
-namespace NiceShop.services;
+namespace NiceShop.Services;
 
 public class DashboardService(ApplicationDbContext context) {
     

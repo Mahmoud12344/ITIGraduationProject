@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NiceShop.services;
+using NiceShop.Services;
 using NiceShop.ViewModels.Admin;
 
 namespace NiceShop.Controllers;

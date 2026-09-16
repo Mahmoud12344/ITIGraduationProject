@@ -821,15 +821,15 @@ namespace NiceShop.Migrations
             migrationBuilder.InsertData(
                 table: "Images",
                 columns: new[] { "Id", "Caption", "FilePath", "IsDefault", "Name", "ProductId", "Type" },
-                values: new object[] { 63, null, "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensSlimFitEverydayOxfordButtonUpShirtSlimFitEverydayOxfordButtonUpShirt/51bEHcCQE0L._AC_SX569_.jpg", true, "51bEHcCQE0L._AC_SX569_.jpg", 5, 0 });
+                values: new object[] { 63, null, "/assets/seed/products/AmericanEagle_mens_SlimFitEverydayOxfordShirt/51bEHcCQE0L._AC_SX569_.jpg", true, "51bEHcCQE0L._AC_SX569_.jpg", 5, 0 });
 
             migrationBuilder.InsertData(
                 table: "Images",
                 columns: new[] { "Id", "Caption", "FilePath", "Name", "ProductId", "Type" },
                 values: new object[,]
                 {
-                    { 64, null, "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensSlimFitEverydayOxfordButtonUpShirtSlimFitEverydayOxfordButtonUpShirt/61RGI5JEkQL._AC_SX569_.jpg", "61RGI5JEkQL._AC_SX569_.jpg", 5, 1 },
-                    { 65, null, "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensSlimFitEverydayOxfordButtonUpShirtSlimFitEverydayOxfordButtonUpShirt/61ucX1Z4TGL._AC_SX569_.jpg", "61ucX1Z4TGL._AC_SX569_.jpg", 5, 1 }
+                    { 64, null, "/assets/seed/products/AmericanEagle_mens_SlimFitEverydayOxfordShirt/61RGI5JEkQL._AC_SX569_.jpg", "61RGI5JEkQL._AC_SX569_.jpg", 5, 1 },
+                    { 65, null, "/assets/seed/products/AmericanEagle_mens_SlimFitEverydayOxfordShirt/61ucX1Z4TGL._AC_SX569_.jpg", "61ucX1Z4TGL._AC_SX569_.jpg", 5, 1 }
                 });
 
             migrationBuilder.InsertData(

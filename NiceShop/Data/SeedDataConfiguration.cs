@@ -344,11 +344,11 @@ public static class SeedDataConfiguration
 
         new Image { Id = 62, Name = "71ZGKUkfuWL._AC_SX569_.jpg", FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensAEFlex12KhakiShort/71ZGKUkfuWL._AC_SX569_.jpg", IsDefault = false, Type = ImageType.Gallery, ProductId = 4 },
 
-        new Image { Id = 63, Name = "51bEHcCQE0L._AC_SX569_.jpg", FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensSlimFitEverydayOxfordButtonUpShirtSlimFitEverydayOxfordButtonUpShirt/51bEHcCQE0L._AC_SX569_.jpg", IsDefault = true, Type = ImageType.Thumbnail, ProductId = 5 },
+        new Image { Id = 63, Name = "51bEHcCQE0L._AC_SX569_.jpg", FilePath = "/assets/seed/products/AmericanEagle_mens_SlimFitEverydayOxfordShirt/51bEHcCQE0L._AC_SX569_.jpg", IsDefault = true, Type = ImageType.Thumbnail, ProductId = 5 },
 
-        new Image { Id = 64, Name = "61RGI5JEkQL._AC_SX569_.jpg", FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensSlimFitEverydayOxfordButtonUpShirtSlimFitEverydayOxfordButtonUpShirt/61RGI5JEkQL._AC_SX569_.jpg", IsDefault = false, Type = ImageType.Gallery, ProductId = 5 },
+        new Image { Id = 64, Name = "61RGI5JEkQL._AC_SX569_.jpg", FilePath = "/assets/seed/products/AmericanEagle_mens_SlimFitEverydayOxfordShirt/61RGI5JEkQL._AC_SX569_.jpg", IsDefault = false, Type = ImageType.Gallery, ProductId = 5 },
 
-        new Image { Id = 65, Name = "61ucX1Z4TGL._AC_SX569_.jpg", FilePath = "/assets/seed/products/AmericanEagle_mens_AmericanEagleMensSlimFitEverydayOxfordButtonUpShirtSlimFitEverydayOxfordButtonUpShirt/61ucX1Z4TGL._AC_SX569_.jpg", IsDefault = false, Type = ImageType.Gallery, ProductId = 5 },
+        new Image { Id = 65, Name = "61ucX1Z4TGL._AC_SX569_.jpg", FilePath = "/assets/seed/products/AmericanEagle_mens_SlimFitEverydayOxfordShirt/61ucX1Z4TGL._AC_SX569_.jpg", IsDefault = false, Type = ImageType.Gallery, ProductId = 5 },
 
         new Image { Id = 66, Name = "710MuP+3MbL._AC_SX466_.jpg", FilePath = "/assets/seed/products/AmericanEagle_women_AmericanEagleWomensStretchBarrelJean/710MuP+3MbL._AC_SX466_.jpg", IsDefault = true, Type = ImageType.Thumbnail, ProductId = 6 },
 

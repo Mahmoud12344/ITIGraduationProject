@@ -1,6 +1,6 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 
-namespace NiceShop.services;
+namespace NiceShop.Services;
 
 // session normally only stores strings, this lets us store any object by converting it to json text and back
 

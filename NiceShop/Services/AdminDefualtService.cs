@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using NiceShop.Models;
 
-namespace NiceShop.services;
+namespace NiceShop.Services;
 
 public class AdminDefualtService(UserManager<ApplicationUser> userManager) {
    
