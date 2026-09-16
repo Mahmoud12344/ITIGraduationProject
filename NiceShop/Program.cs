@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NiceShop.Filters;
 using NiceShop.Models;
-using NiceShop.services;
+using NiceShop.Services;
 
 namespace NiceShop;
 
