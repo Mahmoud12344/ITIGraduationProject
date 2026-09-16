@@ -20,8 +20,8 @@ public class ProductsController : Controller
         var products = await _context.Products
             .Include(p => p.Category)
             .Include(p => p.Brand)
-            .Include(p=>p.Images)
-            .Include(p=>p.Colors)
+            .Include(p => p.Images)
+            .Include(p => p.Colors)
             .Where(p => p.IsActive)
             .ToListAsync();
 
@@ -31,39 +31,86 @@ public class ProductsController : Controller
         return View(products);
     }
 
-public async Task<IActionResult> Details(int? id)
-{
-    if(id == null) return NotFound();
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id == null) return NotFound();
 
-    var product = await _context.Products
-        .Include(p => p.Images)
-        .Include(p => p.Brand)
-        .Include(p => p.Sizes)
-        .Include(p => p.Colors)
-        .Include(p => p.Category)
-        .FirstOrDefaultAsync(p => p.Id == id);
+        var product = await _context.Products
+            .Include(p => p.Images)
+            .Include(p => p.Brand)
+            .Include(p => p.Sizes)
+            .Include(p => p.Colors)
+            .Include(p => p.Category)
+            .Include(p => p.Reviews)
+                .ThenInclude(r => r.Customer)
+            .FirstOrDefaultAsync(p => p.Id == id);
 
-    if(product == null) return NotFound();
+        if (product == null) return NotFound();
 
-    ViewBag.RelatedProducts = await _context.Products
-        .Include(p => p.Images)
-        .Include(p => p.Brand)
-        .Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id && p.IsActive)
-        .Take(4)
-        .ToListAsync();
+        ViewBag.RelatedProducts = await _context.Products
+            .Include(p => p.Images)
+            .Include(p => p.Brand)
+            .Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id && p.IsActive)
+            .Take(4)
+            .ToListAsync();
 
-    return View(product);
-}
+        return View(product);
+    }
+
+    // POST: Products/AddReview
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddReview(int ProductId, int Rating, string Content)
+    {
+        if (!User.Identity?.IsAuthenticated ?? true)
+        {
+            return Challenge();
+        }
+
+        if (Rating < 1 || Rating > 5)
+        {
+            TempData["ReviewError"] = "من فضلك اختار تقييم من 1 لـ 5 نجوم.";
+            return RedirectToAction(nameof(Details), new { id = ProductId });
+        }
+
+        if (string.IsNullOrWhiteSpace(Content))
+        {
+            TempData["ReviewError"] = "من فضلك اكتب محتوى الريفيو.";
+            return RedirectToAction(nameof(Details), new { id = ProductId });
+        }
+
+        var product = await _context.Products.FindAsync(ProductId);
+        if (product == null) return NotFound();
+
+        var customerId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (customerId == null) return Challenge();
+
+        var review = new Review
+        {
+            ProductId = ProductId,
+            CustomerId = customerId,
+            Rating = Rating,
+            Content = Content.Trim(),
+            Date = DateTime.UtcNow,
+            IsApproved = true,          // يفضل تحت المراجعة لحد ما الأدمن يوافق
+            IsVerifiedUser = false       // أو تتحدد حسب لو الكستمر اشترى المنتج فعلاً
+        };
+
+        _context.Reviews.Add(review);
+        await _context.SaveChangesAsync();
+
+        TempData["ReviewSuccess"] = "Thank you! Your review has been submitted successfully and is now live.";
+        return RedirectToAction(nameof(Details), new { id = ProductId });
+    }
 
     //quick review
-
     public async Task<IActionResult> QuickReview(int id)
     {
-        var product = await _context.Products.Include(p=>p.Brand).Include(p=>p.Category)
-        .Include(p=>p.Colors).Include(p=>p.Sizes)
-        .Include(p=>p.Images).FirstOrDefaultAsync(p=>p.Id == id);
+        var product = await _context.Products.Include(p => p.Brand).Include(p => p.Category)
+            .Include(p => p.Colors).Include(p => p.Sizes)
+            .Include(p => p.Images).FirstOrDefaultAsync(p => p.Id == id);
 
-        if(product == null)
+        if (product == null)
         {
             return NotFound();
         }
@@ -88,7 +135,7 @@ public async Task<IActionResult> Details(int? id)
 
         ViewBag.CategoryName = category.Name;
 
-        var products = await _context.Products.Include(p=>p.Images)
+        var products = await _context.Products.Include(p => p.Images)
             .Where(p => p.CategoryId == id && p.IsActive)
             .ToListAsync();
 
