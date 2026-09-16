@@ -85,29 +85,39 @@
                 </details>
             </div>
 
-            <!-- Shipping Method, visual only, not wired to anything yet -->
+            <!-- Payment -->
             <div class="ns-checkout-section mb-4">
                 <div class="d-flex align-items-center gap-2 mb-3">
                     <div class="ns-checkout-step-number">2</div>
-                    <h2 class="font-serif fw-bold h5 mb-0">Shipping Method</h2>
+                    <h2 class="font-serif fw-bold h5 mb-0">Payment</h2>
                 </div>
 
-                <div class="d-flex flex-column gap-2">
-                    <label class="ns-shipping-card selected d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center gap-3">
-                            <input type="radio" name="shippingMethod" value="standard" class="form-check-input mt-0" checked disabled>
-                            <div>
-                                <div class="fw-bold">Standard Shipping</div>
-                                <div class="text-muted small">3-5 business days</div>
-                            </div>
-                        </div>
-                        <div class="font-serif fw-bold text-success">Free</div>
-                    </label>
-                </div>
-                <p class="text-muted small mt-2">not wired up yet, coming in a later step</p>
+                <p class="text-muted small mb-3">this is a simulation, no real payment gateway is used</p>
+
+                @if (TempData["OrderError"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["OrderError"]</div>
+                }
+
+                <form method="post" asp-controller="Checkout" asp-action="PlaceOrder">
+                    @Html.AntiForgeryToken()
+
+                    <div class="d-flex flex-column gap-2 mb-3">
+                        <label class="ns-payment-card selected d-flex align-items-center gap-2">
+                            <input type="radio" name="paymentMethod" value="card" class="form-check-input mt-0" checked>
+                            <span class="fw-bold">Credit Card</span>
+                        </label>
+                        <label class="ns-payment-card d-flex align-items-center gap-2">
+                            <input type="radio" name="paymentMethod" value="cod" class="form-check-input mt-0">
+                            <span class="fw-bold">Cash on Delivery</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-ns-primary w-100 py-3 fs-6" @(Model.SelectedAddressId == null ? "disabled" : "")>
+                        Place Order
+                    </button>
+                </form>
             </div>
-
-            <button type="button" class="btn btn-ns-primary w-100 py-3 fs-6" disabled>Place Order — Coming Soon</button>
         </div>
 
         <!-- Order Summary Sidebar -->
@@ -184,4 +194,16 @@
             </div>
         </div>
     </div>
+    <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const payCards = document.querySelectorAll('.ns-payment-card');
+                payCards.forEach(card => {
+                    const radio = card.querySelector('input[type="radio"]');
+                    radio.addEventListener('change', () => {
+                        payCards.forEach(c => c.classList.remove('selected'));
+                        if (radio.checked) card.classList.add('selected');
+                    });
+                });
+            });
+    </script>
 </div>

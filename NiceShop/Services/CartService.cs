@@ -11,6 +11,7 @@ public interface ICartService
     Task RemoveFromCartAsync(int productId, string? size, string? color);
     Task UpdateQuantityAsync(int productId, string? size, string? color, int quantity);
     Task MergeGuestCartIntoDbAsync();
+    Task ClearCartAsync();
 }
 
 // this decides where the cart lives:
@@ -197,6 +198,21 @@ public class CartService : ICartService
 
         await _context.SaveChangesAsync();
         Session.Remove(CartSessionKey); // moved everything to the db, guest cart is empty now
+    }
+
+    // called after an order is successfully placed, so the customer doesnt see the
+    // same items still sitting in their cart afterward
+    public async Task ClearCartAsync()
+    {
+        if (IsLoggedIn)
+        {
+            var cart = await GetOrCreateDbCartAsync();
+            _context.CartItems.RemoveRange(cart.CartItems);
+            await _context.SaveChangesAsync();
+            return;
+        }
+
+        Session.Remove(CartSessionKey);
     }
 
     private async Task<Cart> GetOrCreateDbCartAsync()

@@ -1,3 +1,4 @@
+//NiceShop/user/CheckoutController
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -129,6 +130,147 @@ public class CheckoutController : Controller
     {
         HttpContext.Session.Remove(CouponSessionKey);
         return RedirectToAction("Index");
+    }
+
+    // day 5: this is where the cart actually turns into a real order
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> PlaceOrder(string paymentMethod)
+    {
+        var customerId = CustomerId;
+
+        var cartItems = await _cartService.GetCartAsync();
+        if (!cartItems.Any())
+        {
+            TempData["OrderError"] = "your cart is empty";
+            return RedirectToAction("Index");
+        }
+
+        var addressId = HttpContext.Session.GetInt32(SelectedAddressSessionKey);
+        if (addressId == null)
+        {
+            TempData["OrderError"] = "please select a shipping address first";
+            return RedirectToAction("Index");
+        }
+
+        // same check as SelectAddress, dont trust the session blindly, make sure
+        // this address is still actually this customer's address
+        var addressBelongsToCustomer = await _context.Addresses
+            .AnyAsync(a => a.Id == addressId && a.CustomerId == customerId);
+
+        if (!addressBelongsToCustomer)
+        {
+            TempData["OrderError"] = "please select a shipping address first";
+            return RedirectToAction("Index");
+        }
+
+        // fake payment, no real gateway. cash on delivery always "succeeds" since
+        // no money moves yet. card fails randomly sometimes just so the failure
+        // path (no order created, cart untouched) actually gets tested
+        bool paymentSucceeded = paymentMethod == "cod" || new Random().Next(100) < 90;
+
+        if (!paymentSucceeded)
+        {
+            TempData["OrderError"] = "payment failed, please try again";
+            return RedirectToAction("Index");
+        }
+
+        var productIds = cartItems.Select(i => i.ProductId).ToList();
+        var products = await _context.Products
+            .Where(p => productIds.Contains(p.Id))
+            .ToDictionaryAsync(p => p.Id);
+
+        var appliedCouponCode = HttpContext.Session.GetString(CouponSessionKey);
+        Coupon? coupon = null;
+        if (!string.IsNullOrEmpty(appliedCouponCode))
+        {
+            coupon = await _context.Coupons.FirstOrDefaultAsync(c => c.Code == appliedCouponCode);
+            if (coupon != null && coupon.ExpiryDate < DateTime.UtcNow)
+                coupon = null; // expired between applying it and placing the order, just drop it
+        }
+
+        decimal subtotal = 0;
+        var orderItems = new List<OrderItem>();
+
+        foreach (var item in cartItems)
+        {
+            if (!products.TryGetValue(item.ProductId, out var product))
+                continue; // product got deleted or something, skip it, dont crash the whole order
+
+            subtotal += product.Price * item.Quantity;
+
+            // CartItem.Size is a plain string but OrderItem.Size is the SizeOption enum,
+            // this is where we snapshot it into the enum at the moment of purchase
+            SizeOption? sizeEnum = Enum.TryParse<SizeOption>(item.Size, true, out var parsedSize)
+                ? parsedSize
+                : null;
+
+            orderItems.Add(new OrderItem
+            {
+                ProductId = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Quantity = item.Quantity,
+                Size = sizeEnum,
+                Color = item.Color
+            });
+        }
+
+        // NOTE: Order.Discount is declared as int? not decimal?, so this loses
+        // any cents. flagged this to Mahmoud, this is a pre-existing model issue.
+        decimal discountAmount = coupon != null ? Math.Round(subtotal * (coupon.Percentage / 100m), 2) : 0;
+        decimal shippingCost = 0; // free shipping for now, no real shipping calc in day 5 scope
+        decimal total = subtotal - discountAmount + shippingCost;
+
+        var order = new Order
+        {
+            Number = "ORD-" + DateTime.UtcNow.ToString("yyyyMMddHHmmss"),
+            CustomerId = customerId,
+            AddressId = addressId.Value,
+            CouponId = coupon?.Id,
+            Subtotal = subtotal,
+            ShippingCost = shippingCost,
+            Discount = discountAmount > 0 ? (int)discountAmount : null,
+            Total = total,
+            Status = OrderStatus.Pending,
+            OrderItems = orderItems
+        };
+
+        // everything below has to succeed together or not at all: the order row,
+        // the order item rows, and clearing the cart. if anything fails halfway
+        // we dont want a half-created order or an order with a cart still full
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            await _cartService.ClearCartAsync();
+            HttpContext.Session.Remove(CouponSessionKey);
+
+            await transaction.CommitAsync();
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            TempData["OrderError"] = "something went wrong placing your order, please try again";
+            return RedirectToAction("Index");
+        }
+
+        return RedirectToAction("Confirmation", new { id = order.Id });
+    }
+
+    public async Task<IActionResult> Confirmation(int id)
+    {
+        var order = await _context.Orders
+            .Include(o => o.OrderItems)
+            .Include(o => o.Address)
+            .FirstOrDefaultAsync(o => o.Id == id && o.CustomerId == CustomerId);
+
+        // not found, or belongs to someone else - dont let people view others' orders by guessing ids
+        if (order == null) return NotFound();
+
+        return View(order);
     }
 
     private async Task<CheckoutVM> BuildCheckoutVM(List<CartSessionItem> cartItems)
