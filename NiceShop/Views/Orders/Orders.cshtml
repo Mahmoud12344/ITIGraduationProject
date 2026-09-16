@@ -1,0 +1,307 @@
+@model NiceShop.ViewModels.Admin.OrdersVm?
+@using NiceShop.Models
+
+@{
+    ViewData["Title"] = "Orders Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    // 1. ADDED ? AFTER MODEL HERE
+    var orders = Model?.Orders ?? new List<NiceShop.ViewModels.Admin.OrdersVm.OrderSummaryVm>();
+
+    int pageSize = 10;
+    int totalItemsCount = orders.Count;
+    int totalPages = totalItemsCount == 0 ? 1 : (int)Math.Ceiling(totalItemsCount / (double)pageSize);
+    int rowIndex = 0;
+
+    var pipeline = new[] { "Pending", "Confirmed", "Shipped", "Delivered" };
+    var pipelineIcons = new[] { "bi-bag-check", "bi-box-seam", "bi-truck", "bi-geo-alt-fill" };
+
+    Func<OrderStatus, string> statusClass = s => s.ToString().ToLower() switch
+    {
+        "pending" => "ns-status-pending",
+        "confirmed" => "ns-status-confirmed",
+        "shipped" => "ns-status-shipped",
+        "delivered" => "ns-status-delivered",
+        "cancelled" or "canceled" => "ns-status-cancelled",
+        _ => "ns-status-pending"
+    };
+
+    Func<OrderStatus, string> statusIcon = s => s.ToString().ToLower() switch
+    {
+        "pending" => "bi-clock-fill",
+        "confirmed" => "bi-check-circle-fill",
+        "shipped" => "bi-truck",
+        "delivered" => "bi-geo-alt-fill",
+        "cancelled" or "canceled" => "bi-x-circle-fill",
+        _ => "bi-circle-fill"
+    };
+
+    Func<OrderStatus, string> statusDot = s => s.ToString().ToLower() switch
+    {
+        "pending" => "#f59e0b",
+        "confirmed" => "#0ea5e9",
+        "shipped" => "#8b5cf6",
+        "delivered" => "#16a34a",
+        "cancelled" or "canceled" => "#dc2626",
+        _ => "#a3a3a3"
+    };
+
+    var allStatuses = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>().ToList();
+    
+    // 2. ADDED ? AFTER MODEL HERE
+    var currentStatus = Model?.Filter?.Status;
+}
+
+<!-- ===== FLASH MESSAGES ===== -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- ===== PAGE HEADER ===== -->
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+        <h1 class="font-serif fw-bold h3 mb-1">Orders</h1>
+        <p class="text-muted mb-0 small">Track fulfilment and manage customer orders.</p>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+        <button type="button" class="ns-ghost-btn" id="toggleFiltersBtn">
+            <i class="bi bi-sliders"></i> <span id="toggleFiltersLabel">Hide filters</span>
+        </button>
+        <a asp-action="Orders" class="ns-ghost-btn" title="Reset all filters">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset
+        </a>
+    </div>
+</div>
+
+<div class="ns-admin-card p-0 overflow-hidden">
+
+    <!-- ===== STATUS TABS ===== -->
+    <div class="ns-orders-tabbar">
+        <a asp-action="Orders"
+           asp-route-SearchQuery="@(Model?.Filter?.SearchQuery)"
+           asp-route-StartDate="@(Model?.Filter?.StartDate?.ToString("yyyy-MM-dd"))"
+           asp-route-EndDate="@(Model?.Filter?.EndDate?.ToString("yyyy-MM-dd"))"
+           class="ns-orders-tab @(currentStatus == null ? "active" : "")">
+            <i class="bi bi-grid-1x2 me-1"></i> All Orders
+        </a>
+
+        @foreach (var st in allStatuses)
+        {
+            <a asp-action="Orders"
+               asp-route-Status="@st"
+               asp-route-SearchQuery="@(Model?.Filter?.SearchQuery)"
+               asp-route-StartDate="@(Model?.Filter?.StartDate?.ToString("yyyy-MM-dd"))"
+               asp-route-EndDate="@(Model?.Filter?.EndDate?.ToString("yyyy-MM-dd"))"
+               class="ns-orders-tab @(currentStatus == st ? "active" : "")">
+                <i class="bi @statusIcon(st) me-1" style="color:@statusDot(st);"></i> @st
+            </a>
+        }
+    </div>
+
+    <!-- ===== FILTER BAR ===== -->
+    <form method="get" asp-action="Orders" class="ns-orders-filterbar" id="ordersFilterBar">
+        <input type="hidden" name="Status" value="@(currentStatus?.ToString())" />
+
+        <div class="position-relative">
+            <i class="bi bi-search ns-search-icon"></i>
+            <input type="text" name="SearchQuery" class="ns-search-input"
+                   placeholder="Search order number..."
+                   value="@(Model?.Filter?.SearchQuery)" />
+        </div>
+
+        <span class="ns-filter-divider"></span>
+
+        <div class="ns-date-range">
+            <i class="bi bi-calendar3"></i>
+            <input type="date" name="StartDate" class="ns-date-input"
+                   value="@(Model?.Filter?.StartDate?.ToString("yyyy-MM-dd"))" aria-label="From date" />
+            <span class="ns-date-sep">&ndash;</span>
+            <input type="date" name="EndDate" class="ns-date-input"
+                   value="@(Model?.Filter?.EndDate?.ToString("yyyy-MM-dd"))" aria-label="To date" />
+        </div>
+
+ @* // *@
+      
+
+        <button type="submit" class="ns-apply-btn">
+            <i class="bi bi-funnel me-1"></i> Apply
+        </button>
+    </form>
+
+    <!-- ===== TABLE ===== -->
+    <div class="table-responsive">
+        <table class="table table-hover ns-admin-table mb-0 align-middle">
+            <thead>
+                <tr>
+                    <th style="min-width:130px;">Order #</th>
+                    <th style="min-width:190px;">Fulfilment</th>
+                    <th style="min-width:120px;">Status</th>
+                    <th style="min-width:150px;">Order Date</th>
+                    <th style="min-width:170px;">Customer</th>
+                    <th style="min-width:110px;" class="text-end">Total</th>
+                    <th class="text-end" style="min-width:150px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+                @if (totalItemsCount == 0)
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-5">
+                            <i class="bi bi-inbox d-block mb-2 text-muted" style="font-size:2.25rem;"></i>
+                            <div class="fw-bold mb-1">No orders found</div>
+                            <div class="text-muted small">Try changing the status tab or clearing your filters.</div>
+                        </td>
+                    </tr>
+                }
+
+                @foreach (var order in orders)
+                {
+                    rowIndex++;
+                    int rowPage = ((rowIndex - 1) / pageSize) + 1;
+
+                    var name = order.Status.ToString().ToLower();
+                    bool isCancelled = name == "cancelled" || name == "canceled";
+                    int stepIndex = Array.FindIndex(pipeline, p => string.Equals(p, order.Status.ToString(), StringComparison.OrdinalIgnoreCase));
+
+                    <tr data-page="@rowPage" style="@(rowPage == 1 ? "" : "display:none;")">
+
+                        <!-- Order number -->
+                        <td>
+                            <a asp-action="OrderDetails" asp-route-Id="@order.Id"
+                               class="text-decoration-none fw-bold text-body ns-order-link">
+                                #@order.Number
+                            </a>
+                        </td>
+
+                        <!-- Fulfilment tracker -->
+                        <td>
+                            @if (isCancelled)
+                            {
+                                <div class="ns-track ns-track-cancelled">
+                                    <span class="ns-track-node done"><i class="bi bi-x-lg"></i></span>
+                                    <span class="ns-track-line"></span>
+                                    <span class="ns-track-node"></span>
+                                    <span class="ns-track-line"></span>
+                                    <span class="ns-track-node"></span>
+                                    <span class="ns-track-line"></span>
+                                    <span class="ns-track-node"></span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="ns-track">
+                                    @for (int i = 0; i < pipeline.Length; i++)
+                                    {
+                                        var done = stepIndex >= 0 && i <= stepIndex;
+                                        if (i > 0)
+                                        {
+                                            <span class="ns-track-line @(stepIndex >= 0 && i <= stepIndex ? "done" : "")"></span>
+                                        }
+                                        <span class="ns-track-node @(done ? "done" : "")" title="@pipeline[i]">
+                                            <i class="bi @pipelineIcons[i]"></i>
+                                        </span>
+                                    }
+                                </div>
+                            }
+                        </td>
+
+                        <!-- Status badge -->
+                        <td>
+                            <span class="ns-status-badge @statusClass(order.Status)">
+                                <i class="bi @statusIcon(order.Status)"></i> @order.Status
+                            </span>
+                        </td>
+
+                        <!-- Date -->
+                        <td>
+                            <div class="fw-semibold">@order.OrderDate.ToString("dd MMM yyyy")</div>
+                            <div class="text-muted" style="font-size:0.6875rem;">@order.OrderDate.ToString("hh:mm tt")</div>
+                        </td>
+
+                        <!-- Customer -->
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="ns-avatar">
+                                    @(string.IsNullOrWhiteSpace(order.CustomerName) ? "?" : order.CustomerName.Trim()[0].ToString().ToUpper())
+                                </span>
+                                <span class="fw-semibold text-truncate" style="max-width:130px;" title="@order.CustomerName">
+                                    @order.CustomerName
+                                </span>
+                            </div>
+                        </td>
+
+                        <!-- Total -->
+                        <td class="text-end fw-bold">EGP @order.Total.ToString("N2")</td>
+
+                        <!-- Actions -->
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end align-items-center gap-1">
+
+                                <a asp-action="OrderDetails" asp-route-Id="@order.Id"
+                                   class="ns-icon-btn" title="View details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
+
+                                <!-- Advance status -->
+                                <div class="dropdown">
+                                    <button class="ns-icon-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Update status">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2">
+                                        <li><h6 class="dropdown-header text-uppercase" style="font-size:0.625rem; letter-spacing:.05em;">Move to</h6></li>
+                                        @foreach (var st in allStatuses.Where(s => !s.Equals(order.Status)))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item small d-flex align-items-center gap-2"
+                                                   asp-action="UpdateStatus" asp-route-Id="@order.Id" asp-route-status="@st">
+                                                    <span style="width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; background-color:@statusDot(st);"></span>                                                    
+                                                    @st
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ===== PAGINATION ===== -->
+    <div class="d-flex justify-content-between align-items-center p-3 border-top ns-admin-border ns-bg-surface">
+        <div class="d-flex align-items-center gap-1">
+            <button type="button" class="ns-page-link" id="firstPageBtn"><i class="bi bi-chevron-double-left small"></i></button>
+            <button type="button" class="ns-page-link" id="prevPageBtn"><i class="bi bi-chevron-left small"></i></button>
+            @for (int p = 1; p <= totalPages; p++)
+            {
+                <button type="button" class="ns-page-link page-num-btn @(p == 1 ? "active" : "")" data-page="@p">@p</button>
+            }
+            <button type="button" class="ns-page-link" id="nextPageBtn"><i class="bi bi-chevron-right small"></i></button>
+            <button type="button" class="ns-page-link" id="lastPageBtn"><i class="bi bi-chevron-double-right small"></i></button>
+        </div>
+        <div class="text-muted small" id="pageInfoText">
+            1-@(Math.Min(pageSize, totalItemsCount)) out of @totalItemsCount orders
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+</script>
