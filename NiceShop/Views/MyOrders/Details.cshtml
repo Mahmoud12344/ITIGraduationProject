@@ -1,0 +1,83 @@
+﻿@model NiceShop.ViewModels.Orders.MyOrdersVm.OrderDetailsVm
+@{
+    ViewData["Title"] = $"Order #{Model.Number}";
+}
+
+<div class="container py-5">
+    <a asp-controller="MyOrders" asp-action="Index" class="text-decoration-underline d-inline-block mb-4">back to my orders</a>
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+        <h1 class="font-serif fw-bold h2 mb-0">Order #@Model.Number</h1>
+        <span class="badge bg-secondary fs-6">@Model.Status</span>
+    </div>
+
+    <p class="text-muted mb-4">Placed on @Model.OrderDate.ToString("dd MMM yyyy")</p>
+
+    @if (Model.IsCanceled == true)
+    {
+        <div class="alert alert-danger">
+            this order was cancelled@(string.IsNullOrWhiteSpace(Model.CancellationReason) ? "" : $": {Model.CancellationReason}")
+        </div>
+    }
+
+    <div class="row g-5">
+        <div class="col-lg-7">
+            <h2 class="font-serif fw-bold h5 mb-3">Items</h2>
+            <div class="d-flex flex-column gap-3">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="fw-bold">@item.Name</div>
+                            <div class="text-muted small">@item.Size / @item.Color x @item.Quantity</div>
+                        </div>
+                        <div class="font-serif fw-bold">EGP @item.TotalPrice.ToString("0.00")</div>
+                    </div>
+                }
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Notes))
+            {
+                <hr class="ns-border my-4">
+                <h2 class="font-serif fw-bold h6 mb-2">Notes</h2>
+                <p class="text-muted">@Model.Notes</p>
+            }
+        </div>
+
+        <div class="col-lg-5">
+            <div class="bg-light p-4 p-xl-5 rounded-4 border ns-border-light ns-bg-surface">
+                <h2 class="font-serif fw-bold h5 mb-4">Summary</h2>
+
+                <div class="d-flex justify-content-between mb-2 text-muted">
+                    <span>Subtotal</span>
+                    <span>EGP @Model.Subtotal.ToString("0.00")</span>
+                </div>
+
+                @if (Model.Discount is > 0)
+                {
+                    <div class="d-flex justify-content-between mb-2 text-success">
+                        <span>Discount@(string.IsNullOrWhiteSpace(Model.CouponCode) ? "" : $" ({Model.CouponCode})")</span>
+                        <span>-EGP @Model.Discount</span>
+                    </div>
+                }
+
+                <div class="d-flex justify-content-between mb-2 text-muted">
+                    <span>Shipping</span>
+                    <span>EGP @Model.ShippingCost.ToString("0.00")</span>
+                </div>
+
+                <hr class="ns-border my-4">
+
+                <div class="d-flex justify-content-between align-items-end mb-4">
+                    <span class="fw-bold fs-5">Total</span>
+                    <span class="font-serif fw-bold fs-3">EGP @Model.Total.ToString("0.00")</span>
+                </div>
+
+                <hr class="ns-border my-4">
+
+                <h2 class="font-serif fw-bold h6 mb-2">Shipping Address</h2>
+                <p class="text-muted mb-0">@Model.ShippingAddress</p>
+            </div>
+        </div>
+    </div>
+</div>
