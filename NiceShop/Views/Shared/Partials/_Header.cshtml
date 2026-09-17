@@ -145,10 +145,11 @@
                     </div>
                     <div class="col-4">
                         <div class="ns-mega-menu-heading">Featured Brands</div>
-                        <a href="#" class="ns-mega-menu-link">Maison Noir</a>
-                        <a href="#" class="ns-mega-menu-link">Atelier Luxe</a>
-                        <a href="#" class="ns-mega-menu-link">Verona Milan</a>
-                        <a href="#" class="ns-mega-menu-link">Silk & Wool</a>
+                        <a href="/Products?brand=Nike" class="ns-mega-menu-link">Nike</a>
+                        <a href="/Products?brand=Nike" class="ns-mega-menu-link">Nike</a>
+                        <a href="/Products?brand=ASTK" class="ns-mega-menu-link">ASTK</a>
+                        <a href="/Products?brand=LC-Waikiki" class="ns-mega-menu-link">LC-Waikiki</a>
+                        <a href="/Products?brand=adidas" class="ns-mega-menu-link">adidas</a>
                     </div>
                     <div class="col-4">
                         <div class="ns-mega-promo text-center h-100 d-flex flex-column justify-content-center">
@@ -166,8 +167,14 @@
         <a asp-controller="AiStylist" asp-action="Index" class="ns-nav-link">
             <i class="bi bi-stars"></i> AI Stylist
         </a>
+<<<<<<< HEAD
         <a href="#" class="ns-nav-link ns-sale-link">Flash Sale</a>
         <a asp-controller="MyOrders" asp-action="Track" class="ns-nav-link">Track Order</a>        @if (User.IsInRole("Admin")){
+=======
+        @* <a href="#" class="ns-nav-link ns-sale-link">Flash Sale</a> *@
+        <a href="#" class="ns-nav-link">Track Order</a>
+        @if (User.IsInRole("Admin")){
+>>>>>>> origin/main
             <a asp-action="Dashboard" asp-controller="Dashboard" class="ns-nav-link text-info ms-4"><i class="bi bi-shield-lock"></i> Admin</a>
         }
         </nav>

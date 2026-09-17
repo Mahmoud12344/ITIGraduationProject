@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Coupons";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var specialCouponId = 1;
 }
 
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -42,8 +43,15 @@
         <tbody>
         @foreach (var coupon in Model.Coupons)
         {
-            <tr class="ns-admin-border border-bottom">
-                <td class="fw-bold font-mono">@coupon.Code</td>
+            var isSpecial = coupon.Id == specialCouponId;
+            <tr class="ns-admin-border border-bottom @(isSpecial ? "bg-warning bg-opacity-10" : "")">
+                <td class="fw-bold font-mono">
+                    @coupon.Code
+                    @if (isSpecial)
+                    {
+                        <span class="badge bg-warning text-dark ms-2" style="font-size: 0.65rem;"><i class="bi bi-star-fill"></i> Hero Banner</span>
+                    }
+                </td>
                 <td>@((int)coupon.Percentage) %</td>
                 <td class="text-muted"><i class="bi bi-clock"></i> @coupon.ExpiryDate</td>
                 <td>
