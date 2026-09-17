@@ -157,7 +157,7 @@ public class AdminController: Controller
     // POST: Admin/EditProduct/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditProduct(int id, Product product, List<int> sizeIds, List<int> colorIds, List<IFormFile> imageFiles , int stock)
+    public async Task<IActionResult> EditProduct(int id, Product product, List<int> sizeIds, List<int> colorIds, List<IFormFile> imageFiles, int stock, List<int> deletedImageIds)
     {
         if (id != product.Id)
         {
@@ -225,6 +225,29 @@ public class AdminController: Controller
                 }
             
             }
+
+            if (deletedImageIds != null && deletedImageIds.Any())
+            {
+                var imagesToRemove = currentProduct.Images.Where(i => deletedImageIds.Contains(i.Id)).ToList();
+                foreach (var img in imagesToRemove)
+                {
+                    var physicalPath = Path.Combine(_webHostEnvironment.WebRootPath, img.FilePath.TrimStart('/'));
+                    if (System.IO.File.Exists(physicalPath))
+                    {
+                        System.IO.File.Delete(physicalPath);
+                    }
+                    currentProduct.Images.Remove(img);
+                    _context.Remove(img);
+                }
+
+                if (currentProduct.Images.Any() && !currentProduct.Images.Any(i => i.IsDefault))
+                {
+                    var newDefault = currentProduct.Images.First();
+                    newDefault.IsDefault = true;
+                    newDefault.Type = ImageType.Thumbnail;
+                }
+            }
+
                 await _context.SaveChangesAsync();
                 product.UpdatedAt = DateTime.Now;
 
