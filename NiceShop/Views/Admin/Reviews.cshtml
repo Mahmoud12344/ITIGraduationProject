@@ -1,3 +1,4 @@
+@model List<Review>
 @{
     ViewData["Title"] = "Customer Reviews";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -24,40 +25,53 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- TODO: Loop over Reviews here -->
+            <!-- TODO: Loop over Reviews here -->
+            @foreach (var review in Model){
+                
                 <tr>
                     <td>
-                        <div class="fw-bold">Customer Name</div>
+                        <div class="fw-bold">@(review.Customer?.FName) @(review.Customer?.LName)</div>
                         <!-- TODO: Conditionally show Verified Purchase badge -->
-                        <div class="text-success" style="font-Size: 0.625rem;"><i class="bi bi-patch-check-fill"></i> Verified Purchase</div>
+                        @if (review.IsVerifiedUser) {
+                            <div class="text-success" style="font-Size: 0.625rem;"><i class="bi bi-patch-check-fill"></i> Verified Purchase</div>
+                        }
                     </td>
                     <td>
                         <!-- Typically populated via Include(r => r.Product). Assuming Product object is loaded here -->
-                        <a href="#" class="text-decoration-none text-body fw-bold line-clamp-1" target="_blank">
-                            Product Name
+                        <a href="/Products/Details/@review.ProductId" class="text-decoration-none text-body fw-bold line-clamp-1" target="_blank">
+                            @(review.Product?.Name ?? "Unknown Product")
                         </a>
                     </td>
                     <td>
-                        <div class="ns-stars">
+                        <div class="ns-stars text-warning">
                             <!-- TODO: Render stars based on rating -->
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                if (i <= review.Rating)
+                                {
+                                    <i class="bi bi-star-fill"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-star"></i>
+                                }
+                            }
                         </div>
                     </td>
                     <td>
-                        <p class="mb-0 line-clamp-2" title="Review comment goes here">Review comment goes here</p>
+                        <p class="mb-0 line-clamp-2" title="@review.Content">@review.Content</p>
                     </td>
-                    <td>Jan 01, 2024</td>
+                    <td>@review.Date.ToString("MMM dd, yyyy")</td>
                     <td class="text-end">
-                        <button type="button" class="btn btn-sm btn-ns-outline py-1" onclick="window.nsAdmin.toggleReviewVisibility(this, 'review-id')">
-                            Hide
+                        <button type="button" class="btn btn-sm btn-ns-outline py-1" onclick="window.nsAdmin.toggleReviewVisibility(this, '@review.Id')">
+                            @(review.IsApproved ? "Hide" : "Show")
                         </button>
                         <button class="btn btn-sm btn-link text-danger p-1 ms-1" title="Delete" data-confirm="Are you sure you want to delete this review?"><i class="bi bi-trash"></i></button>
                     </td>
                 </tr>
+            }
+            
+            
             </tbody>
         </table>
     </div>

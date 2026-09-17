@@ -1,4 +1,4 @@
-﻿@model NiceShop.Models.Product
+@model NiceShop.Models.Product
 
 @{
     ViewData["Title"] = "Update product";
@@ -79,7 +79,7 @@
                         <div class="d-flex flex-wrap gap-2">
                             @foreach (var img in Model.Images)
                             {
-                                <div class="badge bg-secondary text-white border d-flex align-items-center gap-2 py-2 px-3 shadow-sm">
+                                <div class="badge bg-secondary text-white border d-flex align-items-center gap-2 py-2 px-3 shadow-sm" id="existing_img_@img.Id">
                                     <!-- Tiny image preview -->
                                     <img src="@img.FilePath" alt="@img.Name" style="width: 20px; height: 20px; object-fit: cover; border-radius: 2px;" />
                                     <!-- Image Name -->
@@ -90,6 +90,7 @@
                                     {
                                         <span class="badge bg-light text-dark ms-1" style="font-size: 0.6rem;">Main</span>
                                     }
+                                    <button type="button" class="btn-close btn-close-white btn-close-sm ms-1" style="font-size: 0.65rem;" onclick="removeExistingImage(@img.Id)"></button>
                                 </div>
                             }
                         </div>
@@ -242,6 +243,22 @@
             dt.items.remove(index);
             document.getElementById('imageFilesInput').files = dt.files;
             renderFileBadges();
+        }
+
+        window.removeExistingImage = function(imageId) {
+            // Remove the badge from the DOM
+            const badge = document.getElementById('existing_img_' + imageId);
+            if(badge) {
+                badge.remove();
+            }
+
+            // Add hidden input to form
+            const form = document.getElementById('editProductForm');
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'deletedImageIds';
+            hiddenInput.value = imageId;
+            form.appendChild(hiddenInput);
         }
     </script>
 }

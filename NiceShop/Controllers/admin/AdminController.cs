@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using System.Reflection.Metadata.Ecma335;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NiceShop.Data;
@@ -17,11 +18,12 @@ public class AdminController: Controller
 {
     private readonly ApplicationDbContext _context;
     private readonly IWebHostEnvironment _webHostEnvironment;
-
-    public AdminController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+    private UserManager<ApplicationUser> _userManager;
+    public AdminController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment,UserManager<ApplicationUser>userManager )
     {
         _context = context;
         _webHostEnvironment = webHostEnvironment;
+        _userManager = userManager;
     }
 
    
@@ -155,7 +157,7 @@ public class AdminController: Controller
     // POST: Admin/EditProduct/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditProduct(int id, Product product, List<int> sizeIds, List<int> colorIds, List<IFormFile> imageFiles , int stock)
+    public async Task<IActionResult> EditProduct(int id, Product product, List<int> sizeIds, List<int> colorIds, List<IFormFile> imageFiles, int stock, List<int> deletedImageIds)
     {
         if (id != product.Id)
         {
@@ -223,6 +225,29 @@ public class AdminController: Controller
                 }
             
             }
+
+            if (deletedImageIds != null && deletedImageIds.Any())
+            {
+                var imagesToRemove = currentProduct.Images.Where(i => deletedImageIds.Contains(i.Id)).ToList();
+                foreach (var img in imagesToRemove)
+                {
+                    var physicalPath = Path.Combine(_webHostEnvironment.WebRootPath, img.FilePath.TrimStart('/'));
+                    if (System.IO.File.Exists(physicalPath))
+                    {
+                        System.IO.File.Delete(physicalPath);
+                    }
+                    currentProduct.Images.Remove(img);
+                    _context.Remove(img);
+                }
+
+                if (currentProduct.Images.Any() && !currentProduct.Images.Any(i => i.IsDefault))
+                {
+                    var newDefault = currentProduct.Images.First();
+                    newDefault.IsDefault = true;
+                    newDefault.Type = ImageType.Thumbnail;
+                }
+            }
+
                 await _context.SaveChangesAsync();
                 product.UpdatedAt = DateTime.Now;
 
@@ -271,11 +296,14 @@ public class AdminController: Controller
         return View();
     }
 
-    public IActionResult Reviews()
-    {
-        return View();
+    public async Task<IActionResult> Reviews() {
+        var reviews =  await _context.Reviews
+            .Include(r=>r.Product)
+            .Include(r=>r.Customer)
+            .ToListAsync();
+        
+        return View(reviews);
     }
-
 /* ====================Categories======================*/
 
     // GET: Admin/CategoriesCoupons

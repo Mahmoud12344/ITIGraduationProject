@@ -165,3 +165,40 @@
         <p class="text-muted small">Use the desktop sidebar filters for now.</p>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.querySelector('.ns-filter-sidebar');
+            if (!sidebar) return;
+
+            let currentTop = 90;
+            let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
+            
+            window.addEventListener('scroll', function() {
+                const sidebarHeight = sidebar.offsetHeight;
+                const viewportHeight = window.innerHeight;
+                
+                // If it fits completely, just stick to top
+                if (sidebarHeight <= viewportHeight - 90) {
+                    sidebar.style.top = '90px';
+                    return;
+                }
+
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const delta = scrollTop - lastScrollTop;
+                lastScrollTop = scrollTop;
+
+                currentTop -= delta;
+
+                const maxTop = 90; // The original sticky top
+                const minTop = viewportHeight - sidebarHeight - 40; // bottom padding
+
+                if (currentTop > maxTop) currentTop = maxTop;
+                if (currentTop < minTop) currentTop = minTop;
+
+                sidebar.style.top = currentTop + 'px';
+            });
+        });
+    </script>
+}
