@@ -1,0 +1,37 @@
+﻿@model List<NiceShop.ViewModels.Orders.MyOrdersVm.OrderSummaryVm>
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="container py-5">
+    <h1 class="font-serif fw-bold h2 mb-4">My Orders</h1>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+            <p class="text-muted mb-3">you haven't placed any orders yet</p>
+            <a href="/" class="btn btn-ns-dark px-4">Start Shopping</a>
+        </div>
+    }
+    else
+    {
+        <div class="d-flex flex-column gap-3">
+            @foreach (var order in Model)
+            {
+                <a asp-controller="MyOrders" asp-action="Details" asp-route-id="@order.Id"
+                   class="text-decoration-none text-body">
+                    <div class="ns-checkout-section d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            <div class="fw-bold">Order #@order.Number</div>
+                            <div class="text-muted small">@order.OrderDate.ToString("dd MMM yyyy")</div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="badge bg-secondary">@order.Status</span>
+                            <span class="font-serif fw-bold">EGP @order.Total.ToString("0.00")</span>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+</div>

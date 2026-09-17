@@ -61,6 +61,7 @@ public class Program
         builder.Services.AddHttpClient();
         builder.Services.AddScoped<NiceShop.Services.IAiChatService, NiceShop.Services.AiChatService>();
         builder.Services.AddScoped<OrdersService>();
+        builder.Services.AddScoped<MyOrdersService>();
 
         var app = builder.Build();
 
