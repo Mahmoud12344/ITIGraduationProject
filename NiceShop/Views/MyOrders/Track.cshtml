@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Track Order";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <h1 class="font-serif fw-bold h2 mb-2 text-center">Track Your Order</h1>
+            <p class="text-muted text-center mb-4">enter your order number to see its current status</p>
+
+            @if (TempData["TrackError"] != null)
+            {
+                <div class="alert alert-danger">@TempData["TrackError"]</div>
+            }
+
+            <form method="post" asp-controller="MyOrders" asp-action="Track" class="d-flex gap-2">
+                @Html.AntiForgeryToken()
+                <input type="text" name="orderNumber" class="ns-form-input flex-grow-1" placeholder="e.g. ORD-20260916201203" required>
+                <button type="submit" class="btn btn-ns-primary px-4">Search</button>
+            </form>
+
+            <p class="text-muted text-center mt-4">
+                or <a asp-controller="MyOrders" asp-action="Index" class="text-decoration-underline">view all your orders</a>
+            </p>
+        </div>
+    </div>
+</div>

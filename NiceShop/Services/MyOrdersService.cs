@@ -67,4 +67,15 @@ public class MyOrdersService(ApplicationDbContext context)
             }).ToList()
         };
     }
+
+    // used by "Track Order" - customer types in the order number instead of picking from the list
+    public async Task<int?> FindMyOrderIdByNumberAsync(string orderNumber, string customerId)
+    {
+        var order = await context.Orders
+            .Where(o => o.Number == orderNumber && o.CustomerId == customerId)
+            .Select(o => new { o.Id })
+            .FirstOrDefaultAsync();
+
+        return order?.Id;
+    }
 }

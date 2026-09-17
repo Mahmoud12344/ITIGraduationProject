@@ -25,4 +25,30 @@ public class MyOrdersController(MyOrdersService service) : Controller
 
         return View(order);
     }
+
+    public IActionResult Track()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Track(string orderNumber)
+    {
+        if (string.IsNullOrWhiteSpace(orderNumber))
+        {
+            TempData["TrackError"] = "please type an order number";
+            return RedirectToAction("Track");
+        }
+
+        var orderId = await service.FindMyOrderIdByNumberAsync(orderNumber.Trim(), CustomerId);
+
+        if (orderId == null)
+        {
+            TempData["TrackError"] = "no order found with this number on your account";
+            return RedirectToAction("Track");
+        }
+
+        return RedirectToAction("Details", new { id = orderId });
+    }
 }
