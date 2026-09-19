@@ -67,15 +67,14 @@ public class ProductsController : Controller
             return Challenge();
         }
 
-        if (Rating < 1 || Rating > 5)
-        {
-            TempData["ReviewError"] = "من فضلك اختار تقييم من 1 لـ 5 نجوم.";
+        if (Rating < 1 || Rating > 5){
+            TempData["ReviewError"] = " please choose  rate the product from 1 to 5 starts ";
             return RedirectToAction(nameof(Details), new { id = ProductId });
         }
 
         if (string.IsNullOrWhiteSpace(Content))
         {
-            TempData["ReviewError"] = "من فضلك اكتب محتوى الريفيو.";
+            TempData["ReviewError"] = "please enter the review contetent ";
             return RedirectToAction(nameof(Details), new { id = ProductId });
         }
 

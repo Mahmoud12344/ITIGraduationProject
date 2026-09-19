@@ -12,18 +12,33 @@ public class CouponController (ApplicationDbContext dbContext ) : Controller {
 
         if (!ModelState.IsValid){
             couponVm.Coupons = dbContext.Coupons.ToList();
-
             return View( "Coupons" ,couponVm);
-
         }
+
+        if (dbContext.Coupons.Any(c => c.Code == couponVm.Coupon.Code))
+        {
+            ModelState.AddModelError("Coupon.Code", "This coupon code already exists.");
+            couponVm.Coupons = dbContext.Coupons.ToList();
+            return View("Coupons", couponVm);
+        }
+
         var coupon = new Coupon() {
             Code = couponVm.Coupon.Code,
             ExpiryDate = couponVm.Coupon.ExpiryDate,
             Percentage = couponVm.Coupon.Percentage
         };
 
-        await dbContext.AddAsync(coupon);
-        await dbContext.SaveChangesAsync();
+        try
+        {
+            await dbContext.AddAsync(coupon);
+            await dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("", "An error occurred while saving the coupon. Please ensure all values are valid.");
+            couponVm.Coupons = dbContext.Coupons.ToList();
+            return View("Coupons", couponVm);
+        }
 
      return   RedirectToAction("Coupons");
      
@@ -38,6 +53,12 @@ public class CouponController (ApplicationDbContext dbContext ) : Controller {
             return View("Coupons", couponVm);
         }
 
+        if (dbContext.Coupons.Any(c => c.Code == couponVm.Coupon.Code && c.Id != couponVm.Coupon.Id))
+        {
+            ModelState.AddModelError("Coupon.Code", "This coupon code already exists.");
+            couponVm.Coupons = dbContext.Coupons.ToList();
+            return View("Coupons", couponVm);
+        }
         
         var coupon = await dbContext.Coupons.FindAsync(couponVm.Coupon.Id);
 
@@ -46,12 +67,20 @@ public class CouponController (ApplicationDbContext dbContext ) : Controller {
             return NotFound();
         }
 
-
         coupon.Code = couponVm.Coupon.Code;
         coupon.Percentage = couponVm.Coupon.Percentage;
         coupon.ExpiryDate = couponVm.Coupon.ExpiryDate;
         
-        await dbContext.SaveChangesAsync();
+        try
+        {
+            await dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("", "An error occurred while updating the coupon. Please ensure all values are valid.");
+            couponVm.Coupons = dbContext.Coupons.ToList();
+            return View("Coupons", couponVm);
+        }
 
         return   RedirectToAction("Coupons");
      

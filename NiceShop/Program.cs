@@ -15,6 +15,7 @@ public class Program
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        // db cross platform config
         builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true);
         var baseConnection = builder.Configuration.GetConnectionString("DefaultConnection");
         var connectionBuilder = new SqlConnectionStringBuilder(baseConnection);
@@ -33,9 +34,7 @@ public class Program
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionBuilder.ConnectionString)
-                // we manually edited a migration by hand instead of using Add-Migration for it,
-                // so the model snapshot doesn't match anymore. we know why and it's fine,
-                // this just stops EF from blocking Update-Database over it
+           
                 .ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning)));
         // Add services to the container.
         builder.Services.AddControllersWithViews(opt => { opt.Filters.Add<HandelErrorAttribute>(); }
